@@ -9,13 +9,12 @@ import { ProfileGeneralSchema } from '../../validation/profileGeneralSchema';
 import MenuContainer from '../core/MenuContainer';
 import Birthday from '../editProfile/Birthday';
 import Gender from '../editProfile/Gender';
-import Location from '../editProfile/Location';
 import Name from '../editProfile/Name';
 import KButton from '../utils/KButton';
 
 import Accordion from 'react-native-collapsible/Accordion';
 import { Color } from '../../styles/Color';
-import EditCard from '../editProfile/EditCard';
+import Location from '../editProfile/Location';
 
 const ProfileForm = () => {
   const { loading, error, profile } = useAuthenticatedUserProfile();
@@ -32,6 +31,16 @@ const ProfileForm = () => {
       content: profile?.dob?.toString(),
       contentComponent: <Birthday />,
     },
+    {
+      title: 'Gender',
+      content: profile?.gender,
+      contentComponent: <Gender />,
+    },
+    {
+      title: 'Location',
+      content: profile?.location,
+      contentComponent: <Location />,
+    },
   ];
 
   const _renderHeader = (section) => {
@@ -39,7 +48,8 @@ const ProfileForm = () => {
       <View
         style={{
           flex: 1,
-          paddingVertical: 16,
+          paddingTop: 16,
+          paddingBottom: 8,
         }}
       >
         <Text
@@ -58,7 +68,20 @@ const ProfileForm = () => {
   };
 
   const _renderContent = (section) => {
-    return <>{section.contentComponent}</>;
+    return (
+      <View
+        style={[
+          section.title !== 'Gender' && {
+            backgroundColor: Color.accent[50],
+            paddingHorizontal: 16,
+            paddingTop: 8,
+            borderRadius: 16,
+          },
+        ]}
+      >
+        {section.contentComponent}
+      </View>
+    );
   };
 
   const _updateSections = (activeSections) => {
@@ -90,13 +113,10 @@ const ProfileForm = () => {
               renderHeader={_renderHeader}
               renderContent={_renderContent}
               onChange={_updateSections}
+              underlayColor='transparent'
+              sectionContainerStyle={{ marginTop: 16 }}
             />
-            {/* <Name />
-            <Birthday />
-            <Gender /> */}
           </MenuContainer>
-
-          {/* <Location /> */}
 
           <KButton label='Save' loading={false} onPress={handleSubmit} />
         </View>

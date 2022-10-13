@@ -1,12 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
+import { AuthContext } from '../../provider/AuthProvider';
+import { PhotoAlbumScreenNavigationProp } from '../../types/navigation/mainStack/photoAlbumScreen';
 import IconButton from '../core/IconButton';
-import { Color, withOpacity } from '../../styles/Color';
-import { useNavigation } from '@react-navigation/native';
-import { supabase } from '../../initSupabase';
 
 const ProfileActionBar = ({ id }: { id: string }) => {
-  const navigation = useNavigation();
+  const { session } = React.useContext(AuthContext);
+  const navigation = useNavigation<PhotoAlbumScreenNavigationProp>();
   return (
     <View
       style={{
@@ -20,7 +21,7 @@ const ProfileActionBar = ({ id }: { id: string }) => {
         name='folder-image'
         onPress={() => navigation.navigate('PhotoAlbum', { id })}
       />
-      {id !== supabase.auth.user()?.id && (
+      {id === session?.user?.id && (
         <>
           <IconButton name='message-text' />
           <IconButton name='heart-outline' />

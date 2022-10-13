@@ -38,7 +38,7 @@ const ProfileCard = ({
           }}
         >
           <Photo
-            path={data.avatar_src}
+            path={data.avatar_src as string}
             imgStyle={{ width: '100%', aspectRatio: 0.75 }}
           />
         </View>

@@ -19,7 +19,7 @@ const Selector = ({ items, field }: { items: Array<any>; field: string }) => {
   };
 
   return (
-    <View style={{ flexDirection: 'row', marginTop: 16 }}>
+    <View style={{ flexDirection: 'row' }}>
       {items.map((item) => (
         <TouchableOpacity
           key={item.id}

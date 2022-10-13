@@ -1,5 +1,6 @@
 import React from 'react';
 import { supabase } from '../initSupabase';
+import { AuthContext } from '../provider/AuthProvider';
 import { ProfileProps } from '../types';
 
 /**
@@ -13,6 +14,7 @@ export const useAllUsers = (): [
   isRefreshing: boolean,
   refresh: () => void
 ] => {
+  const { session } = React.useContext(AuthContext);
   const [users, setUsers] = React.useState<ProfileProps[]>([]);
   const [isRefreshing, setIsRefreshing] = React.useState<boolean>(false);
 
@@ -36,7 +38,7 @@ export const useAllUsers = (): [
     const { data: profiles, error } = await supabase
       .from('profiles')
       .select('*')
-      .neq('id', supabase.auth.user()?.id as string);
+      .neq('id', session?.user?.id as string);
 
     if (error) {
       throw new Error();

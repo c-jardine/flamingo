@@ -1,6 +1,7 @@
 import { PostgrestError } from '@supabase/supabase-js';
 import React from 'react';
 import { supabase } from '../initSupabase';
+import { AuthContext } from '../provider/AuthProvider';
 import { ProfileProps } from '../types';
 
 /**
@@ -12,6 +13,8 @@ export const useAuthenticatedUserProfile = (): {
   error: PostgrestError;
   profile: ProfileProps;
 } => {
+  const { session } = React.useContext(AuthContext);
+
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<PostgrestError>({
     code: '',
@@ -27,9 +30,6 @@ export const useAuthenticatedUserProfile = (): {
     location: '',
   });
 
-  // Get the authenticated user's id.
-  const userId = supabase.auth.user()?.id;
-
   /**
    * Fetch the authenticated user's profile.
    */
@@ -40,7 +40,7 @@ export const useAuthenticatedUserProfile = (): {
         const { data, error } = await supabase
           .from('profiles')
           .select('*')
-          .eq('id', userId)
+          .eq('id', session?.user?.id)
           .maybeSingle();
 
         if (!data && error) {

@@ -1,14 +1,7 @@
+import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
-import {
-  Text,
-  TextInput as RNTextInput,
-  TextInputProps,
-  View,
-} from 'react-native';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { FormikErrors, useFormikContext, FormikValues } from 'formik';
-import { Color } from '../../styles/Color';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
+import { Color } from '../../styles/Color';
 
 const TextInput = (props, { label, value, onChangeText }) => {
   const { getFieldMeta } = useFormikContext<FormikValues>();

@@ -1,19 +1,10 @@
+import { format } from 'date-fns';
 import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { useDisclosure } from '../../hooks/useDisclosure';
-import { Color } from '../../styles/Color';
-import TextInput from '../forms/TextInput';
-import EditCard from './EditCard';
-import MaskInput, { Masks } from 'react-native-mask-input';
 import { useAuthenticatedUserProfile } from '../../hooks/useAuthenticatedUserProfile';
-import { format } from 'date-fns';
-
-type DateType = {
-  month: string;
-  day: string;
-  year: string;
-};
+import { useDisclosure } from '../../hooks/useDisclosure';
+import TextInput from '../forms/TextInput';
 
 const Birthday = () => {
   const { loading, error, profile } = useAuthenticatedUserProfile();
@@ -40,7 +31,7 @@ const Birthday = () => {
       <TextInput
         label='Birthday'
         value={dob}
-        onChangeText={setDob}
+        onChangeText={(text) => setDob(text)}
         maskType='date'
         keyboardType='number-pad'
       />

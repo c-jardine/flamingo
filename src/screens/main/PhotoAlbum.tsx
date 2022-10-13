@@ -16,6 +16,7 @@ import { KToast } from '../../components/utils/KToast';
 import { useCamera } from '../../hooks/useCamera';
 import { useDisclosure } from '../../hooks/useDisclosure';
 import { supabase } from '../../initSupabase';
+import { AuthContext } from '../../provider/AuthProvider';
 import { Color } from '../../styles/Color';
 import {
   PhotoAlbumScreenNavigationProp,
@@ -29,7 +30,7 @@ export default function ({
   navigation: PhotoAlbumScreenNavigationProp;
   route: PhotoAlbumScreenRouteProp;
 }) {
-  const authenticatedUser = supabase.auth.user()?.id;
+  const { session } = React.useContext(AuthContext);
 
   const [cameraResult, loading] = useCamera();
   const [albumViewerIsOpen, setAlbumViewerIsOpen] = useDisclosure();
@@ -82,7 +83,7 @@ export default function ({
     >
       <Header>
         <Header.Title>Photos</Header.Title>
-        {route.params.id === authenticatedUser && (
+        {route.params.id === session?.user?.id && (
           <Header.Description>
             Change your profile photo, add and remove photos, and manage photo
             comments.
@@ -123,7 +124,7 @@ export default function ({
                 </TouchableOpacity>
               ))}
           </View>
-          {route.params.id === authenticatedUser && photos.length < 5 && (
+          {route.params.id === session?.user?.id && photos.length < 5 && (
             <TouchableOpacity
               onPress={() => setUploadModalIsOpen(true)}
               style={{

@@ -9,9 +9,8 @@ import SignOutButton from '../../components/utils/SignOutButton';
 
 import { Color } from '../../styles/Color';
 
-import { ProfileScreenNavigationProp } from '../../types';
-import { supabase } from '../../initSupabase';
 import SettingsProfileCard from '../../components/core/SettingsProfileCard';
+import { ProfileScreenNavigationProp } from '../../types';
 
 const Settings = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();

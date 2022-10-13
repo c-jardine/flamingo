@@ -7,7 +7,7 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 import 'react-native-url-polyfill/auto';
 import { supabase } from './src/initSupabase';
 import Navigation from './src/navigation';
-import { AuthProvider } from './src/provider/AuthProvider';
+import { AuthContext, AuthProvider } from './src/provider/AuthProvider';
 
 // globalStyles.js
 import { setGlobalStyles } from 'react-native-floating-label-input';
@@ -29,6 +29,7 @@ setGlobalStyles.customLabelStyles = {
  * Main entry point of the app.
  */
 const App = () => {
+  const { session } = React.useContext(AuthContext);
   const appState = React.useRef(AppState.currentState);
 
   React.useEffect(() => {
@@ -55,13 +56,13 @@ const App = () => {
       await supabase
         .from('profiles')
         .update({ is_online: true, last_online: new Date().toISOString() })
-        .eq('id', supabase.auth.user()?.id);
+        .eq('id', session?.user?.id);
     } else {
       // User is offline (app is closed)
       await supabase
         .from('profiles')
         .update({ is_online: false, last_online: new Date().toISOString() })
-        .eq('id', supabase.auth.user()?.id);
+        .eq('id', session?.user?.id);
     }
 
     appState.current = nextAppState;

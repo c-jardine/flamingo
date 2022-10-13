@@ -1,18 +1,16 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import Photo from './Photo';
-import { supabase } from '../../initSupabase';
 import { useAuthenticatedUserProfile } from '../../hooks/useAuthenticatedUserProfile';
+import { useDisclosure } from '../../hooks/useDisclosure';
 import { Color } from '../../styles/Color';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import {
   EditProfileScreenNavigationProp,
   PhotoAlbumScreenNavigationProp,
 } from '../../types';
-import { useDisclosure } from '../../hooks/useDisclosure';
-import RNModal from './Modal';
 import MenuItem from './MenuItem';
+import RNModal from './Modal';
+import Photo from './Photo';
 
 const SettingsProfileCard = () => {
   const [isOpen, setIsOpen] = useDisclosure();
@@ -30,16 +28,20 @@ const SettingsProfileCard = () => {
         alignItems: 'center',
       }}
     >
-      <View style={{}}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('PhotoAlbum', { id: profile?.id as string })
+        }
+      >
         <Photo
-          path={profile.avatar_src}
+          path={profile.avatar_src as string}
           imgStyle={{
             width: 100,
             aspectRatio: 1,
             borderRadius: 50,
           }}
         />
-      </View>
+      </TouchableOpacity>
       <View style={{ flex: 1, marginLeft: 16 }}>
         <Text style={{ color: Color.accent[700], fontSize: 22 }}>
           {profile.first_name} {profile.last_name}
@@ -59,7 +61,7 @@ const SettingsProfileCard = () => {
               paddingVertical: 8,
               borderRadius: 8,
             }}
-            onPress={() => setIsOpen(true)}
+            onPress={() => navigation.navigate('EditProfile')}
           >
             <Text style={{ textTransform: 'uppercase', fontWeight: '500' }}>
               Edit profile
@@ -82,31 +84,6 @@ const SettingsProfileCard = () => {
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
-      <View style={{ position: 'absolute' }}>
-        <RNModal isVisible={isOpen} setIsVisible={setIsOpen}>
-          <Text
-            style={{ color: Color.text.primary, fontSize: 18, marginTop: 16 }}
-          >
-            Profile options
-          </Text>
-          <MenuItem
-            onPress={() => {
-              setIsOpen(false);
-              navigation.navigate('EditProfile');
-            }}
-          >
-            Edit your profile
-          </MenuItem>
-          <MenuItem
-            onPress={() => {
-              setIsOpen(false);
-              navigation.navigate('PhotoAlbum', { id: profile?.id });
-            }}
-          >
-            Edit photo album
-          </MenuItem>
-        </RNModal>
       </View>
     </View>
   );

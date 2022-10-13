@@ -2,6 +2,7 @@ import * as ImagePicker from 'expo-image-picker';
 import React from 'react';
 import { supabase } from '../initSupabase';
 import { manipulateAsync, FlipType, SaveFormat } from 'expo-image-manipulator';
+import { AuthContext } from '../provider/AuthProvider';
 
 /**
  * Hook to manage media uploads using the camera.
@@ -11,6 +12,8 @@ export const useCamera = (): [
   cameraResult: () => Promise<void>,
   loading: boolean
 ] => {
+  const { session } = React.useContext(AuthContext);
+
   const [loading, setLoading] = React.useState<boolean>(false);
 
   /**
@@ -51,7 +54,7 @@ export const useCamera = (): [
       formData.append('files', blob);
 
       // This will be the storage location in supabase.
-      const supabaseUrl = `${supabase.auth.user()?.id}/${filename}`;
+      const supabaseUrl = `${session?.user?.id}/${filename}`;
 
       // Upload the photo.
       // TODO: Should most likely extract this process into its own hook
@@ -67,7 +70,7 @@ export const useCamera = (): [
       await supabase
         .from('profiles')
         .update({ avatar_src: supabaseUrl })
-        .eq('id', supabase.auth.user()?.id);
+        .eq('id', session?.user?.id);
     }
     setLoading(false);
   };

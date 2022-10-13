@@ -7,6 +7,7 @@ import NearbyUsers from '../screens/main/NearbyUsers';
 import { Color } from '../styles/Color';
 import { MainTabsParamList } from '../types';
 import Settings from '../screens/main/Settings';
+import Community from '../screens/main/Community';
 
 const Tabs = createBottomTabNavigator<MainTabsParamList>();
 
@@ -22,7 +23,6 @@ const MainTabs = () => {
         tabBarShowLabel: false,
       }}
     >
-      {/* these icons using Ionicons */}
       <Tabs.Screen
         name='NearbyUsers'
         component={NearbyUsers}
@@ -33,7 +33,22 @@ const MainTabs = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               focused={focused}
-              icon={focused ? 'md-home' : 'md-home-outline'}
+              icon={focused ? 'home' : 'home-outline'}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name='Community'
+        component={Community}
+        options={{
+          // tabBarLabel: ({ focused }) => (
+          //   <TabBarText focused={focused} title='NearbyUsers' />
+          // ),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              focused={focused}
+              icon={focused ? 'account-group' : 'account-group-outline'}
             />
           ),
         }}
@@ -43,12 +58,12 @@ const MainTabs = () => {
         component={Settings}
         options={{
           // tabBarLabel: ({ focused }) => (
-          //   <TabBarText focused={focused} title='About' />
+          //   <TabBarText focused={focused} title='Community' />
           // ),
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               focused={focused}
-              icon={focused ? 'md-settings' : 'md-settings-outline'}
+              icon={focused ? 'cog' : 'cog-outline'}
             />
           ),
         }}

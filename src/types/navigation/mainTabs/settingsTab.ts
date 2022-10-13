@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 export type MainTabsParamList = {
   NearbyUsers: undefined;
   Settings: undefined;
-  PhotoAlbum: undefined;
+  Community: undefined;
 };
 
 export type SettingsTabProps = NativeStackScreenProps<

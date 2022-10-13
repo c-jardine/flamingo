@@ -1,13 +1,13 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
 import { Color } from '../../styles/Color';
 
 export default ({ icon, focused }: { icon: any; focused: boolean }) => {
   return (
-    <Ionicons
+    <MaterialCommunityIcons
       name={icon}
       style={{ marginBottom: -7 }}
-      size={24}
+      size={28}
       color={focused ? Color.primary : Color.text.body}
     />
   );
