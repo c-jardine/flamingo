@@ -18,8 +18,6 @@ const Profile = ({ route }: { route: ProfileScreenRouteProp }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [profile, setProfile] = React.useState<ProfileProps>();
 
-
-
   const modalizeRef = React.useRef<Modalize>(null);
 
   const onOpen = () => {
@@ -60,7 +58,7 @@ const Profile = ({ route }: { route: ProfileScreenRouteProp }) => {
           imgStyle={{ width: '100%', height: '100%' }}
         />
       </TouchableOpacity>
-      <ProfileActionBar id={profile?.id} />
+      <ProfileActionBar profile={profile as ProfileProps} />
       <ProfileDetailsCard profile={profile} />
     </View>
   );

@@ -1,9 +1,12 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { Color } from '../../styles/Color';
 
-const IconButton = (props) => {
+const IconButton = (
+  props: TouchableOpacityProps &
+    React.ComponentProps<typeof MaterialCommunityIcons>
+) => {
   return (
     <TouchableOpacity
       style={[
@@ -20,11 +23,7 @@ const IconButton = (props) => {
       ]}
       onPress={props.onPress}
     >
-      <MaterialCommunityIcons
-        name={props.name}
-        color={Color.text.primary}
-        size={32}
-      />
+      <MaterialCommunityIcons name={props.name} color={props.color || Color.text.primary} size={32} />
     </TouchableOpacity>
   );
 };
