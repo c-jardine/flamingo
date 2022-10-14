@@ -18,8 +18,8 @@ setGlobalStyles.containerStyles = {
   // any styles you want to generalize to your input container
 };
 setGlobalStyles.customLabelStyles = {
-  colorBlurred: Color.text.primary,
-  colorFocused: Color.primary,
+  colorBlurred: Color.text.body,
+  colorFocused: Color.text.primary,
   fontSizeBlurred: 16,
   fontSizeFocused: 14,
   // any styles you want to generalize to your floating label

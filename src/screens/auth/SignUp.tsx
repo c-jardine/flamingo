@@ -46,7 +46,6 @@ const SignUp = ({
             style={{
               flex: 1,
               justifyContent: 'space-between',
-              paddingHorizontal: 8,
               marginTop: 32,
             }}
           >

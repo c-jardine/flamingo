@@ -13,9 +13,12 @@ const Description = ({ children }: { children: string }) => {
 const Header = ({ children }: { children: any }) => {
   return (
     <View
-      style={{
-        marginTop: 8,
-      }}
+      style={[
+        {
+          marginTop: 8,
+          paddingHorizontal: 16
+        },
+      ]}
     >
       {children}
     </View>

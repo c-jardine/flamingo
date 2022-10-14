@@ -18,9 +18,13 @@ const TextInput = (props, { label, value, onChangeText }) => {
       selectionColor={Color.primary}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
+      labelStyles={{
+        paddingLeft: props.leftComponent ? 8 : 0,
+      }}
       inputStyles={{
         color: isFocused ? Color.text.primary : Color.text.body,
         fontSize: 16,
+        paddingLeft: props.leftComponent ? 8 : 0,
       }}
       {...props}
     />
