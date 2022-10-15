@@ -1,22 +1,40 @@
+import React from 'react';
 import { Text, View } from 'react-native';
-import { Color } from '../../styles/Color';
-import { TYPOGRAPHY } from '../../styles/typography';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const Title = ({ children }: { children: string }) => {
-  return <Text style={[TYPOGRAPHY.h1]}>{children}</Text>;
+  const { theme } = React.useContext(ThemeContext);
+  return (
+    <Text
+      style={{ ...theme.textVariants.title, color: theme.colors.text['800'] }}
+    >
+      {children}
+    </Text>
+  );
 };
 
 const Description = ({ children }: { children: string }) => {
-  return <Text style={{ color: Color.text.body }}>{children}</Text>;
+  const { theme } = React.useContext(ThemeContext);
+  return (
+    <Text
+      style={{
+        ...theme.textVariants.subtitle,
+        color: theme.colors.text['300'],
+      }}
+    >
+      {children}
+    </Text>
+  );
 };
 
 const Header = ({ children }: { children: any }) => {
+  const { theme } = React.useContext(ThemeContext);
   return (
     <View
       style={[
         {
-          marginTop: 8,
-          paddingHorizontal: 16
+          marginTop: theme.spacing.sm,
+          paddingHorizontal: theme.spacing.md,
         },
       ]}
     >

@@ -1,6 +1,6 @@
 import React, { SetStateAction } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const TabSelector = ({
   items,
@@ -11,6 +11,8 @@ const TabSelector = ({
   selected: any;
   setSelected: React.Dispatch<SetStateAction<any>>;
 }) => {
+  const { theme } = React.useContext(ThemeContext);
+
   const handler = (id: number) => {
     setSelected(id);
   };
@@ -28,7 +30,9 @@ const TabSelector = ({
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor:
-                selected === item.id ? Color.accent[50] : Color.transparent,
+                selected === item.id
+                  ? theme.colors.text['50']
+                  : theme.colors.transparent,
             }}
             onPress={() => handler(item.id)}
           >

@@ -1,32 +1,35 @@
-import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
-import { FloatingLabelInput } from 'react-native-floating-label-input';
-import { Color } from '../../styles/Color';
+import {
+  FloatingLabelInput,
+  FloatingLabelProps,
+} from 'react-native-floating-label-input';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
-const TextInput = (props, { label, value, onChangeText }) => {
-  const { getFieldMeta } = useFormikContext<FormikValues>();
+const TextInput = (props: FloatingLabelProps) => {
+  const { theme } = React.useContext(ThemeContext);
+
   const [isFocused, setIsFocused] = React.useState(false);
 
   return (
     <FloatingLabelInput
-      label={label}
-      value={value}
-      onChangeText={onChangeText}
+      {...props}
+      label={props.label}
+      value={props.value}
+      onChangeText={props.onChangeText}
       maxLength={32}
       isFocused={isFocused}
       animationDuration={150}
-      selectionColor={Color.primary}
+      selectionColor={theme.colors.primary}
       onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
       labelStyles={{
-        paddingLeft: props.leftComponent ? 8 : 0,
+        paddingLeft: props.leftComponent ? theme.spacing.sm : 0,
       }}
       inputStyles={{
-        color: isFocused ? Color.text.primary : Color.text.body,
+        color: isFocused ? theme.colors.text['800'] : theme.colors.text['300'],
         fontSize: 16,
-        paddingLeft: props.leftComponent ? 8 : 0,
+        paddingLeft: props.leftComponent ? theme.spacing.sm : 0,
       }}
-      {...props}
     />
   );
 };

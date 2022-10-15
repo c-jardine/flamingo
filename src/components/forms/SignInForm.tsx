@@ -1,15 +1,16 @@
-import { Formik } from 'formik';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Text, View } from 'react-native';
-
-import { signIn } from '../../handlers/handleAuth';
+import { ThemeContext } from '../../provider/ThemeProvider';
+import { signIn } from '../../services/auth.service';
 import { SignInSchema } from '../../validation';
-import KButton from '../utils/KButton';
+import KButton from '../core/KButton';
 import TextInput from './TextInput';
-import { Color } from '../../styles/Color';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SignInForm = () => {
+  const { theme } = React.useContext(ThemeContext);
+
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -23,7 +24,7 @@ const SignInForm = () => {
             paddingBottom: 20,
           }}
         >
-          <View style={{paddingHorizontal: 32}}>
+          <View style={{ paddingHorizontal: 32 }}>
             <TextInput
               label='Email'
               value={values.email}
@@ -38,13 +39,15 @@ const SignInForm = () => {
               keyboardType='email-address'
             />
             {errors.email && touched.email ? (
-              <Text style={{ color: Color.primary }}>{errors.email}</Text>
+              <Text style={{ color: theme.colors.primary }}>
+                {errors.email}
+              </Text>
             ) : null}
 
             <TextInput
               label='Password'
               value={values.password}
-              secureTextEntry
+              isPassword
               onChangeText={handleChange('password')}
               leftComponent={
                 <MaterialCommunityIcons
@@ -55,11 +58,17 @@ const SignInForm = () => {
               }
             />
             {errors.password && touched.password ? (
-              <Text style={{ color: Color.primary }}>{errors.password}</Text>
+              <Text style={{ color: theme.colors.primary }}>
+                {errors.password}
+              </Text>
             ) : null}
           </View>
 
-          <KButton label='Sign in' loading={false} onPress={handleSubmit} />
+          <KButton
+            label='Sign in'
+            loading={false}
+            onPress={handleSubmit as (values: FormikValues) => void}
+          />
         </View>
       )}
     </Formik>

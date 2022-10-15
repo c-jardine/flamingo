@@ -1,16 +1,12 @@
 import React from 'react';
-import {
-  Image,
-  ImageProps,
-  ImageStyle,
-  View,
-  ActivityIndicator,
-} from 'react-native';
+import { ActivityIndicator, Image, View } from 'react-native';
 import { supabase } from '../../initSupabase';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 import { PhotoProps } from '../../types';
 
 const Photo = (props: PhotoProps) => {
+  const { theme } = React.useContext(ThemeContext);
+
   const [src, setSrc] = React.useState<string>();
   const [showPlaceholder, setShowPlaceholder] = React.useState<boolean>(false);
 
@@ -32,7 +28,7 @@ const Photo = (props: PhotoProps) => {
       {showPlaceholder && (
         <View
           style={{
-            backgroundColor: Color.accent[50],
+            backgroundColor: theme.colors.text['50'],
             position: 'absolute',
             width: '100%',
             height: '100%',
@@ -41,7 +37,7 @@ const Photo = (props: PhotoProps) => {
             alignItems: 'center',
           }}
         >
-          <ActivityIndicator size='large' color={Color.primary} />
+          <ActivityIndicator size='large' color={theme.colors.primary} />
         </View>
       )}
       <Image

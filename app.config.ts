@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { Color } from './src/styles/Color';
+import { Color } from './src/styles/color';
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;

@@ -1,15 +1,16 @@
-import { Formik } from 'formik';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Text, View } from 'react-native';
-
-import { signUp } from '../../handlers/handleAuth';
+import { ThemeContext } from '../../provider/ThemeProvider';
+import { signUp } from '../../services/auth.service';
 import { SignUpSchema } from '../../validation';
-import KButton from '../utils/KButton';
+import KButton from '../core/KButton';
 import TextInput from './TextInput';
-import { Color } from '../../styles/Color';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SignUpForm = () => {
+  const { theme } = React.useContext(ThemeContext);
+
   return (
     <Formik
       validationSchema={SignUpSchema}
@@ -42,14 +43,14 @@ const SignUpForm = () => {
               keyboardType='email-address'
             />
             {errors.email && touched.email ? (
-              <Text style={{ color: Color.primary }}>{errors.email}</Text>
+              <Text style={{ color: theme.colors.error }}>{errors.email}</Text>
             ) : null}
 
             <TextInput
               label='Password'
               value={values.password}
               textContentType='password'
-              secureTextEntry
+              isPassword
               onChangeText={handleChange('password')}
               onBlur={handleBlur('password')}
               leftComponent={
@@ -61,14 +62,16 @@ const SignUpForm = () => {
               }
             />
             {errors.password && touched.password ? (
-              <Text style={{ color: Color.primary }}>{errors.password}</Text>
+              <Text style={{ color: theme.colors.error }}>
+                {errors.password}
+              </Text>
             ) : null}
 
             <TextInput
               label='Confirm password'
               value={values.confirmPassword}
               textContentType='password'
-              secureTextEntry
+              isPassword
               onChangeText={handleChange('confirmPassword')}
               onBlur={handleBlur('confirmPassword')}
               leftComponent={
@@ -80,13 +83,17 @@ const SignUpForm = () => {
               }
             />
             {errors.confirmPassword && touched.confirmPassword ? (
-              <Text style={{ color: Color.primary }}>
+              <Text style={{ color: theme.colors.error }}>
                 {errors.confirmPassword}
               </Text>
             ) : null}
           </View>
 
-          <KButton label='Sign up' loading={false} onPress={handleSubmit} />
+          <KButton
+            label='Sign up'
+            loading={false}
+            onPress={handleSubmit as (values: FormikValues) => void}
+          />
         </View>
       )}
     </Formik>

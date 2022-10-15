@@ -1,19 +1,14 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-
 import Header from '../../components/core/Header';
 import MenuContainer from '../../components/core/MenuContainer';
 import MenuItem from '../../components/core/MenuItem';
-import SignOutButton from '../../components/utils/SignOutButton';
-
-import { Color } from '../../styles/Color';
-
 import SettingsProfileCard from '../../components/core/SettingsProfileCard';
-import { ProfileScreenNavigationProp } from '../../types';
+import SignOutButton from '../../components/utils/SignOutButton';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const Settings = () => {
-  const navigation = useNavigation<ProfileScreenNavigationProp>();
+  const { theme } = React.useContext(ThemeContext);
 
   return (
     <View
@@ -21,7 +16,7 @@ const Settings = () => {
         paddingTop: 64,
         flex: 1,
         paddingHorizontal: 16,
-        backgroundColor: Color.base,
+        backgroundColor: theme.colors.background,
       }}
     >
       <Header>

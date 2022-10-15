@@ -1,26 +1,33 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { TYPOGRAPHY } from '../../styles/typography';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const Title = ({ children, icon }) => {
+  const { theme } = React.useContext(ThemeContext);
   return (
     <View>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <MaterialCommunityIcons
           name={icon}
-          color={Color.accent[600]}
+          color={theme.colors.text['600']}
           size={24}
         />
-        <Text style={[TYPOGRAPHY.h2, { marginLeft: 8 }]}>{children}</Text>
+        <Text
+          style={{
+            ...theme.textVariants.subtitle,
+            marginLeft: theme.spacing.sm,
+          }}
+        >
+          {children}
+        </Text>
       </View>
       <View
         style={{
           flex: 1,
           height: 1,
-          backgroundColor: Color.accent[50],
-          marginTop: 8,
+          backgroundColor: theme.colors.text['50'],
+          marginTop: theme.spacing.sm,
         }}
       />
     </View>

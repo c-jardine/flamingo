@@ -1,13 +1,10 @@
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { View } from 'react-native';
-
 import Header from '../../components/core/Header';
-
-import { Color } from '../../styles/Color';
-
-import { FontAwesome5 } from '@expo/vector-icons';
 import TabSelector from '../../components/core/TabSelector';
 import DumpsterFire from '../../components/dumpsterFire/DumpsterFire';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const items = [
   {
@@ -26,6 +23,8 @@ const items = [
 ];
 
 const Community = () => {
+  const { theme } = React.useContext(ThemeContext);
+
   const [selected, setSelected] = React.useState(items[0].id);
 
   return (
@@ -34,7 +33,7 @@ const Community = () => {
         paddingTop: 64,
         flex: 1,
         paddingHorizontal: 16,
-        backgroundColor: Color.base,
+        backgroundColor: theme.colors.background,
       }}
     >
       <Header>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { Color } from '../../styles/Color';
-import { TYPOGRAPHY } from '../../styles/typography';
+import { ThemeContext } from '../../provider/ThemeProvider';
 import { ProfileProps } from '../../types';
 import Photo from './Photo';
 
@@ -12,28 +11,29 @@ const ProfileCard = ({
   navigation: any;
   data: ProfileProps;
 }) => {
-  // const [action, loading, error] = usePhoto(data.avatar_src);
+  const { theme } = React.useContext(ThemeContext);
+
   const viewProfile = () => {
     navigation.navigate('Profile', { id: data.id });
   };
 
   return (
     <TouchableOpacity
-      style={{ width: '50%', padding: 8 }}
+      style={{ width: '50%', padding: theme.spacing.sm }}
       onPress={viewProfile}
     >
       <View
         style={{
           borderRadius: 16,
           overflow: 'hidden',
-          backgroundColor: Color.accent[50],
+          backgroundColor: theme.colors.text['50'],
         }}
       >
         <View
           style={{
             shadowRadius: 4,
             shadowOffset: { width: 0, height: 2 },
-            shadowColor: Color.black,
+            shadowColor: theme.colors.black,
             shadowOpacity: 1,
           }}
         >
@@ -49,14 +49,14 @@ const ProfileCard = ({
             width: '100%',
             position: 'absolute',
             bottom: 0,
-            paddingHorizontal: 8,
+            paddingHorizontal: theme.spacing.sm,
             paddingVertical: 12,
           }}
         >
-          <Text style={[TYPOGRAPHY.body, { color: Color.accent[600] }]}>
+          <Text style={[{ color: theme.colors.text['800'] }]}>
             {data.first_name} {data.last_name}
           </Text>
-          <Text style={[TYPOGRAPHY.body, { color: Color.accent[300] }]}>
+          <Text style={[{ color: theme.colors.text['400'] }]}>
             {data.location}
           </Text>
         </View>

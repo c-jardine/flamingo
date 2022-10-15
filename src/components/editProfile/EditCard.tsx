@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { SetStateAction } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 /**
  * Component containing the selected value for display.
@@ -17,6 +17,8 @@ const Display = ({
   isOpen: boolean;
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
 }) => {
+  const { theme } = React.useContext(ThemeContext);
+
   return (
     <View
       style={{
@@ -39,7 +41,7 @@ const Display = ({
               textTransform: 'uppercase',
               fontSize: 16,
               fontWeight: '400',
-              color: Color.text.primary,
+              color: theme.colors.text['800'],
             }}
           >
             {title}
@@ -56,7 +58,7 @@ const Display = ({
         <MaterialCommunityIcons
           name={isOpen ? 'chevron-down' : 'chevron-right'}
           size={32}
-          color={Color.text.body}
+          color={theme.colors.text['400']}
         />
       </TouchableOpacity>
     </View>

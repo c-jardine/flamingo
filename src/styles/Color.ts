@@ -1,8 +1,14 @@
-export const Color = {
+export const color = {
+  white: 'rgb(255, 255, 255)',
+  black: 'rgb(0, 0, 0)',
+  transparent: 'transparent',
   primary: 'rgb(230, 21, 92)',
-  base: 'rgb(16, 14, 34)',
+  darkBlue: 'rgb(16, 14, 34)',
+  green: 'rgb(56, 220, 56)',
+  red: 'rgb(235, 40, 57)',
+  yellow: 'rgb(244, 196, 82)',
 
-  accent: {
+  basePrimary: {
     50: 'rgba(255, 255, 255, 0.05)',
     100: 'rgba(255, 255, 255, 0.10)',
     200: 'rgba(255, 255, 255, 0.20)',
@@ -14,21 +20,4 @@ export const Color = {
     800: 'rgba(255, 255, 255, 0.80)',
     900: 'rgba(255, 255, 255, 0.90)',
   },
-
-  white: 'rgb(255, 255, 255)',
-  black: 'rgb(0, 0, 0)',
-  transparent: 'transparent',
-
-  text: {
-    primary: 'rgba(244, 245, 251, 0.8)',
-    body: 'rgba(244, 245, 251, 0.3)',
-  },
-
-  success: 'rgb(56, 220, 56)',
-  error: 'rgb(235, 40, 57)',
-  warning: 'rgb(244, 196, 82)',
-};
-
-export const withOpacity = (color: string, opacity: number) => {
-  return color.replace(')', `, ${opacity})`).replace('rgb', 'rgba');
 };

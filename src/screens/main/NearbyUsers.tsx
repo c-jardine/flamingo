@@ -1,11 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
-
 import Header from '../../components/core/Header';
 import ProfileCard from '../../components/core/ProfileCard';
 import { useAllUsers } from '../../hooks/useAllUsers';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 import { MainTabsParamList } from '../../types';
 
 /**
@@ -14,13 +13,15 @@ import { MainTabsParamList } from '../../types';
 export const NearbyUsers = ({
   navigation,
 }: NativeStackScreenProps<MainTabsParamList, 'NearbyUsers'>) => {
+  const { theme } = React.useContext(ThemeContext);
+
   const [users, isRefreshing, refresh] = useAllUsers();
 
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: Color.base,
+        backgroundColor: theme.colors.background,
         paddingTop: 64,
       }}
     >

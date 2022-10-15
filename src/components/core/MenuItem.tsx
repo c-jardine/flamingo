@@ -1,9 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-
-import { Color } from '../../styles/Color';
-
-import { TYPOGRAPHY } from '../../styles/typography';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const MenuItem = ({
   children,
@@ -14,11 +12,12 @@ const MenuItem = ({
   onPress: () => void;
   iconStyle?: any;
 }) => {
+  const { theme } = React.useContext(ThemeContext);
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
-        paddingVertical: 16,
+        paddingVertical: theme.spacing.md,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -26,7 +25,7 @@ const MenuItem = ({
     >
       <Text
         style={{
-          ...TYPOGRAPHY.body,
+          color: theme.colors.text['300'],
         }}
       >
         {children}
@@ -34,7 +33,7 @@ const MenuItem = ({
       <MaterialCommunityIcons
         name='chevron-right'
         size={28}
-        color={Color.text.body}
+        color={theme.colors.text['300']}
         {...iconStyle}
       />
     </TouchableOpacity>

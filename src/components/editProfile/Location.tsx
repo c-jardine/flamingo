@@ -3,11 +3,10 @@ import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { useDisclosure } from '../../hooks/useDisclosure';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const Location = () => {
-  const [isOpen, setIsOpen] = useDisclosure();
+  const { theme } = React.useContext(ThemeContext);
 
   const { values, setFieldValue } = useFormikContext<FormikValues>();
 
@@ -28,24 +27,24 @@ const Location = () => {
         }}
         styles={{
           textInput: {
-            backgroundColor: Color.transparent,
-            color: Color.text.primary,
+            backgroundColor: theme.colors.transparent,
+            color: theme.colors.text['800'],
             borderRadius: 16,
           },
           listView: {
             borderRadius: 16,
-            backgroundColor: Color.accent[50],
+            backgroundColor: theme.colors.text['50'],
           },
           row: {
-            backgroundColor: Color.transparent,
+            backgroundColor: theme.colors.transparent,
           },
           description: {
-            color: Color.text.primary,
+            color: theme.colors.text['800'],
             fontSize: 16,
             paddingVertical: 8,
           },
           separator: {
-            backgroundColor: Color.accent[100],
+            backgroundColor: theme.colors.text[100],
           },
           poweredContainer: { display: 'none' },
         }}

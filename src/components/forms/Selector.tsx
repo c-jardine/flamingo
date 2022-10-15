@@ -1,9 +1,11 @@
+import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { FormikValues, useFormikContext } from 'formik';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const Selector = ({ items, field }: { items: Array<any>; field: string }) => {
+  const { theme } = React.useContext(ThemeContext);
+
   const { setFieldValue, values } = useFormikContext<FormikValues>();
   const [selected, setSelected] = React.useState(values[field]);
 
@@ -29,7 +31,9 @@ const Selector = ({ items, field }: { items: Array<any>; field: string }) => {
             height: 48,
             justifyContent: 'center',
             backgroundColor:
-              selected === item.label ? Color.accent[50] : Color.transparent,
+              selected === item.label
+                ? theme.colors.text[50]
+                : theme.colors.transparent,
           }}
           onPress={() => handler(item.label)}
         >
@@ -37,7 +41,9 @@ const Selector = ({ items, field }: { items: Array<any>; field: string }) => {
             style={{
               textAlign: 'center',
               color:
-                selected === item.label ? Color.text.primary : Color.text.body,
+                selected === item.label
+                  ? theme.colors.text['800']
+                  : theme.colors.text['400'],
               textTransform: 'uppercase',
             }}
           >

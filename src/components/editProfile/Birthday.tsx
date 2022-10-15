@@ -3,17 +3,13 @@ import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useAuthenticatedUserProfile } from '../../hooks/useAuthenticatedUserProfile';
-import { useDisclosure } from '../../hooks/useDisclosure';
 import TextInput from '../forms/TextInput';
 
 const Birthday = () => {
   const { loading, error, profile } = useAuthenticatedUserProfile();
-  const [isOpen, setIsOpen] = useDisclosure();
-  const [dobOpen, setDobOpen] = React.useState<boolean>(false);
   const [dob, setDob] = React.useState<string>(
     format(new Date(profile?.dob), 'MM/dd/yyyy')
   );
-  const [isFocused, setIsFocused] = React.useState<boolean>(false);
 
   const handleSave = () => {
     const [month, day, year] = dob.split('/');

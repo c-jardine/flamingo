@@ -1,28 +1,20 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { Modalize } from 'react-native-modalize';
 import AlbumViewer from '../../components/core/AlbumViewer';
 import Photo from '../../components/core/Photo';
 import ProfileActionBar from '../../components/profile/ProfileActionBar';
 import ProfileDetailsCard from '../../components/profile/ProfileDetailsCard';
 import { useDisclosure } from '../../hooks/useDisclosure';
 import { supabase } from '../../initSupabase';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 import { ProfileScreenRouteProp } from '../../types';
 import { ProfileProps } from '../../types/core/profileProps';
-import { PhotoAlbumScreenNavigationProp } from '../../types/navigation/mainStack/photoAlbumScreen';
 
 const Profile = ({ route }: { route: ProfileScreenRouteProp }) => {
+  const { theme } = React.useContext(ThemeContext);
+
   const [isOpen, setIsOpen] = useDisclosure();
-  const [loading, setLoading] = React.useState<boolean>(false);
   const [profile, setProfile] = React.useState<ProfileProps>();
-
-  const modalizeRef = React.useRef<Modalize>(null);
-
-  const onOpen = () => {
-    modalizeRef.current?.open();
-  };
 
   const getProfile = async () => {
     const { data, error } = await supabase
@@ -41,7 +33,7 @@ const Profile = ({ route }: { route: ProfileScreenRouteProp }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: Color.base }}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <AlbumViewer
         albumId={profile?.id as string}
         isVisible={isOpen}

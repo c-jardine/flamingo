@@ -1,11 +1,15 @@
-import { StyleSheet, View } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import Modal from 'react-native-modal';
 import OutsidePressHandler from 'react-native-outside-press';
-import { Color, withOpacity } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
+
 const RNModal = ({ isVisible, setIsVisible, children }) => {
+  const { theme } = React.useContext(ThemeContext);
+
   return (
     <Modal
-      backdropColor={Color.black}
+      backdropColor={theme.colors.black}
       isVisible={isVisible}
       onModalHide={() => setIsVisible(false)}
       useNativeDriver={true}
@@ -15,7 +19,7 @@ const RNModal = ({ isVisible, setIsVisible, children }) => {
         style={{
           flex: 1,
           justifyContent: 'flex-end',
-          paddingBottom: 16,
+          paddingBottom: theme.spacing.md,
         }}
       >
         <OutsidePressHandler
@@ -25,11 +29,11 @@ const RNModal = ({ isVisible, setIsVisible, children }) => {
         >
           <View
             style={{
-              paddingHorizontal: 16,
+              paddingHorizontal: theme.spacing.md,
               width: '100%',
-              backgroundColor: Color.base,
+              backgroundColor: theme.colors.background,
               borderWidth: 2,
-              borderColor: Color.accent[100],
+              borderColor: theme.colors.text['100'],
               borderRadius: 16,
             }}
           >

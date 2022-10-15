@@ -17,7 +17,7 @@ import { useCamera } from '../../hooks/useCamera';
 import { useDisclosure } from '../../hooks/useDisclosure';
 import { supabase } from '../../initSupabase';
 import { AuthContext } from '../../provider/AuthProvider';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 import {
   PhotoAlbumScreenNavigationProp,
   PhotoAlbumScreenRouteProp,
@@ -30,6 +30,8 @@ export default function ({
   navigation: PhotoAlbumScreenNavigationProp;
   route: PhotoAlbumScreenRouteProp;
 }) {
+  const { theme } = React.useContext(ThemeContext);
+
   const { session } = React.useContext(AuthContext);
 
   const [cameraResult, loading] = useCamera();
@@ -77,7 +79,7 @@ export default function ({
     <View
       style={{
         flex: 1,
-        backgroundColor: Color.base,
+        backgroundColor: theme.colors.background,
         paddingTop: 64,
       }}
     >
@@ -131,7 +133,7 @@ export default function ({
                 flex: 1,
                 paddingVertical: 16,
                 borderRadius: 16,
-                backgroundColor: Color.accent[100],
+                backgroundColor: theme.colors.text[100],
                 alignItems: 'center',
                 marginTop: 32,
               }}
@@ -139,7 +141,7 @@ export default function ({
               <MaterialCommunityIcons
                 name='plus'
                 size={32}
-                color={Color.primary}
+                color={theme.colors.primary}
               />
             </TouchableOpacity>
           )}
@@ -153,7 +155,11 @@ export default function ({
       />
       <Modal isVisible={uploadModalIsOpen} setIsVisible={setUploadModalIsOpen}>
         <Text
-          style={{ color: Color.text.primary, fontSize: 18, marginTop: 16 }}
+          style={{
+            color: theme.colors.text['800'],
+            fontSize: 18,
+            marginTop: 16,
+          }}
         >
           Upload a photo
         </Text>

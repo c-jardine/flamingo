@@ -1,26 +1,26 @@
-import { Formik } from 'formik';
+import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Text, View } from 'react-native';
-
-import { saveProfile } from '../../handlers/handleAuth';
+import Accordion from 'react-native-collapsible/Accordion';
 import { useAuthenticatedUserProfile } from '../../hooks/useAuthenticatedUserProfile';
+import { ThemeContext } from '../../provider/ThemeProvider';
+import { save } from '../../services/profiles.service';
+import { AccordionMenuItemProps } from '../../types/core/accordionMenuItemProps';
 import { ProfileGeneralSchema } from '../../validation/profileGeneralSchema';
-
+import KButton from '../core/KButton';
 import MenuContainer from '../core/MenuContainer';
 import Birthday from '../editProfile/Birthday';
 import Gender from '../editProfile/Gender';
-import Name from '../editProfile/Name';
-import KButton from '../utils/KButton';
-
-import Accordion from 'react-native-collapsible/Accordion';
-import { Color } from '../../styles/Color';
 import Location from '../editProfile/Location';
+import Name from '../editProfile/Name';
 
 const ProfileForm = () => {
-  const { loading, error, profile } = useAuthenticatedUserProfile();
-  const [activeSections, setActiveSections] = React.useState([]);
+  const { theme } = React.useContext(ThemeContext);
 
-  const SECTIONS = [
+  const { loading, error, profile } = useAuthenticatedUserProfile();
+  const [activeSections, setActiveSections] = React.useState<number[]>([]);
+
+  const SECTIONS: AccordionMenuItemProps[] = [
     {
       title: 'Name',
       content: `${profile?.first_name} ${profile?.last_name}`,
@@ -43,7 +43,7 @@ const ProfileForm = () => {
     },
   ];
 
-  const _renderHeader = (section) => {
+  const _renderHeader = (section: AccordionMenuItemProps) => {
     return (
       <View
         style={{
@@ -57,22 +57,24 @@ const ProfileForm = () => {
             textTransform: 'uppercase',
             fontSize: 16,
             fontWeight: '400',
-            color: Color.text.primary,
+            color: theme.colors.text['800'],
           }}
         >
           {section.title}
         </Text>
-        <Text style={{ color: Color.text.body }}>{section.content}</Text>
+        <Text style={{ color: theme.colors.text['400'] }}>
+          {section.content}
+        </Text>
       </View>
     );
   };
 
-  const _renderContent = (section) => {
+  const _renderContent = (section: AccordionMenuItemProps) => {
     return (
       <View
         style={[
           section.title !== 'Gender' && {
-            backgroundColor: Color.accent[50],
+            backgroundColor: theme.colors.text[50],
             paddingHorizontal: 16,
             paddingTop: 8,
             borderRadius: 16,
@@ -84,7 +86,7 @@ const ProfileForm = () => {
     );
   };
 
-  const _updateSections = (activeSections) => {
+  const _updateSections = (activeSections: number[]) => {
     setActiveSections(activeSections);
   };
 
@@ -99,7 +101,7 @@ const ProfileForm = () => {
         location: profile.location,
       }}
       validationSchema={ProfileGeneralSchema}
-      onSubmit={(values) => saveProfile(values)}
+      onSubmit={(values) => save(values)}
     >
       {({ handleSubmit, values }) => (
         <View>
@@ -118,7 +120,11 @@ const ProfileForm = () => {
             />
           </MenuContainer>
 
-          <KButton label='Save' loading={false} onPress={handleSubmit} />
+          <KButton
+            label='Save'
+            loading={false}
+            onPress={handleSubmit as (values: FormikValues) => void}
+          />
         </View>
       )}
     </Formik>

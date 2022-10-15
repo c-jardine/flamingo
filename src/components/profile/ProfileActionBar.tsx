@@ -1,14 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
+import { supabase } from '../../initSupabase';
 import { AuthContext } from '../../provider/AuthProvider';
+import { ThemeContext } from '../../provider/ThemeProvider';
+import { ProfileProps } from '../../types';
 import { PhotoAlbumScreenNavigationProp } from '../../types/navigation/mainStack/photoAlbumScreen';
 import IconButton from '../core/IconButton';
-import { supabase } from '../../initSupabase';
-import { Color } from '../../styles/Color';
-import { ProfileProps } from '../../types';
 
 const ProfileActionBar = ({ profile }: { profile: ProfileProps }) => {
+  const { theme } = React.useContext(ThemeContext);
+
   const { session } = React.useContext(AuthContext);
   const navigation = useNavigation<PhotoAlbumScreenNavigationProp>();
   const [isFavorite, setIsFavorite] = React.useState<boolean>(false);
@@ -85,9 +87,9 @@ const ProfileActionBar = ({ profile }: { profile: ProfileProps }) => {
             color={
               isFavorite
                 ? isMutual
-                  ? Color.warning
-                  : Color.error
-                : Color.text.primary
+                  ? theme.colors.warning
+                  : theme.colors.error
+                : theme.colors.text['800']
             }
             onPress={handleFavorite}
           />

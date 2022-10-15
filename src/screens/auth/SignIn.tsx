@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -9,20 +9,20 @@ import {
   View,
 } from 'react-native';
 
-import SignInForm from '../../components/forms/SignInForm';
-
-import { Color } from '../../styles/Color';
-
-import { AuthStackParamList } from '../../types';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import SignInForm from '../../components/forms/SignInForm';
+import { ThemeContext } from '../../provider/ThemeProvider';
+import { AuthStackParamList } from '../../types';
 
 const SignIn = ({
   navigation,
 }: NativeStackScreenProps<AuthStackParamList, 'SignIn'>) => {
+  const { theme } = React.useContext(ThemeContext);
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Color.base }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <ScrollView
-        style={{ backgroundColor: Color.base }}
+        style={{ backgroundColor: theme.colors.background }}
         contentContainerStyle={{
           flexGrow: 1,
         }}
@@ -56,7 +56,9 @@ const SignIn = ({
                 navigation.navigate('ForgetPassword');
               }}
             >
-              <Text style={{ color: Color.primary, textAlign: 'center' }}>
+              <Text
+                style={{ color: theme.colors.primary, textAlign: 'center' }}
+              >
                 Forgot password?
               </Text>
             </TouchableOpacity>
@@ -70,7 +72,7 @@ const SignIn = ({
               justifyContent: 'center',
             }}
           >
-            <Text style={{ color: Color.text.body }}>
+            <Text style={{ color: theme.colors.text['300'] }}>
               Don't have an account?{' '}
             </Text>
             <TouchableOpacity
@@ -80,7 +82,7 @@ const SignIn = ({
             >
               <Text
                 style={{
-                  color: Color.primary,
+                  color: theme.colors.primary,
                   fontWeight: 'bold',
                 }}
               >

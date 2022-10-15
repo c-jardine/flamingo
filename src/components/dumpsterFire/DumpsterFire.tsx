@@ -1,19 +1,21 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const DumpsterFire = () => {
+  const { theme } = React.useContext(ThemeContext);
+
   return (
     <View
       style={{
-        backgroundColor: Color.accent[50],
+        backgroundColor: theme.colors.text[50],
         flex: 1,
         borderRadius: 16,
-        marginTop: 16,
-        padding: 16,
+        marginTop: theme.spacing.md,
+        padding: theme.spacing.md,
       }}
     >
-      <Text style={{ color: Color.text.primary }}>Chat placeholder</Text>
+      <Text style={{ color: theme.colors.text['800'] }}>Chat placeholder</Text>
     </View>
   );
 };

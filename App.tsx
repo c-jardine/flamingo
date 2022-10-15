@@ -11,15 +11,16 @@ import { AuthContext, AuthProvider } from './src/provider/AuthProvider';
 
 // globalStyles.js
 import { setGlobalStyles } from 'react-native-floating-label-input';
-import { Color } from './src/styles/Color';
+import { ThemeProvider } from './src/provider/ThemeProvider';
+import { color } from './src/styles/color';
 
 setGlobalStyles.containerStyles = {
   paddingVertical: 20,
   // any styles you want to generalize to your input container
 };
 setGlobalStyles.customLabelStyles = {
-  colorBlurred: Color.text.body,
-  colorFocused: Color.text.primary,
+  colorBlurred: color.basePrimary['300'],
+  colorFocused: color.basePrimary['800'],
   fontSizeBlurred: 16,
   fontSizeFocused: 14,
   // any styles you want to generalize to your floating label
@@ -72,8 +73,10 @@ const App = () => {
     <RootSiblingParent>
       <EventProvider style={{ flex: 1 }}>
         <AuthProvider>
-          <StatusBar />
-          <Navigation />
+          <ThemeProvider>
+            <StatusBar />
+            <Navigation />
+          </ThemeProvider>
         </AuthProvider>
       </EventProvider>
     </RootSiblingParent>

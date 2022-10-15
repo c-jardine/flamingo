@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from 'date-fns';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Color, withOpacity } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const OnlineIndicator = ({
   isOnline,
@@ -10,6 +10,8 @@ const OnlineIndicator = ({
   isOnline: boolean;
   lastOnline: Date;
 }) => {
+  const { theme } = React.useContext(ThemeContext);
+
   const date = new Date(lastOnline + 'Z');
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -21,9 +23,7 @@ const OnlineIndicator = ({
           alignItems: 'center',
           borderRadius: 6,
           borderWidth: 1,
-          borderColor: isOnline
-            ? withOpacity(Color.success, 0.5)
-            : withOpacity(Color.error, 0.5),
+          borderColor: isOnline ? theme.colors.success : theme.colors.error,
         }}
       >
         <View
@@ -31,14 +31,16 @@ const OnlineIndicator = ({
             width: 6,
             height: 6,
             borderRadius: 3,
-            backgroundColor: isOnline ? Color.success : Color.error,
+            backgroundColor: isOnline
+              ? theme.colors.success
+              : theme.colors.error,
           }}
         />
       </View>
       {lastOnline && (
         <Text
           style={{
-            color: Color.accent[500],
+            color: theme.colors.text['500'],
             marginLeft: 8,
           }}
         >

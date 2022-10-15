@@ -1,11 +1,10 @@
 import React from 'react';
 import { KeyboardAvoidingView, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import Header from '../../components/core/Header';
 import ProfileForm from '../../components/forms/ProfileForm';
 import BackHeader from '../../components/utils/BackHeader';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 import { EditProfileScreenNavigationProp } from '../../types';
 
 const EditProfile = ({
@@ -13,12 +12,14 @@ const EditProfile = ({
 }: {
   navigation: EditProfileScreenNavigationProp;
 }) => {
+  const { theme } = React.useContext(ThemeContext);
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
         paddingHorizontal: 16,
-        backgroundColor: Color.base,
+        backgroundColor: theme.colors.background,
       }}
     >
       <BackHeader handleBack={() => navigation.goBack()} />

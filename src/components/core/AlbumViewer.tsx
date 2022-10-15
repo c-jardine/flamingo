@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import ImageView from 'react-native-image-viewing';
 import { ImageSource } from 'react-native-image-viewing/dist/@types';
 import { supabase } from '../../initSupabase';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const AlbumViewer = ({
   albumId,
@@ -16,6 +16,8 @@ const AlbumViewer = ({
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
   initialPhoto: any;
 }) => {
+  const { theme } = React.useContext(ThemeContext);
+
   const [photos, setPhotos] = React.useState<
     (ImageSource & { name: string })[]
   >([]);
@@ -61,7 +63,7 @@ const AlbumViewer = ({
   return (
     <ImageView
       animationType='slide'
-      backgroundColor={Color.base}
+      backgroundColor={theme.colors.background}
       images={photos}
       imageIndex={initialIndex}
       visible={isVisible}
@@ -78,7 +80,7 @@ const AlbumViewer = ({
           >
             <View
               style={{
-                backgroundColor: Color.primary,
+                backgroundColor: theme.colors.primary,
                 paddingVertical: 8,
                 paddingHorizontal: 16,
                 borderRadius: 16,
@@ -100,7 +102,7 @@ const AlbumViewer = ({
           <View
             style={{
               flex: 1,
-              backgroundColor: Color.accent[50],
+              backgroundColor: theme.colors.text['50'],
               padding: 16,
             }}
           >

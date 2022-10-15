@@ -2,18 +2,16 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useAuthenticatedUserProfile } from '../../hooks/useAuthenticatedUserProfile';
-import { useDisclosure } from '../../hooks/useDisclosure';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 import {
   EditProfileScreenNavigationProp,
   PhotoAlbumScreenNavigationProp,
 } from '../../types';
-import MenuItem from './MenuItem';
-import RNModal from './Modal';
 import Photo from './Photo';
 
 const SettingsProfileCard = () => {
-  const [isOpen, setIsOpen] = useDisclosure();
+  const { theme } = React.useContext(ThemeContext);
+
   const { loading, error, profile } = useAuthenticatedUserProfile();
 
   const navigation = useNavigation<
@@ -43,10 +41,16 @@ const SettingsProfileCard = () => {
         />
       </TouchableOpacity>
       <View style={{ flex: 1, marginLeft: 16 }}>
-        <Text style={{ color: Color.accent[700], fontSize: 22 }}>
+        <Text style={{ color: theme.colors.text['700'], fontSize: 22 }}>
           {profile.first_name} {profile.last_name}
         </Text>
-        <Text style={{ color: Color.accent[400], fontSize: 14, marginTop: 2 }}>
+        <Text
+          style={{
+            color: theme.colors.text['400'],
+            fontSize: 14,
+            marginTop: 2,
+          }}
+        >
           {profile.location}
         </Text>
         <View style={{ flexDirection: 'row', marginTop: 12 }}>
@@ -54,7 +58,7 @@ const SettingsProfileCard = () => {
             style={{
               flex: 1,
               flexDirection: 'row',
-              backgroundColor: Color.primary,
+              backgroundColor: theme.colors.primary,
               justifyContent: 'center',
               alignItems: 'center',
               paddingHorizontal: 4,
@@ -76,10 +80,15 @@ const SettingsProfileCard = () => {
               paddingVertical: 4,
             }}
             onPress={() => {
-              navigation.navigate('Profile', { id: profile?.id });
+              navigation.navigate('Profile', { id: profile?.id as string });
             }}
           >
-            <Text style={{ textTransform: 'uppercase', color: Color.primary }}>
+            <Text
+              style={{
+                textTransform: 'uppercase',
+                color: theme.colors.primary,
+              }}
+            >
               View profile
             </Text>
           </TouchableOpacity>

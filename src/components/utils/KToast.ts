@@ -1,5 +1,5 @@
 import Toast, { ToastProps } from 'react-native-root-toast';
-import { Color } from '../../styles/Color';
+import { color } from '../../styles/color';
 
 /**
  * DRY Toast wrapper.
@@ -12,7 +12,7 @@ export const KToast = {
 const baseOptions: ToastProps = {
   position: Toast.positions.TOP,
   opacity: 1,
-  shadowColor: Color.accent[500],
+  shadowColor: color.basePrimary[500],
   containerStyle: {
     paddingVertical: 32,
     width: '75%',
@@ -20,6 +20,6 @@ const baseOptions: ToastProps = {
   },
 };
 
-const success: ToastProps = { backgroundColor: Color.success };
+const success: ToastProps = { backgroundColor: color.green };
 
-const error: ToastProps = { backgroundColor: Color.error };
+const error: ToastProps = { backgroundColor: color.red };

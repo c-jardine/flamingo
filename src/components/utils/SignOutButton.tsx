@@ -1,26 +1,28 @@
-import { Text, TouchableOpacity, View } from 'react-native';
-import MenuItem from '../core/MenuItem';
-import { Color } from '../../styles/Color';
-import Modal from '../core/Modal';
-import { useDisclosure } from '../../hooks/useDisclosure';
-import KButton from './KButton';
-import { signOut } from '../../handlers/handleAuth';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { useDisclosure } from '../../hooks/useDisclosure';
+import { ThemeContext } from '../../provider/ThemeProvider';
+import { signOut } from '../../services/auth.service';
+import MenuItem from '../core/MenuItem';
+import Modal from '../core/Modal';
+
 const SignOutButton = () => {
+  const { theme } = React.useContext(ThemeContext);
+
   const [isOpen, setIsOpen] = useDisclosure();
   return (
     <View>
       <MenuItem
-        icon='logout'
         onPress={() => setIsOpen(true)}
-        iconStyle={{ color: Color.text.body }}
+        iconStyle={{ color: theme.colors.text['400'] }}
       >
         Sign out
       </MenuItem>
       <Modal isVisible={isOpen} setIsVisible={setIsOpen}>
         <Text
           style={{
-            color: Color.text.primary,
+            color: theme.colors.text['800'],
             fontWeight: 'bold',
             fontSize: 22,
             textAlign: 'center',
@@ -40,7 +42,7 @@ const SignOutButton = () => {
             style={{
               flex: 1,
               borderRadius: 16,
-              backgroundColor: Color.success,
+              backgroundColor: theme.colors.success,
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -49,7 +51,7 @@ const SignOutButton = () => {
             <MaterialCommunityIcons
               name='check-bold'
               size={24}
-              color={Color.white}
+              color={theme.colors.white}
             />
           </TouchableOpacity>
           <View style={{ width: 32 }} />
@@ -57,7 +59,7 @@ const SignOutButton = () => {
             style={{
               flex: 1,
               borderRadius: 16,
-              backgroundColor: Color.error,
+              backgroundColor: theme.colors.error,
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -66,7 +68,7 @@ const SignOutButton = () => {
             <MaterialCommunityIcons
               name='close-thick'
               size={24}
-              color={Color.white}
+              color={theme.colors.white}
             />
           </TouchableOpacity>
         </View>

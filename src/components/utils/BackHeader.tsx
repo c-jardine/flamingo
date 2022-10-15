@@ -1,13 +1,15 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import { Color } from '../../styles/Color';
+import { ThemeContext } from '../../provider/ThemeProvider';
 
 const BackHeader = ({ handleBack }: { handleBack: any }) => {
+  const { theme } = React.useContext(ThemeContext);
+
   return (
     <View
       style={{
-        backgroundColor: Color.base,
+        backgroundColor: theme.colors.background,
         paddingHorizontal: 8,
         justifyContent: 'center',
       }}
@@ -23,7 +25,7 @@ const BackHeader = ({ handleBack }: { handleBack: any }) => {
         <MaterialCommunityIcons
           name='arrow-left'
           size={40}
-          color={Color.text.body}
+          color={theme.colors.text['400']}
         />
       </TouchableOpacity>
     </View>
