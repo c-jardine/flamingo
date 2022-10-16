@@ -1,9 +1,10 @@
 import 'dotenv/config';
-import { Color } from './src/styles/color';
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const googlePlacesApiKey = process.env.GOOGLE_PLACES_API_KEY;
+const awsAccessKeyId = process.env.AWS_ACCESS_KEY_ID;
+const awsSecretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 export default {
   expo: {
@@ -49,6 +50,8 @@ export default {
       supabaseUrl,
       supabaseKey,
       googlePlacesApiKey,
+      awsAccessKeyId,
+      awsSecretAccessKey,
     },
   },
 };

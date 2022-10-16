@@ -10,6 +10,10 @@ import React from 'react';
 import { Button, View } from 'react-native';
 import 'react-native-get-random-values';
 import { IDRequiredFields, IDType } from '../../constants/idScanner';
+import Constants from 'expo-constants';
+
+const accessKeyId = Constants?.manifest?.extra?.awsAccessKeyId as string;
+const secretKey = Constants?.manifest?.extra?.awsSecretAccessKey as string;
 
 const IDScanner = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -41,8 +45,8 @@ const IDScanner = () => {
         const textractClient = new TextractClient({
           region: 'us-east-2',
           credentials: {
-            accessKeyId: 'AKIAY2Y7TRLMIIK24CNX',
-            secretAccessKey: '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',
+            accessKeyId: accessKeyId,
+            secretAccessKey: secretKey,
           },
         });
         const input = {
