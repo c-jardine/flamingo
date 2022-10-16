@@ -11,7 +11,9 @@ import { AuthContext, AuthProvider } from './src/provider/AuthProvider';
 
 // globalStyles.js
 import { setGlobalStyles } from 'react-native-floating-label-input';
+import { Provider } from 'react-redux';
 import { ThemeProvider } from './src/provider/ThemeProvider';
+import { store } from './src/redux/store';
 import { color } from './src/styles/color';
 
 setGlobalStyles.containerStyles = {
@@ -70,16 +72,18 @@ const App = () => {
   };
 
   return (
-    <RootSiblingParent>
-      <EventProvider style={{ flex: 1 }}>
-        <AuthProvider>
-          <ThemeProvider>
-            <StatusBar />
-            <Navigation />
-          </ThemeProvider>
-        </AuthProvider>
-      </EventProvider>
-    </RootSiblingParent>
+    <Provider store={store}>
+      <RootSiblingParent>
+        <EventProvider style={{ flex: 1 }}>
+          <AuthProvider>
+            <ThemeProvider>
+              <StatusBar />
+              <Navigation />
+            </ThemeProvider>
+          </AuthProvider>
+        </EventProvider>
+      </RootSiblingParent>
+    </Provider>
   );
 };
 

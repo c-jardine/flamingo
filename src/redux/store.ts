@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
+import cameraReducer from './slices/cameraSlice';
 
 export const store = configureStore({
-  reducer: {},
+  reducer: { cameraReducer },
 });
 
 export type AppDispatch = typeof store.dispatch;
