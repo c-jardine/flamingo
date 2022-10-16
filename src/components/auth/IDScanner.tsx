@@ -1,16 +1,15 @@
 import {
   AnalyzeIDCommand,
-  AnalyzeIDDetections,
   AnalyzeIDRequest,
   TextractClient,
 } from '@aws-sdk/client-textract';
 import { Buffer } from 'buffer';
+import Constants from 'expo-constants';
 import * as ImagePicker from 'expo-image-picker';
 import React from 'react';
 import { Button, View } from 'react-native';
 import 'react-native-get-random-values';
 import { IDRequiredFields, IDType } from '../../constants/idScanner';
-import Constants from 'expo-constants';
 
 const accessKeyId = Constants?.manifest?.extra?.awsAccessKeyId as string;
 const secretKey = Constants?.manifest?.extra?.awsSecretAccessKey as string;
@@ -33,22 +32,19 @@ const IDScanner = () => {
       });
 
     if (!result.cancelled) {
+      const b = Buffer.from(result?.base64, 'base64');
+
+      const textractClient = new TextractClient({
+        region: 'us-east-2',
+        credentials: {
+          accessKeyId: accessKeyId,
+          secretAccessKey: secretKey,
+        },
+      });
+
       try {
         setLoading(true);
-        const b = Buffer.from(result?.base64, 'base64');
-        // const manipulatedResult = await manipulateAsync(
-        //   result.uri,
-        //   [{ resize: { width: 512 } }],
-        //   { compress: 0.5, format: SaveFormat.JPEG }
-        // );
 
-        const textractClient = new TextractClient({
-          region: 'us-east-2',
-          credentials: {
-            accessKeyId: accessKeyId,
-            secretAccessKey: secretKey,
-          },
-        });
         const input = {
           DocumentPages: [{ Bytes: b }],
         } as AnalyzeIDRequest;

@@ -14,6 +14,7 @@ export const darkTheme = {
     warning: color.yellow,
     error: color.red,
     text: color.basePrimary,
+    baseSecondary: color.baseSecondary,
   },
   spacing: {
     sm: spacing.sm,
