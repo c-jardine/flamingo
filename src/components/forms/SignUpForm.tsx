@@ -7,9 +7,12 @@ import { signUp } from '../../services/auth.service';
 import { SignUpSchema } from '../../validation';
 import KButton from '../core/KButton';
 import TextInput from './TextInput';
+import { useNavigation } from '@react-navigation/native';
+import { VerifyIdScreenNavigationProp } from '../../types/navigation/authStack/verifyIdScreen';
 
 const SignUpForm = () => {
   const { theme } = React.useContext(ThemeContext);
+  const navigation = useNavigation<VerifyIdScreenNavigationProp>();
 
   return (
     <Formik
@@ -90,9 +93,10 @@ const SignUpForm = () => {
           </View>
 
           <KButton
-            label='Sign up'
+            label='Next'
             loading={false}
-            onPress={handleSubmit as (values: FormikValues) => void}
+            // onPress={handleSubmit as (values: FormikValues) => void}
+            onPress={() => navigation.navigate('VerifyId')}
           />
         </View>
       )}

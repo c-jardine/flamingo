@@ -1,5 +1,3 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-
 export type MainStackParamList = {
   MainTabs: undefined;
   EditProfile: undefined;
@@ -12,4 +10,5 @@ export type AuthStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
   ForgetPassword: undefined;
+  VerifyId: undefined;
 };

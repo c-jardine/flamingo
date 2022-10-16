@@ -8,7 +8,7 @@ import {
 import { ThemeContext } from '../../provider/ThemeProvider';
 
 const KButton = (
-  props: TouchableOpacityProps & { loading: boolean; label: string }
+  props: TouchableOpacityProps & { loading: boolean; label: string | any }
 ) => {
   const { theme } = React.useContext(ThemeContext);
 

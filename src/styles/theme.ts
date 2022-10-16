@@ -28,7 +28,7 @@ export const darkTheme = {
       fontWeight: '700',
     } as TextProps,
     subtitle: {
-      fontSize: 20,
+      fontSize: 16,
       fontWeight: '400',
     } as TextProps,
     body: {} as TextProps,

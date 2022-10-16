@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
+import IDScanner from '../../components/auth/IDScanner';
 import Header from '../../components/core/Header';
 import MenuContainer from '../../components/core/MenuContainer';
 import MenuItem from '../../components/core/MenuItem';
@@ -46,6 +47,7 @@ const Settings = () => {
             </MenuContainer.Title>
             <MenuItem>Help</MenuItem>
             <MenuItem>About</MenuItem>
+            <IDScanner />
           </MenuContainer>
         </ScrollView>
         <SignOutButton />

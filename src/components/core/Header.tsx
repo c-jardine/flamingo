@@ -18,7 +18,7 @@ const Description = ({ children }: { children: string }) => {
   return (
     <Text
       style={{
-        ...theme.textVariants.subtitle,
+        fontSize: 16,
         color: theme.colors.text['300'],
       }}
     >
