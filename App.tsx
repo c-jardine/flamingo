@@ -17,7 +17,9 @@ import { store } from './src/redux/store';
 import { color } from './src/styles/color';
 
 setGlobalStyles.containerStyles = {
-  paddingVertical: 20,
+  backgroundColor: color.basePrimary['50'],
+  padding: 12,
+  borderRadius: 16,
   // any styles you want to generalize to your input container
 };
 setGlobalStyles.customLabelStyles = {

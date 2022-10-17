@@ -3,10 +3,9 @@ import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthScreensEnum } from '../../enums/AuthScreenEnum';
 import { ThemeContext } from '../../provider/ThemeProvider';
-import IDVerification from './IDVerification';
-import PhotoVerification from './PhotoVerification';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import Verification from './Verification';
 
 const AuthScreen = () => {
   const { theme } = React.useContext(ThemeContext);
@@ -24,10 +23,7 @@ const AuthScreen = () => {
           <SignUp navigator={setCurrentScreen} />
         )}
         {currentScreen === AuthScreensEnum.VERIFY_IDENTITY && (
-          <IDVerification navigator={setCurrentScreen} />
-        )}
-        {currentScreen === AuthScreensEnum.PHOTO_VERIFICATION && (
-          <PhotoVerification navigator={setCurrentScreen} />
+          <Verification navigator={setCurrentScreen} />
         )}
       </SafeAreaView>
     </View>

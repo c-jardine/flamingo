@@ -1,13 +1,14 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik, FormikValues } from 'formik';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import { signIn } from '../../services/auth.service';
 import { SignInSchema } from '../../validation';
 import KButton from '../core/KButton';
 import TextInput from './TextInput';
+import TextInputError from './TextInputError';
 
 const SignInForm = () => {
   const { theme } = React.useContext(ThemeContext);
@@ -26,7 +27,7 @@ const SignInForm = () => {
               exiting={FadeOut.duration(200)}
             >
               <TextInput
-                label='Email'
+                placeholder='Email'
                 value={values.email}
                 onChangeText={handleChange('email')}
                 leftComponent={
@@ -39,20 +40,18 @@ const SignInForm = () => {
                 keyboardType='email-address'
               />
               {errors.email && touched.email ? (
-                <Text style={{ color: theme.colors.primary }}>
-                  {errors.email}
-                </Text>
+                <TextInputError>{errors.email}</TextInputError>
               ) : null}
             </Animated.View>
-
+            <View style={{ height: 16 }} />
             <Animated.View
               entering={FadeIn.duration(200).delay(600)}
               exiting={FadeOut.duration(200).delay(100)}
             >
               <TextInput
-                label='Password'
+                placeholder='Password'
                 value={values.password}
-                isPassword
+                secureTextEntry
                 onChangeText={handleChange('password')}
                 leftComponent={
                   <MaterialCommunityIcons
@@ -63,9 +62,7 @@ const SignInForm = () => {
                 }
               />
               {errors.password && touched.password ? (
-                <Text style={{ color: theme.colors.primary }}>
-                  {errors.password}
-                </Text>
+                <TextInputError>{errors.password}</TextInputError>
               ) : null}
             </Animated.View>
           </View>

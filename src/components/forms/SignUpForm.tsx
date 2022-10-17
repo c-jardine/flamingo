@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik, FormikValues } from 'formik';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { AuthScreensEnum } from '../../enums/AuthScreenEnum';
 import { ThemeContext } from '../../provider/ThemeProvider';
@@ -9,25 +9,24 @@ import { AuthScreenNavigatorProps } from '../../types/auth/AuthScreen';
 import { SignUpSchema } from '../../validation';
 import KButton from '../core/KButton';
 import TextInput from './TextInput';
+import TextInputError from './TextInputError';
 
 const SignUpForm = (props: AuthScreenNavigatorProps) => {
   const { theme } = React.useContext(ThemeContext);
 
+  const handleValidateAndSubmit = (values: FormikValues) => {
+    console.log(values);
+    props.navigator(AuthScreensEnum.VERIFY_IDENTITY);
+  };
+
   return (
     <Formik
       validationSchema={SignUpSchema}
-      initialValues={{ email: '', password: '', confirmPassword: '' }}
+      initialValues={{ email: '', password: '' }}
       // onSubmit={(values) => signUp(values)}
-      onSubmit={(values) => props.navigator(AuthScreensEnum.VERIFY_IDENTITY)}
+      onSubmit={handleValidateAndSubmit}
     >
-      {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        errors,
-        touched,
-      }) => (
+      {({ handleChange, handleBlur, values, errors, touched }) => (
         <View>
           <View style={{ paddingHorizontal: 16 }}>
             <Animated.View
@@ -35,7 +34,7 @@ const SignUpForm = (props: AuthScreenNavigatorProps) => {
               exiting={FadeOut.duration(200)}
             >
               <TextInput
-                label='Email'
+                placeholder='Email'
                 value={values.email}
                 textContentType='emailAddress'
                 onChangeText={handleChange('email')}
@@ -50,21 +49,21 @@ const SignUpForm = (props: AuthScreenNavigatorProps) => {
                 keyboardType='email-address'
               />
               {errors.email && touched.email ? (
-                <Text style={{ color: theme.colors.error }}>
-                  {errors.email}
-                </Text>
+                <TextInputError>{errors.email}</TextInputError>
               ) : null}
             </Animated.View>
+
+            <View style={{ height: 16 }} />
 
             <Animated.View
               entering={FadeIn.duration(200).delay(700)}
               exiting={FadeOut.duration(200).delay(100)}
             >
               <TextInput
-                label='Password'
+                placeholder='Password'
                 value={values.password}
-                textContentType='password'
-                isPassword
+                textContentType='newPassword'
+                secureTextEntry
                 onChangeText={handleChange('password')}
                 onBlur={handleBlur('password')}
                 leftComponent={
@@ -76,21 +75,21 @@ const SignUpForm = (props: AuthScreenNavigatorProps) => {
                 }
               />
               {errors.password && touched.password ? (
-                <Text style={{ color: theme.colors.error }}>
-                  {errors.password}
-                </Text>
+                <TextInputError>{errors.password}</TextInputError>
               ) : null}
             </Animated.View>
 
-            <Animated.View
+            <View style={{ height: 16 }} />
+
+            {/* <Animated.View
               entering={FadeIn.duration(200).delay(800)}
               exiting={FadeOut.duration(200).delay(200)}
             >
               <TextInput
-                label='Confirm password'
+                placeholder='Confirm password'
                 value={values.confirmPassword}
                 textContentType='password'
-                isPassword
+                secureTextEntry
                 onChangeText={handleChange('confirmPassword')}
                 onBlur={handleBlur('confirmPassword')}
                 leftComponent={
@@ -102,11 +101,9 @@ const SignUpForm = (props: AuthScreenNavigatorProps) => {
                 }
               />
               {errors.confirmPassword && touched.confirmPassword ? (
-                <Text style={{ color: theme.colors.error }}>
-                  {errors.confirmPassword}
-                </Text>
+                <TextInputError>{errors.confirmPassword}</TextInputError>
               ) : null}
-            </Animated.View>
+            </Animated.View> */}
           </View>
 
           <Animated.View
@@ -116,7 +113,7 @@ const SignUpForm = (props: AuthScreenNavigatorProps) => {
             <KButton
               label='Next'
               loading={false}
-              onPress={handleSubmit as (values: FormikValues) => void}
+              onPress={() => handleValidateAndSubmit(values)}
             />
           </Animated.View>
         </View>

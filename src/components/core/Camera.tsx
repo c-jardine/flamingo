@@ -15,11 +15,12 @@ import CameraSettings from '../camera/CameraSettings';
 import FocusSlider from '../camera/FocusSlider';
 
 interface CameraProps {
-  boundingBox: React.ComponentType;
+  boundingBox?: React.ComponentType;
   image: CameraCapturedPicture | null;
   setImage: React.Dispatch<SetStateAction<CameraCapturedPicture | null>>;
   settings: CameraSetting[];
   onSubmit: () => void;
+  defaultCamera?: CameraType;
 }
 
 const Camera = (props: CameraProps) => {
@@ -54,6 +55,14 @@ const Camera = (props: CameraProps) => {
       }
     }
   };
+
+  React.useEffect(() => {
+    if (props.defaultCamera && props.defaultCamera === CameraType.front) {
+      setIsFrontCameraEnabled(true);
+    } else {
+      setIsFrontCameraEnabled(false);
+    }
+  });
 
   const handleRetake = () => {
     props.setImage(null);

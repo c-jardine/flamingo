@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
 import SignInForm from '../../components/forms/SignInForm';
 import { AuthScreensEnum } from '../../enums/AuthScreenEnum';
 import { ThemeContext } from '../../provider/ThemeProvider';
@@ -19,7 +18,7 @@ const SignIn = (props: AuthScreenNavigatorProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <Animated.View
         entering={FadeIn.duration(200).delay(400)}
         exiting={FadeOut.duration(200).delay(400)}
@@ -95,7 +94,7 @@ const SignIn = (props: AuthScreenNavigatorProps) => {
           </KeyboardAvoidingView>
         </ScrollView>
       </Animated.View>
-    </SafeAreaView>
+    </View>
   );
 };
 
