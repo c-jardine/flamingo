@@ -76,7 +76,6 @@ const IDScanner = () => {
             }
           }
         }
-        console.log('VALID', valid);
       } catch (error) {
         console.log('ERRRR', error);
       }

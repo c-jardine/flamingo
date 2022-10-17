@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { CameraCapturedPicture } from 'expo-camera';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import Animated, { Layout } from 'react-native-reanimated';
+import Animated, { Layout, ZoomIn } from 'react-native-reanimated';
 import { ThemeContext } from '../../provider/ThemeProvider';
 
 interface CameraActionBarType {
@@ -17,7 +17,8 @@ const CameraActionBar = (props: CameraActionBarType) => {
 
   return (
     <View style={{ alignItems: 'center', marginTop: theme.spacing.xl }}>
-      <View
+      <Animated.View
+      entering={ZoomIn.duration(200)}
         style={{
           width: 256,
           flexDirection: 'row',
@@ -62,7 +63,7 @@ const CameraActionBar = (props: CameraActionBarType) => {
             </TouchableOpacity>
           )}
         </Animated.View>
-      </View>
+      </Animated.View>
     </View>
   );
 };

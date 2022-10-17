@@ -63,7 +63,6 @@ const Camera = (props: CameraProps) => {
     <View
       style={{
         flex: 1,
-        backgroundColor: theme.colors.background,
         paddingTop: theme.spacing.xxl,
       }}
     >
@@ -129,12 +128,14 @@ const Camera = (props: CameraProps) => {
       </RNCamera>
 
       {/* Camera action bar */}
-      <CameraActionBar
-        handleTakePhoto={handleTakePhoto}
-        handleRetake={handleRetake}
-        image={props.image}
-        onSubmit={props.onSubmit}
-      />
+      {isCameraReady && (
+        <CameraActionBar
+          handleTakePhoto={handleTakePhoto}
+          handleRetake={handleRetake}
+          image={props.image}
+          onSubmit={props.onSubmit}
+        />
+      )}
     </View>
   );
 };

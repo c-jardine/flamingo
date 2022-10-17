@@ -1,7 +1,7 @@
 import { Session } from '@supabase/supabase-js';
 import React from 'react';
-import { supabase } from '../initSupabase';
 import useLocation from '../hooks/useLocation';
+import { supabase } from '../initSupabase';
 type ContextProps = {
   user: null | boolean;
   session: Session | null;
@@ -37,10 +37,6 @@ const AuthProvider = (props: Props) => {
       authListener!.unsubscribe();
     };
   }, [user]);
-
-  React.useEffect(() => {
-    console.log(location);
-  });
 
   return (
     <AuthContext.Provider
