@@ -12,7 +12,7 @@ export const KToast = {
 const baseOptions: ToastProps = {
   position: Toast.positions.TOP,
   opacity: 1,
-  shadowColor: color.basePrimary[500],
+  shadowColor: color.baseSecondary[500],
   containerStyle: {
     paddingVertical: 32,
     width: '75%',

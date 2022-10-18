@@ -1,32 +1,39 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Formik, FormikValues } from 'formik';
+import { Formik, FormikErrors, FormikValues } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { AuthScreensEnum } from '../../enums/AuthScreenEnum';
 import { ThemeContext } from '../../provider/ThemeProvider';
+import { signUp } from '../../services/auth.service';
 import { AuthScreenNavigatorProps } from '../../types/auth/AuthScreen';
 import { SignUpSchema } from '../../validation';
 import KButton from '../core/KButton';
+import { KToast } from '../utils/KToast';
 import TextInput from './TextInput';
 import TextInputError from './TextInputError';
+import { ApiError } from '@supabase/supabase-js';
 
 const SignUpForm = (props: AuthScreenNavigatorProps) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const handleValidateAndSubmit = (values: FormikValues) => {
-    console.log(values);
-    props.navigator(AuthScreensEnum.VERIFY_IDENTITY);
+  const sendVerificationEmail = async (values: FormikValues) => {
+    try {
+      const res = await signUp(values);
+
+      props.navigator(AuthScreensEnum.EMAIL_VERIFICATION);
+    } catch (error) {
+      KToast.error(error?.message);
+    }
   };
 
   return (
     <Formik
-      validationSchema={SignUpSchema}
       initialValues={{ email: '', password: '' }}
-      // onSubmit={(values) => signUp(values)}
-      onSubmit={handleValidateAndSubmit}
+      validationSchema={SignUpSchema}
+      onSubmit={(values) => sendVerificationEmail(values)}
     >
-      {({ handleChange, handleBlur, values, errors, touched }) => (
+      {({ handleChange, handleSubmit, values, errors, touched }) => (
         <View>
           <View style={{ paddingHorizontal: 16 }}>
             <Animated.View
@@ -38,7 +45,6 @@ const SignUpForm = (props: AuthScreenNavigatorProps) => {
                 value={values.email}
                 textContentType='emailAddress'
                 onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
                 leftComponent={
                   <MaterialCommunityIcons
                     name='email-outline'
@@ -65,7 +71,6 @@ const SignUpForm = (props: AuthScreenNavigatorProps) => {
                 textContentType='newPassword'
                 secureTextEntry
                 onChangeText={handleChange('password')}
-                onBlur={handleBlur('password')}
                 leftComponent={
                   <MaterialCommunityIcons
                     name='lock-outline'
@@ -113,7 +118,7 @@ const SignUpForm = (props: AuthScreenNavigatorProps) => {
             <KButton
               label='Next'
               loading={false}
-              onPress={() => handleValidateAndSubmit(values)}
+              onPress={handleSubmit as (values: FormikValues) => void}
             />
           </Animated.View>
         </View>

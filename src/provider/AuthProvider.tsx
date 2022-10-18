@@ -2,9 +2,11 @@ import { Session } from '@supabase/supabase-js';
 import React from 'react';
 import useLocation from '../hooks/useLocation';
 import { supabase } from '../initSupabase';
+import { ProfileProps } from '../types/core/profileProps';
 type ContextProps = {
   user: null | boolean;
   session: Session | null;
+  profile: ProfileProps | null;
 };
 
 const AuthContext = React.createContext<Partial<ContextProps>>({});
@@ -17,6 +19,7 @@ const AuthProvider = (props: Props) => {
   // user null = loading
   const [user, setUser] = React.useState<null | boolean>(null);
   const [session, setSession] = React.useState<Session | null>(null);
+  const [profile, setProfile] = React.useState<ProfileProps | null>(null);
   const [location, error] = useLocation();
 
   React.useEffect(() => {
@@ -29,7 +32,22 @@ const AuthProvider = (props: Props) => {
         setSession(session);
         setUser(session ? true : false);
         if (event === 'SIGNED_OUT') {
+          setProfile(null);
         } else if (event === 'SIGNED_IN') {
+          const { data, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', session?.user?.id)
+            .single();
+
+          console.log('USER', user);
+          console.log('PROFILE', profile);
+
+          if (data) {
+            setProfile(data);
+          } else {
+            setProfile(null);
+          }
         }
       }
     );
@@ -43,6 +61,7 @@ const AuthProvider = (props: Props) => {
       value={{
         user,
         session,
+        profile,
       }}
     >
       {props.children}

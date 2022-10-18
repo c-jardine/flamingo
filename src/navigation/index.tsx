@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,8 +8,7 @@ import Auth from './AuthStack';
 import Main from './MainStack';
 
 export default () => {
-  const auth = useContext(AuthContext);
-  const user = auth.user;
+  const { user, profile } = React.useContext(AuthContext);
   return (
     <NavigationContainer>
       {user == null && <Loading />}

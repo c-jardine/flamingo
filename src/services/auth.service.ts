@@ -10,14 +10,22 @@ export async function signIn(values: FormikValues) {
     password: values.password,
   });
   if (!error && user) {
-    await supabase
+    const { data, error } = await supabase
       .from('profiles')
-      .update({ is_online: true, last_online: new Date().toISOString() })
-      .eq('id', supabase.auth.user()?.id);
+      .select('id')
+      .eq('id', user.id)
+      .single();
+
+    if (data) {
+      await supabase
+        .from('profiles')
+        .update({ is_online: true, last_online: new Date().toISOString() })
+        .eq('id', supabase.auth.user()?.id);
+    }
   }
   if (error) {
     Vibration.vibrate(1000);
-    KToast.error('INVALID CREDENTIALS');
+    KToast.error('Account not found');
   }
 }
 
@@ -27,11 +35,12 @@ export async function signUp(values: FormikValues) {
     password: values.password,
   });
   if (!error && !user) {
-    alert('Check your email for the login link!');
+    return user;
   }
   if (error) {
-    alert(error.message);
+    throw error;
   }
+  return user;
 }
 
 export async function signOut() {

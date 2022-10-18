@@ -1,4 +1,4 @@
-import { CameraCapturedPicture } from 'expo-camera';
+import { CameraCapturedPicture, CameraType } from 'expo-camera';
 import React, { SetStateAction } from 'react';
 import { View } from 'react-native';
 import Animated, {
@@ -52,7 +52,7 @@ const PhotoVerification = (props: {
               CameraSetting.AutoFocusToggle,
             ]}
             onSubmit={handleSubmit}
-            // defaultCamera={CameraType.front}
+            defaultCamera={CameraType.front}
           />
         </Animated.View>
       </Animated.View>

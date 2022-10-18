@@ -62,15 +62,9 @@ const IDScanner = () => {
               setValid(true);
               if (fieldType === 'ID_TYPE' && !IDType.includes(value)) {
                 setValid(false);
-                console.log(
-                  `BAD ID TYPE - FIELD: ${fieldType} | VALUE: ${value}`
-                );
                 break;
               }
             } else {
-              console.log(
-                `EMPTY OR LOW CONFIDENCE - FIELD: ${fieldType} | VALUE: ${value}`
-              );
               setValid(false);
               break;
             }

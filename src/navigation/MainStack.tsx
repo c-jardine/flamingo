@@ -5,13 +5,17 @@ import EditProfile from '../screens/main/EditProfile';
 import Profile from '../screens/main/Profile';
 import MainTabs from './MainTabs';
 
-import { MainStackParamList } from '../types';
-import PhotoAlbum from '../screens/main/PhotoAlbum';
 import AlbumViewer from '../components/core/AlbumViewer';
+import NewUserSetup from '../screens/auth/NewUserSetup';
+import PhotoAlbum from '../screens/main/PhotoAlbum';
+import { MainStackParamList } from '../types';
+import { AuthContext } from '../provider/AuthProvider';
 
 const MainStack = createNativeStackNavigator<MainStackParamList>();
 
 const Main = () => {
+  const { user, profile } = React.useContext(AuthContext);
+
   return (
     <MainStack.Navigator
       id='MainStack'
@@ -19,6 +23,9 @@ const Main = () => {
         headerShown: false,
       }}
     >
+      {user && !profile && (
+        <MainStack.Screen name='NewUserSetup' component={NewUserSetup} />
+      )}
       <MainStack.Screen name='MainTabs' component={MainTabs} />
       <MainStack.Screen name='EditProfile' component={EditProfile} />
       <MainStack.Screen name='Profile' component={Profile} />

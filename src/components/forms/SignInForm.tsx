@@ -3,21 +3,34 @@ import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { AuthScreensEnum } from '../../enums/AuthScreenEnum';
+import { AuthContext } from '../../provider/AuthProvider';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import { signIn } from '../../services/auth.service';
+import { AuthScreenNavigatorProps } from '../../types/auth/AuthScreen';
 import { SignInSchema } from '../../validation';
 import KButton from '../core/KButton';
 import TextInput from './TextInput';
 import TextInputError from './TextInputError';
 
-const SignInForm = () => {
+export enum AccountState {
+  NEW_USER,
+  EXISTING_USER,
+}
+
+const SignInForm = (props: AuthScreenNavigatorProps) => {
   const { theme } = React.useContext(ThemeContext);
+  const { user, profile } = React.useContext(AuthContext);
+
+  const handleSignIn = async (values: FormikValues) => {
+    await signIn(values);
+  };
 
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
       validationSchema={SignInSchema}
-      onSubmit={(values) => signIn(values)}
+      onSubmit={(values) => handleSignIn(values)}
     >
       {({ handleChange, handleSubmit, values, errors, touched }) => (
         <View>
