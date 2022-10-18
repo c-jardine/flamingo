@@ -1,6 +1,6 @@
-import { CameraCapturedPicture, CameraType } from 'expo-camera';
+import { CameraCapturedPicture } from 'expo-camera';
 import React, { SetStateAction } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 import Animated, {
   FadeIn,
   FadeOut,
@@ -11,18 +11,20 @@ import Camera from '../../components/core/Camera';
 import Header from '../../components/core/Header';
 import { CameraSetting } from '../../enums/CameraSetting';
 import { ThemeContext } from '../../provider/ThemeProvider';
-import { useSelfieValidator } from '../../hooks/useSelfieValidator';
+import { Buffer } from 'buffer';
 
 const PhotoVerification = (props: {
-  setUserVerified: React.Dispatch<SetStateAction<boolean>>;
-  sourceImage: CameraCapturedPicture | null;
+  setSelfie: React.Dispatch<SetStateAction<Buffer | null>>;
 }) => {
   const { theme } = React.useContext(ThemeContext);
   const [image, setImage] = React.useState<CameraCapturedPicture | null>(null);
-  const [isScanning, isValid, scan] = useSelfieValidator(
-    image,
-    props.sourceImage
-  );
+
+  const handleSubmit = () => {
+    const selfie = image?.base64 as string;
+    const selfieData = Buffer.from(selfie, 'base64');
+    props.setSelfie(selfieData);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <Animated.View
@@ -37,30 +39,22 @@ const PhotoVerification = (props: {
             appearance.
           </Header.Description>
         </Header>
-        {!isScanning ? (
-          <Animated.View
-            entering={ZoomIn.duration(200)}
-            exiting={ZoomOut.duration(200)}
-          >
-            <Camera
-              image={image}
-              setImage={setImage}
-              settings={[
-                CameraSetting.FrontCameraToggle,
-                CameraSetting.FlashToggle,
-                CameraSetting.AutoFocusToggle,
-              ]}
-              onSubmit={scan}
-              defaultCamera={CameraType.front}
-            />
-          </Animated.View>
-        ) : (
-          <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-          >
-            <ActivityIndicator size='large' color={theme.colors.primary} />
-          </View>
-        )}
+        <Animated.View
+          entering={ZoomIn.duration(200)}
+          exiting={ZoomOut.duration(200)}
+        >
+          <Camera
+            image={image}
+            setImage={setImage}
+            settings={[
+              CameraSetting.FrontCameraToggle,
+              CameraSetting.FlashToggle,
+              CameraSetting.AutoFocusToggle,
+            ]}
+            onSubmit={handleSubmit}
+            // defaultCamera={CameraType.front}
+          />
+        </Animated.View>
       </Animated.View>
     </View>
   );

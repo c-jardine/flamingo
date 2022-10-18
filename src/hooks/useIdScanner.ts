@@ -1,13 +1,13 @@
 import {
   AnalyzeIDCommand,
-  AnalyzeIDRequest,
+  AnalyzeIDCommandInput,
   TextractClient,
 } from '@aws-sdk/client-textract';
+import { Buffer } from 'buffer';
 import { CameraCapturedPicture } from 'expo-camera';
 import Constants from 'expo-constants';
 import React, { SetStateAction } from 'react';
 import { IDRequiredFields, IDType } from '../constants/idScanner';
-import { useEncodeForAws } from './useEncodeForAws';
 
 export type IdScannerProps = [
   isScanning: boolean,
@@ -22,7 +22,6 @@ export const useIdScanner = (
   image: CameraCapturedPicture | null,
   setImage: React.Dispatch<SetStateAction<CameraCapturedPicture | null>>
 ): IdScannerProps => {
-  const [data] = useEncodeForAws(image);
   const [isScanning, setIsScanning] = React.useState<boolean>(false);
   const [isValid, setIsValid] = React.useState<boolean>(false);
 
@@ -38,9 +37,12 @@ export const useIdScanner = (
         },
       });
 
+      const result = image?.base64 as string;
+      const b = Buffer.from(result, 'base64');
+
       const input = {
-        DocumentPages: [{ Bytes: data }],
-      } as AnalyzeIDRequest;
+        DocumentPages: [{ Bytes: b }],
+      } as AnalyzeIDCommandInput;
 
       const command = new AnalyzeIDCommand(input);
       const res = await textractClient.send(command);

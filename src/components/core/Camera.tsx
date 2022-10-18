@@ -47,7 +47,7 @@ const Camera = (props: CameraProps) => {
     if (isCameraReady) {
       const result = await cameraRef.current?.takePictureAsync({
         aspect: [1, 1],
-        quality: 1,
+        quality: 0.5,
         base64: true,
       } as CameraPictureOptions);
       if (result) {

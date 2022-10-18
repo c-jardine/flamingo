@@ -1,5 +1,11 @@
-import { AnalyzeIDRequest } from '@aws-sdk/client-textract';
+import {
+  AnalyzeIDCommand,
+  AnalyzeIDCommandInput,
+  TextractClient,
+} from '@aws-sdk/client-textract';
+import { Buffer } from 'buffer';
 import { CameraCapturedPicture } from 'expo-camera';
+import Constants from 'expo-constants';
 import React, { SetStateAction } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import Animated, {
@@ -11,24 +17,83 @@ import Animated, {
 import IDBoundingBox from '../../components/camera/IDBoundingBox';
 import Camera from '../../components/core/Camera';
 import Header from '../../components/core/Header';
+import { IDRequiredFields, IDType } from '../../constants/idScanner';
 import { CameraSetting } from '../../enums/CameraSetting';
-import { useIdScanner } from '../../hooks/useIdScanner';
 import { ThemeContext } from '../../provider/ThemeProvider';
 
+const accessKeyId = Constants?.manifest?.extra?.awsAccessKeyId as string;
+const secretKey = Constants?.manifest?.extra?.awsSecretAccessKey as string;
+
 const IDVerification = (props: {
+  setIdImage: React.Dispatch<SetStateAction<Buffer | null>>;
   setValidId: React.Dispatch<SetStateAction<boolean>>;
-  setIdImage: React.Dispatch<SetStateAction<CameraCapturedPicture | null>>;
 }) => {
   const { theme } = React.useContext(ThemeContext);
   const [image, setImage] = React.useState<CameraCapturedPicture | null>(null);
-  const [isScanning, isValid, scan] = useIdScanner(image, setImage);
+  const [isScanning, setIsScanning] = React.useState<boolean>(false);
 
-  React.useEffect(() => {
-    if (isValid) {
-      props.setValidId(true);
-      props.setIdImage(image);
+  const scan = async (): Promise<void> => {
+    try {
+      setIsScanning(true);
+
+      const textractClient = new TextractClient({
+        region: 'us-east-2',
+        credentials: {
+          accessKeyId: accessKeyId,
+          secretAccessKey: secretKey,
+        },
+      });
+
+      const result = image?.base64 as string;
+      const b = Buffer.from(result, 'base64');
+      props.setIdImage(b);
+
+      const input = {
+        DocumentPages: [{ Bytes: b }],
+      } as AnalyzeIDCommandInput;
+
+      const command = new AnalyzeIDCommand(input);
+      const res = await textractClient.send(command);
+      const fields =
+        (res?.IdentityDocuments &&
+          res.IdentityDocuments[0].IdentityDocumentFields) ||
+        [];
+
+      for (let i = 0; i < fields?.length; i++) {
+        const fieldType = fields[i]?.Type?.Text || '';
+        const valueConfidence = fields[i]?.ValueDetection?.Confidence || 0;
+        const value = fields[i]?.ValueDetection?.Text || '';
+
+        if (IDRequiredFields.includes(fieldType)) {
+          if (value !== '' && valueConfidence > 90) {
+            props.setValidId(true);
+            if (fieldType === 'ID_TYPE' && !IDType.includes(value)) {
+              setIsScanning(false);
+              props.setValidId(false);
+              setImage(null);
+              console.log(
+                `BAD ID TYPE - FIELD: ${fieldType} | VALUE: ${value}`
+              );
+              return;
+            }
+          } else {
+            console.log(
+              `EMPTY OR LOW CONFIDENCE - FIELD: ${fieldType} | VALUE: ${value}`
+            );
+            setIsScanning(false);
+            props.setValidId(false);
+            setImage(null);
+            return;
+          }
+        }
+      }
+      setIsScanning(false);
+    } catch (error) {
+      setIsScanning(false);
+      setImage(null);
+      console.log(error);
     }
-  }, [isValid]);
+  };
 
   return (
     <View style={{ flex: 1 }}>

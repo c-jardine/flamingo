@@ -6,7 +6,7 @@ import {
 import { CameraCapturedPicture } from 'expo-camera';
 import Constants from 'expo-constants';
 import React from 'react';
-import { useEncodeForAws } from './useEncodeForAws';
+import { Buffer } from 'buffer';
 
 export type SelfieScannerProps = [
   isScanning: boolean,
@@ -21,8 +21,6 @@ export const useSelfieValidator = (
   sourceImage: CameraCapturedPicture | null,
   targetImage: CameraCapturedPicture | null
 ): SelfieScannerProps => {
-  const [sourceEncoded] = useEncodeForAws(sourceImage);
-  const [targetEncoded] = useEncodeForAws(targetImage);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [isValid, setIsValid] = React.useState<boolean>(false);
 
@@ -38,22 +36,29 @@ export const useSelfieValidator = (
         },
       });
 
+      const sourceResult = sourceImage?.base64 as string;
+      const sourceData = Buffer.from(sourceResult, 'base64');
+      const targetResult = targetImage?.base64 as string;
+      const targetData = Buffer.from(targetResult, 'base64');
+
       const input = {
         SourceImage: {
-          Image: { Bytes: sourceEncoded },
+          Image: { Bytes: sourceData },
         },
         TargetImage: {
-          Image: { Bytes: targetEncoded },
+          Image: { Bytes: targetData },
         },
       } as CompareFacesRequest;
 
       const command = new CompareFacesCommand(input);
       const data = await rekognitionClient.send(command);
       console.log(data);
+      console.log('yay')
       setIsValid(true);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
+      console.log('hmm')
       console.log(error);
     }
   };
