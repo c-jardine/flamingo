@@ -5,9 +5,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { NewProfileScreenEnum } from '../../enums/NewProfileScreenEnum';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import { PersonalInfoSchema } from '../../validation/profileGeneralSchema';
-import DateOfBirth from './DateOfBirth';
+import DateOfBirthSetup from './DateOfBirthSetup';
+import GenderSetup from './GenderSetup';
 import NewProfileStart from './NewProfileStart';
-import PersonalInfo from './PersonalInfo';
+import PersonalInfoSetup from './PersonalInfoSetup';
+
+export type NewUserProps = {
+  firstName: string;
+  lastName: string;
+  dob: Date;
+  gender: { gender: string; identities: string[] };
+};
 
 const NewUserSetup = () => {
   const { theme } = React.useContext(ThemeContext);
@@ -20,7 +28,14 @@ const NewUserSetup = () => {
       <SafeAreaView style={{ flex: 1 }}>
         <Formik
           validationSchema={PersonalInfoSchema}
-          initialValues={{ firstName: '', lastName: '' }}
+          initialValues={
+            {
+              firstName: '',
+              lastName: '',
+              dob: new Date(),
+              gender: { gender: '', identities: [] },
+            } as NewUserProps
+          }
           onSubmit={(values) => console.log(values)}
           validateOnMount={true}
         >
@@ -35,10 +50,13 @@ const NewUserSetup = () => {
               <NewProfileStart navigator={setCurrentScreen} />
             )}
             {currentScreen === NewProfileScreenEnum.PERSONAL_INFO && (
-              <PersonalInfo navigator={setCurrentScreen} />
+              <PersonalInfoSetup navigator={setCurrentScreen} />
             )}
             {currentScreen === NewProfileScreenEnum.DATE_OF_BIRTH && (
-              <DateOfBirth navigator={setCurrentScreen} />
+              <DateOfBirthSetup navigator={setCurrentScreen} />
+            )}
+            {currentScreen === NewProfileScreenEnum.GENDER && (
+              <GenderSetup navigator={setCurrentScreen} />
             )}
           </View>
         </Formik>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ViewProps } from 'react-native';
 import { ThemeContext } from '../../provider/ThemeProvider';
 
 const Title = ({ children }: { children: string }) => {
@@ -27,7 +27,7 @@ const Description = ({ children }: { children: string }) => {
   );
 };
 
-const Header = ({ children }: { children: any }) => {
+const Header = (props: ViewProps) => {
   const { theme } = React.useContext(ThemeContext);
   return (
     <View
@@ -35,9 +35,10 @@ const Header = ({ children }: { children: any }) => {
         {
           marginTop: theme.spacing.sm,
         },
+        props.style,
       ]}
     >
-      {children}
+      {props.children}
     </View>
   );
 };

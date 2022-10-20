@@ -22,34 +22,42 @@ const Selector = ({ items, field }: { items: Array<any>; field: string }) => {
 
   return (
     <View style={{ flexDirection: 'row' }}>
-      {items.map((item) => (
-        <TouchableOpacity
+      {items.map((item, index) => (
+        <View
           key={item.id}
           style={{
             flex: 1,
-            borderRadius: 16,
             height: 48,
-            justifyContent: 'center',
-            backgroundColor:
-              selected === item.label
-                ? theme.colors.text[50]
-                : theme.colors.transparent,
+            marginLeft:
+              index > 0 && index < items.length ? theme.spacing.sm : 0,
           }}
-          onPress={() => handler(item.label)}
         >
-          <Text
+          <TouchableOpacity
             style={{
-              textAlign: 'center',
-              color:
+              flex: 1,
+              borderRadius: 16,
+              justifyContent: 'center',
+              backgroundColor:
                 selected === item.label
-                  ? theme.colors.text['800']
-                  : theme.colors.text['400'],
-              textTransform: 'uppercase',
+                  ? theme.colors.text[900]
+                  : theme.colors.text[50],
             }}
+            onPress={() => handler(item.label)}
           >
-            {item.label}
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                textAlign: 'center',
+                color:
+                  selected === item.label
+                    ? theme.colors.black
+                    : theme.colors.text['400'],
+                textTransform: 'uppercase',
+              }}
+            >
+              {item.label}
+            </Text>
+          </TouchableOpacity>
+        </View>
       ))}
     </View>
   );

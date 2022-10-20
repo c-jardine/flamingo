@@ -17,6 +17,7 @@ export const darkTheme = {
     baseSecondary: color.baseSecondary,
   },
   spacing: {
+    xs: spacing.xs,
     sm: spacing.sm,
     md: spacing.md,
     lg: spacing.lg,
