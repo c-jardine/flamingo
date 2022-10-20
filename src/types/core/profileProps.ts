@@ -5,7 +5,10 @@ export type ProfileProps = {
   first_name: string;
   last_name: string;
   dob: Date;
-  gender: 'Man' | 'Woman' | 'Nonbinary' | '';
+  gender: {
+    gender: 'Man' | 'Woman' | 'Nonbinary' | '';
+    identities: [];
+  };
   location: string;
   avatar_src?: string;
   last_online?: Date;
