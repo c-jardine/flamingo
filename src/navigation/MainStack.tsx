@@ -6,10 +6,10 @@ import Profile from '../screens/main/Profile';
 import MainTabs from './MainTabs';
 
 import AlbumViewer from '../components/core/AlbumViewer';
-import NewUserSetup from '../screens/auth/NewUserSetup';
-import PhotoAlbum from '../screens/main/PhotoAlbum';
-import { MainStackParamList } from '../types';
 import { AuthContext } from '../provider/AuthProvider';
+import PhotoAlbum from '../screens/main/PhotoAlbum';
+import NewUserSetup from '../screens/newUser/NewUserSetup';
+import { MainStackParamList } from '../types';
 
 const MainStack = createNativeStackNavigator<MainStackParamList>();
 

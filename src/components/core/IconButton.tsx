@@ -4,24 +4,27 @@ import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { ThemeContext } from '../../provider/ThemeProvider';
 
 const IconButton = (
-  props: TouchableOpacityProps &
-    React.ComponentProps<typeof MaterialCommunityIcons>
+  props: TouchableOpacityProps & {
+    contentContainerStyle?: TouchableOpacityProps;
+  } & React.ComponentProps<typeof MaterialCommunityIcons>
 ) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
     <TouchableOpacity
+      {...props}
       style={[
         {
-          margin: 4,
-          backgroundColor: theme.colors.background,
-          borderRadius: 16,
-          padding: theme.spacing.sm,
+          backgroundColor: props.disabled
+            ? theme.colors.text['50']
+            : theme.colors.primary,
+          borderRadius: 24,
           alignItems: 'center',
           justifyContent: 'center',
-          borderWidth: 1,
-          borderColor: theme.colors.text['100'],
+          height: 48,
+          width: 48,
         },
+        props.contentContainerStyle,
       ]}
       onPress={props.onPress}
     >

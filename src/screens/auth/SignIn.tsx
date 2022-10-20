@@ -1,10 +1,12 @@
 import React from 'react';
 import {
   Image,
+  Keyboard,
   KeyboardAvoidingView,
-  ScrollView,
+  Platform,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
@@ -18,54 +20,37 @@ const SignIn = (props: AuthScreenNavigatorProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
-    <View style={{ flex: 1 }}>
-      <Animated.View
-        entering={FadeIn.duration(200).delay(400)}
-        exiting={FadeOut.duration(200).delay(400)}
-        style={{ flex: 1 }}
+    <Animated.View
+      entering={FadeIn.duration(200).delay(400)}
+      exiting={FadeOut.duration(200).delay(400)}
+      style={{ flex: 1 }}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={32}
+        style={{
+          flex: 1,
+        }}
       >
-        <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
-          }}
-        >
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingTop: 64,
-            }}
-          >
-            <Image
-              resizeMode='contain'
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={{ flex: 1 }}>
+            <View
               style={{
-                height: 100,
-                width: 100,
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
-              source={require('../../../assets/images/icon.png')}
-            />
-          </View>
-          <KeyboardAvoidingView
-            behavior='padding'
-            enabled
-            style={{ flex: 1, justifyContent: 'space-between' }}
-          >
-            <View>
-              <SignInForm />
-              <TouchableOpacity
-                onPress={() => {
-                  props.navigator(AuthScreensEnum.FORGOT_PASSWORD);
+            >
+              <Image
+                resizeMode='contain'
+                style={{
+                  height: 100,
+                  width: 100,
                 }}
-                style={{ marginTop: theme.spacing.sm }}
-              >
-                <Text
-                  style={{ color: theme.colors.primary, textAlign: 'center' }}
-                >
-                  Forgot password?
-                </Text>
-              </TouchableOpacity>
+                source={require('../../../assets/images/icon.png')}
+              />
             </View>
+            <SignInForm navigator={props.navigator} />
 
             <View
               style={{
@@ -91,10 +76,10 @@ const SignIn = (props: AuthScreenNavigatorProps) => {
                 </Text>
               </TouchableOpacity>
             </View>
-          </KeyboardAvoidingView>
-        </ScrollView>
-      </Animated.View>
-    </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </Animated.View>
   );
 };
 

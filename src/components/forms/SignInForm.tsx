@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik, FormikValues } from 'formik';
 import React from 'react';
-import { View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { AuthScreensEnum } from '../../enums/AuthScreenEnum';
 import { AuthContext } from '../../provider/AuthProvider';
@@ -9,7 +9,7 @@ import { ThemeContext } from '../../provider/ThemeProvider';
 import { signIn } from '../../services/auth.service';
 import { AuthScreenNavigatorProps } from '../../types/auth/AuthScreen';
 import { SignInSchema } from '../../validation';
-import KButton from '../core/KButton';
+import IconButton from '../core/IconButton';
 import TextInput from './TextInput';
 import TextInputError from './TextInputError';
 
@@ -33,8 +33,14 @@ const SignInForm = (props: AuthScreenNavigatorProps) => {
       onSubmit={(values) => handleSignIn(values)}
     >
       {({ handleChange, handleSubmit, values, errors, touched }) => (
-        <View>
-          <View style={{ paddingHorizontal: 16 }}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'space-between',
+            paddingHorizontal: 16,
+          }}
+        >
+          <View>
             <Animated.View
               entering={FadeIn.duration(200).delay(500)}
               exiting={FadeOut.duration(200)}
@@ -78,15 +84,26 @@ const SignInForm = (props: AuthScreenNavigatorProps) => {
                 <TextInputError>{errors.password}</TextInputError>
               ) : null}
             </Animated.View>
+
+            <TouchableOpacity
+              onPress={() => {
+                props.navigator(AuthScreensEnum.FORGOT_PASSWORD);
+              }}
+              style={{ marginTop: theme.spacing.sm }}
+            >
+              <Text style={{ color: theme.colors.primary, textAlign: 'right' }}>
+                Forgot password?
+              </Text>
+            </TouchableOpacity>
           </View>
 
           <Animated.View
             entering={FadeIn.duration(200).delay(700)}
             exiting={FadeOut.duration(200).delay(200)}
+            style={{ alignItems: 'flex-end' }}
           >
-            <KButton
-              label='Sign in'
-              loading={false}
+            <IconButton
+              name='arrow-right'
               onPress={handleSubmit as (values: FormikValues) => void}
             />
           </Animated.View>

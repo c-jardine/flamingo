@@ -34,7 +34,6 @@ const Header = ({ children }: { children: any }) => {
       style={[
         {
           marginTop: theme.spacing.sm,
-          paddingHorizontal: theme.spacing.md,
         },
       ]}
     >

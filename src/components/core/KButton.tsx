@@ -1,48 +1,39 @@
 import React from 'react';
 import {
-  Text,
   TouchableOpacity,
   TouchableOpacityProps,
   View,
+  ViewStyle,
 } from 'react-native';
 import { ThemeContext } from '../../provider/ThemeProvider';
 
 const KButton = (
-  props: TouchableOpacityProps & { loading: boolean; label: string | any }
+  props: TouchableOpacityProps & { contentContainerStyle?: ViewStyle }
 ) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
-    <View style={{ justifyContent: 'center', flexDirection: 'row' }}>
+    <View
+      style={[
+        { justifyContent: 'center', flexDirection: 'row' },
+        props.contentContainerStyle,
+      ]}
+    >
       <TouchableOpacity
         {...props}
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: props.loading
-            ? theme.colors.text['300']
-            : theme.colors.primary,
-          height: 52,
-          width: '50%',
-          borderWidth: 0,
-          borderRadius: 32,
-          marginTop: theme.spacing.xl,
-        }}
-        disabled={props.loading}
+        style={[
+          {
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: theme.colors.primary,
+            borderWidth: 0,
+            borderRadius: 16,
+          },
+          props.style,
+        ]}
         onPress={props.onPress}
       >
-        <Text
-          style={{
-            color: props.loading
-              ? theme.colors.text['300']
-              : theme.colors.black,
-            textTransform: 'uppercase',
-            fontWeight: 'bold',
-            fontSize: 16,
-          }}
-        >
-          {props.loading ? 'Loading' : props.label}
-        </Text>
+        {props.children}
       </TouchableOpacity>
     </View>
   );
