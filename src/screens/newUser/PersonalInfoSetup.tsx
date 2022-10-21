@@ -1,15 +1,6 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-import Header from '../../components/core/Header';
-import IconButton from '../../components/core/IconButton';
+import { View } from 'react-native';
 import TextInput from '../../components/forms/TextInput';
 import TextInputError from '../../components/forms/TextInputError';
 import NewUserSetupLayout from '../../components/layouts/NewUserSetupLayout';
@@ -20,12 +11,15 @@ import { NewProfileScreenNavigatorProps } from '../../types/auth/NewProfileScree
 const PersonalInfoSetup = (props: NewProfileScreenNavigatorProps) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values, handleChange, errors, touched, handleSubmit, validateField } =
-    useFormikContext<{ firstName: string; lastName: string }>();
+  const { values, handleChange, errors, touched } = useFormikContext<{
+    firstName: string;
+    lastName: string;
+  }>();
   return (
     <NewUserSetupLayout
       title="What's your name?"
       description='Your first name is required, but feel free to add your last name as well.'
+      handleBack={() => props.navigator(NewProfileScreenEnum.START)}
       handleNext={() => {
         if (!errors.firstName && !errors.lastName) {
           props.navigator(NewProfileScreenEnum.DATE_OF_BIRTH);

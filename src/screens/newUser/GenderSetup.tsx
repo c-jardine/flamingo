@@ -1,12 +1,7 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
-import { Text, View } from 'react-native';
-import Animated, {
-  FadeIn,
-  FadeOut,
-  SlideInUp,
-  SlideOutDown,
-} from 'react-native-reanimated';
+import { View } from 'react-native';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import Header from '../../components/core/Header';
 import ToggleList from '../../components/core/ToggleList';
 import Selector from '../../components/forms/Selector';
@@ -20,8 +15,14 @@ import { NewUserProps } from './NewUserSetup';
 const GenderSetup = (props: NewProfileScreenNavigatorProps) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values, errors, setFieldValue } = useFormikContext<NewUserProps>();
+  const { values, setFieldValue } = useFormikContext<NewUserProps>();
 
+  // Set Formik gender field - passed to gender Selector
+  const handleSelectGender = (value: string) => {
+    setFieldValue('gender.gender', value);
+  };
+
+  // Set Formik gender identities field - passed to identities selector
   const handleToggle = (value: string) => {
     let arr = values.gender.identities || [];
     if (arr.includes(value)) {
@@ -40,12 +41,18 @@ const GenderSetup = (props: NewProfileScreenNavigatorProps) => {
     <NewUserSetupLayout
       title='Choose your gender'
       description='This will help with the matchmaking process.'
-      handleNext={() => props.navigator(NewProfileScreenEnum.START)}
-      nextDisabled={!!errors.gender?.gender}
+      handleBack={() => props.navigator(NewProfileScreenEnum.DATE_OF_BIRTH)}
+      handleNext={() => props.navigator(NewProfileScreenEnum.PRONOUNS)}
+      nextDisabled={!values.gender.gender}
     >
       <View style={{ flex: 1 }}>
-        <Selector items={Genders} field='gender.gender' />
-        {!errors.gender?.gender && (
+        <Selector
+          items={Genders}
+          onSelect={handleSelectGender}
+          initialSelected={values.gender.gender}
+          horizontal
+        />
+        {values.gender.gender && (
           <Animated.View
             entering={FadeIn.duration(200)}
             exiting={FadeOut.duration(200)}
@@ -58,6 +65,7 @@ const GenderSetup = (props: NewProfileScreenNavigatorProps) => {
                   We strive to be inclusive. Please reach out if you feel we're
                   missing something.
                 </Header.Description>
+                <Header.Description>(optional)</Header.Description>
               </Header>
               <ToggleList
                 data={GenderIdentities[values.gender.gender]}

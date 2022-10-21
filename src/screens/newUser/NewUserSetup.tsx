@@ -9,6 +9,9 @@ import DateOfBirthSetup from './DateOfBirthSetup';
 import GenderSetup from './GenderSetup';
 import NewProfileStart from './NewProfileStart';
 import PersonalInfoSetup from './PersonalInfoSetup';
+import PersonalityTypeSetup from './PersonalityTypeSetup';
+import PronounsSetup from './PronounsSetup';
+import SexualOrientationSetup from './SexualOrientationSetup';
 
 export type NewUserProps = {
   firstName: string;
@@ -58,35 +61,19 @@ const NewUserSetup = () => {
             {currentScreen === NewProfileScreenEnum.GENDER && (
               <GenderSetup navigator={setCurrentScreen} />
             )}
+            {currentScreen === NewProfileScreenEnum.PRONOUNS && (
+              <PronounsSetup navigator={setCurrentScreen} />
+            )}
+            {currentScreen === NewProfileScreenEnum.SEXUAL_ORIENTATION && (
+              <SexualOrientationSetup navigator={setCurrentScreen} />
+            )}
+            {currentScreen === NewProfileScreenEnum.PERSONALITY_TYPE && (
+              <PersonalityTypeSetup navigator={setCurrentScreen} />
+            )}
           </View>
         </Formik>
       </SafeAreaView>
     </View>
-    // <View style={{ backgroundColor: theme.colors.background, flex: 1 }}>
-    //   <SafeAreaView style={{ flex: 1, paddingVertical: theme.spacing.xxl }}>
-    //     <Animated.View
-    //       entering={FadeIn.duration(200).delay(500)}
-    //       exiting={FadeOut.duration(200).delay(400)}
-    //       style={{ flex: 1 }}
-    //     >
-    //       {/* <Header>
-    //         <Header.Title>Set up your profile</Header.Title>
-    //         <Header.Description>
-    //           Let's show the world who you are!
-    //         </Header.Description>
-    //       </Header> */}
-
-    //       <Formik
-    //         initialValues={{ firstName: '', lastName: '' }}
-    //         onSubmit={() => {
-    //           return;
-    //         }}
-    //       >
-    //         <PersonalInfoForm />
-    //       </Formik>
-    //     </Animated.View>
-    //   </SafeAreaView>
-    // </View>
   );
 };
 

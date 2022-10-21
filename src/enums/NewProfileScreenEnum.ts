@@ -3,4 +3,7 @@ export enum NewProfileScreenEnum {
   PERSONAL_INFO,
   DATE_OF_BIRTH,
   GENDER,
+  PRONOUNS,
+  SEXUAL_ORIENTATION,
+  PERSONALITY_TYPE
 }

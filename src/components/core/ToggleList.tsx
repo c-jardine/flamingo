@@ -12,7 +12,9 @@ import { ProfileProps } from '../../types/core/profileProps';
 import { ToggleListItemProps } from '../../types/core/ToggleListProps';
 
 const ToggleList = (
-  props: FlatListProps<any> & { handleToggle: (value: string) => void }
+  props: Omit<FlatListProps<any>, 'renderItem'> & {
+    handleToggle: (value: string) => void;
+  }
 ) => {
   const { theme } = React.useContext(ThemeContext);
 

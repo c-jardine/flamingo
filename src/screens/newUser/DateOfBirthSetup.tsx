@@ -1,4 +1,4 @@
-import { intervalToDuration } from 'date-fns';
+import { format, intervalToDuration } from 'date-fns';
 import { parse } from 'date-fns/esm';
 import { useFormikContext } from 'formik';
 import React from 'react';
@@ -45,6 +45,10 @@ const DateOfBirthSetup = (props: NewProfileScreenNavigatorProps) => {
     setFieldValue('dob', date);
   }, [isValid]);
 
+  React.useEffect(() => {
+    values.dob && setDob(format(values.dob, 'MM/dd/yyyy'));
+  }, []);
+
   const { values, errors, touched, handleSubmit } =
     useFormikContext<ProfileProps>();
 
@@ -52,6 +56,7 @@ const DateOfBirthSetup = (props: NewProfileScreenNavigatorProps) => {
     <NewUserSetupLayout
       title='When were you born?'
       description="Make sure it's right, you won't be able to change it later."
+      handleBack={() => props.navigator(NewProfileScreenEnum.PERSONAL_INFO)}
       handleNext={() => props.navigator(NewProfileScreenEnum.GENDER)}
       nextDisabled={!isValid}
     >

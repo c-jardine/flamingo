@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import Header from '../core/Header';
 import IconButton from '../core/IconButton';
 
 interface NewUserSetupLayoutProps {
+  handleBack?: () => void;
   handleNext: () => void;
   title: string;
   description: string;
@@ -52,7 +47,16 @@ const NewUserSetupLayout = (props: NewUserSetupLayoutProps) => {
           </View>
         </Animated.View>
 
-        <View style={{ alignItems: 'flex-end', marginTop: theme.spacing.lg }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: props.handleBack ? 'space-between' : 'flex-end',
+            marginTop: theme.spacing.lg,
+          }}
+        >
+          {props.handleBack && (
+            <IconButton name='arrow-left' onPress={props.handleBack} />
+          )}
           <IconButton
             name='arrow-right'
             onPress={props.handleNext}
