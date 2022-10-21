@@ -36,10 +36,12 @@ const NewUserSetupLayout = (props: NewUserSetupLayoutProps) => {
           exiting={FadeOut.duration(200)}
           style={{ flex: 1 }}
         >
-          <Header>
-            <Header.Title>{props.title}</Header.Title>
-            <Header.Description>{props.description}</Header.Description>
-          </Header>
+          <View style={{ paddingHorizontal: theme.spacing.md }}>
+            <Header>
+              <Header.Title>{props.title}</Header.Title>
+              <Header.Description>{props.description}</Header.Description>
+            </Header>
+          </View>
 
           <View style={{ flex: 1 }}>
             <View style={{ marginTop: theme.spacing.xxl }} />
@@ -52,6 +54,7 @@ const NewUserSetupLayout = (props: NewUserSetupLayoutProps) => {
             flexDirection: 'row',
             justifyContent: props.handleBack ? 'space-between' : 'flex-end',
             marginTop: theme.spacing.lg,
+            paddingHorizontal: theme.spacing.xxl,
           }}
         >
           {props.handleBack && (

@@ -15,27 +15,22 @@ import { NewUserProps } from './NewUserSetup';
 const GenderSetup = (props: NewProfileScreenNavigatorProps) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values, setFieldValue } = useFormikContext<NewUserProps>();
+  const { values: formikValues, setFieldValue } =
+    useFormikContext<NewUserProps>();
 
   // Set Formik gender field - passed to gender Selector
   const handleSelectGender = (value: string) => {
     setFieldValue('gender.gender', value);
   };
 
-  // Set Formik gender identities field - passed to identities selector
-  const handleToggle = (value: string) => {
-    let arr = values.gender.identities || [];
-    if (arr.includes(value)) {
-      arr.splice(arr.indexOf(value), 1);
-    } else {
-      arr.push(value);
-    }
-    setFieldValue('gender.identities', arr);
+  // Set Formik gender identities field - passed to gender identity Selector
+  const handleSelectIdentity = (values: string[]) => {
+    setFieldValue('gender.identities', values);
   };
 
   React.useEffect(() => {
     setFieldValue('gender.identities', []);
-  }, [values.gender.gender]);
+  }, [formikValues.gender.gender]);
 
   return (
     <NewUserSetupLayout
@@ -43,39 +38,39 @@ const GenderSetup = (props: NewProfileScreenNavigatorProps) => {
       description='This will help with the matchmaking process.'
       handleBack={() => props.navigator(NewProfileScreenEnum.DATE_OF_BIRTH)}
       handleNext={() => props.navigator(NewProfileScreenEnum.PRONOUNS)}
-      nextDisabled={!values.gender.gender}
+      nextDisabled={!formikValues.gender.gender}
     >
-      <View style={{ flex: 1 }}>
+      <View style={{ width: '100%' }}>
         <Selector
           items={Genders}
           onSelect={handleSelectGender}
-          initialSelected={values.gender.gender}
+          value={formikValues.gender.gender}
           horizontal
         />
-        {values.gender.gender && (
-          <Animated.View
-            entering={FadeIn.duration(200)}
-            exiting={FadeOut.duration(200)}
-            style={{ flex: 1 }}
-          >
-            <View style={{ flex: 1 }}>
-              <Header style={{ marginTop: theme.spacing.xxl }}>
-                <Header.Title>Want to be more specific?</Header.Title>
-                <Header.Description>
-                  We strive to be inclusive. Please reach out if you feel we're
-                  missing something.
-                </Header.Description>
-                <Header.Description>(optional)</Header.Description>
-              </Header>
-              <ToggleList
-                data={GenderIdentities[values.gender.gender]}
-                handleToggle={handleToggle}
-                contentContainerStyle={{ marginTop: theme.spacing.md }}
-              />
-            </View>
-          </Animated.View>
-        )}
       </View>
+      {formikValues.gender.gender && (
+        <Animated.View
+          entering={FadeIn.duration(200)}
+          exiting={FadeOut.duration(200)}
+          style={{ flex: 1, paddingHorizontal: theme.spacing.md }}
+        >
+          <Header style={{ marginTop: theme.spacing.xxl }}>
+            <Header.Title>Want to be more specific?</Header.Title>
+            <Header.Description>
+              We strive to be inclusive. Please reach out if you feel we're
+              missing something.
+            </Header.Description>
+            <Header.Description>(optional)</Header.Description>
+          </Header>
+          <View style={{ height: theme.spacing.md }} />
+          <Selector
+            items={GenderIdentities[formikValues.gender.gender]}
+            value={formikValues.gender.identities}
+            multiselect
+            onSelect={handleSelectIdentity}
+          />
+        </Animated.View>
+      )}
     </NewUserSetupLayout>
   );
 };

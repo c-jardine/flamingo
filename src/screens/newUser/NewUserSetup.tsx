@@ -46,7 +46,7 @@ const NewUserSetup = () => {
             style={{
               flex: 1,
               paddingVertical: theme.spacing.xxl,
-              paddingHorizontal: theme.spacing.md,
+              // paddingHorizontal: theme.spacing.md,
             }}
           >
             {currentScreen === NewProfileScreenEnum.START && (

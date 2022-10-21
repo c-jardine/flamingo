@@ -8,24 +8,44 @@ import {
 } from 'react-native';
 import { ThemeContext } from '../../provider/ThemeProvider';
 
+type AOnSelectSingle = (value: string) => void;
+
+type AOnSelectMultiselect = (values: string[]) => void;
+
 interface SelectorProps {
   items: Array<any>;
-  initialSelected?: string;
-  onSelect: (value: string) => void;
+  value?: string | string[];
+  onSelect: AOnSelectSingle | AOnSelectMultiselect;
   horizontal?: boolean;
+  multiselect?: boolean;
   contentContainerStyle?: FlatListProps<any>;
 }
 
 const Selector = (props: SelectorProps) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const [selected, setSelected] = React.useState<string | string[]>();
+  const [selected, setSelected] = React.useState<string | string[]>(
+    props.multiselect ? [] : ''
+  );
 
   React.useEffect(() => {
-    props.initialSelected && setSelected(props.initialSelected);
+    props.value && setSelected(props.value);
   }, []);
 
-  const handler = (value: string) => {
+  const handleMultiselect = (value: string) => {
+    if (props.multiselect) {
+      let arr = (props.value as string[]) || [];
+      if (arr.includes(value)) {
+        arr.splice(arr.indexOf(value), 1);
+      } else {
+        arr.push(value);
+      }
+      setSelected(arr as string[]);
+      return props.onSelect(arr);
+    }
+  };
+
+  const handleSingle = (value: string) => {
     setSelected(value);
     return props.onSelect(value);
   };
@@ -34,23 +54,31 @@ const Selector = (props: SelectorProps) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          handler(item.value);
+          props.multiselect
+            ? handleMultiselect(item.value)
+            : handleSingle(item.value);
         }}
-        style={{
-          // flex: 1,
-          padding: theme.spacing.md,
-          backgroundColor:
-            selected && selected.includes(item.value)
-              ? theme.colors.text['900']
-              : theme.colors.text['50'],
-          borderRadius: 16,
-          justifyContent: 'center',
-        }}
+        style={[
+          props.horizontal && {
+            flexBasis: `${100 / props.items.length}%`,
+            alignItems: 'center',
+          },
+          {
+            paddingVertical: theme.spacing.md,
+            paddingHorizontal: theme.spacing.md,
+            backgroundColor:
+              props.value && props.value.includes(item.value)
+                ? theme.colors.text['900']
+                : theme.colors.text['50'],
+            borderRadius: props.horizontal ? 0 : 16,
+            justifyContent: 'center',
+          },
+        ]}
       >
         <Text
           style={{
             color:
-              selected && selected.includes(item.value)
+              props.value && props.value.includes(item.value)
                 ? theme.colors.black
                 : theme.colors.text['600'],
             textTransform: 'uppercase',
@@ -62,7 +90,7 @@ const Selector = (props: SelectorProps) => {
           <Text
             style={{
               color:
-                selected && selected.includes(item.value)
+                props.value && props.value.includes(item.value)
                   ? theme.colors.baseSecondary['500']
                   : theme.colors.text['300'],
               fontSize: 12,
@@ -83,16 +111,21 @@ const Selector = (props: SelectorProps) => {
       ItemSeparatorComponent={() => (
         <View
           style={
-            props.horizontal
-              ? { width: theme.spacing.md }
-              : { height: theme.spacing.md }
+            !props.horizontal && {
+              width: theme.spacing.sm,
+              height: theme.spacing.sm,
+            }
           }
         />
       )}
       horizontal={props.horizontal}
-      // style={[props.contentContainerStyle, {width: '100%'}]}
-      // contentContainerStyle={{width: '33%'}}
-      scrollEnabled={false}
+      contentContainerStyle={[
+        props.contentContainerStyle,
+        {
+          width: '100%',
+        },
+      ]}
+      scrollEnabled={!props.horizontal}
     />
     // <View style={{ flexDirection: 'row' }}>
     //   {props.items.map((item, index) => (
