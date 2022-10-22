@@ -3,12 +3,11 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import KButton from '../../../components/core/Button/Button';
 import { ThemeContext } from '../../../provider/ThemeProvider';
-import {
-  AuthScreenEnum,
-  AuthScreenNavigatorProps,
-} from '../AuthScreen/AuthScreen.type';
+import { ConfirmEmailScreenNavigationProp } from './ConfirmEmailScreen.type';
 
-const EmailConfirmationScreen = (props: AuthScreenNavigatorProps) => {
+const ConfirmEmailScreen = (props: {
+  navigation: ConfirmEmailScreenNavigationProp;
+}) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
@@ -47,12 +46,11 @@ const EmailConfirmationScreen = (props: AuthScreenNavigatorProps) => {
         A confirmation link has been sent to your email.
       </Text>
       <KButton
-        loading={false}
         label={'Return to sign in'}
-        onPress={() => props.navigator(AuthScreenEnum.SIGN_IN_SCREEN)}
+        onPress={() => props.navigation.navigate('SignIn')}
       />
     </View>
   );
 };
 
-export default EmailConfirmationScreen;
+export default ConfirmEmailScreen;

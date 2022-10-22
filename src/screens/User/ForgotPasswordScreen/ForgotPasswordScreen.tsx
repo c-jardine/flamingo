@@ -1,4 +1,3 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import {
   Image,
@@ -10,13 +9,12 @@ import {
   View,
 } from 'react-native';
 
-import { supabase } from '../../initSupabase';
+import { supabase } from '../../../initSupabase';
+import { ForgotPasswordScreenNavigationProp } from './ForgotPasswordScreen.type';
 
-import { AuthStackParamList } from '../../types';
-
-export default function ({
-  navigation,
-}: NativeStackScreenProps<AuthStackParamList, 'ForgetPassword'>) {
+const ForgotPasswordScreen = (props: {
+  navigation: ForgotPasswordScreenNavigationProp;
+}) => {
   const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -48,14 +46,14 @@ export default function ({
             alignItems: 'center',
           }}
         >
-          <Image
+          {/* <Image
             resizeMode='contain'
             style={{
               height: 220,
               width: 220,
             }}
             source={require('../../../assets/images/forget.png')}
-          />
+          /> */}
         </View>
         <View
           style={{
@@ -82,13 +80,6 @@ export default function ({
             keyboardType='email-address'
             onChangeText={(text) => setEmail(text)}
           />
-          {/* <Button
-            title={loading ? 'Loading' : 'Send email'}
-            onPress={() => {
-              forget();
-            }}
-            disabled={loading}
-          /> */}
 
           <View
             style={{
@@ -101,7 +92,7 @@ export default function ({
             <Text>Already have an account?</Text>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('SignIn');
+                props.navigation.navigate('SignIn');
               }}
             >
               <Text
@@ -117,4 +108,6 @@ export default function ({
       </ScrollView>
     </KeyboardAvoidingView>
   );
-}
+};
+
+export default ForgotPasswordScreen;

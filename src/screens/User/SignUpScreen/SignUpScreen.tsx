@@ -1,25 +1,22 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik, FormikValues } from 'formik';
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
 import TextInput from '../../../components/forms/TextInput';
 import TextInputError from '../../../components/forms/TextInputError';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
 import { ThemeContext } from '../../../provider/ThemeProvider';
-import {
-  AuthScreenEnum,
-  AuthScreenNavigatorProps,
-} from '../AuthScreen/AuthScreen.type';
 import { SignUpSchema } from './SignUpScreen.schema';
 import { sendVerificationEmail } from './SignUpScreen.service';
+import { SignUpScreenNavigationProp } from './SignUpScreen.type';
 
-const SignUpScreen = (props: AuthScreenNavigatorProps) => {
+const SignUpScreen = (props: { navigation: SignUpScreenNavigationProp }) => {
   const { theme } = React.useContext(ThemeContext);
 
   const _handleNext = async (values: FormikValues) => {
     await sendVerificationEmail(values, () =>
-      props.navigator(AuthScreenEnum.EMAIL_VERIFICATION_SCREEN)
+      props.navigation.navigate('EmailConfirmation')
     );
   };
 
@@ -109,7 +106,7 @@ const SignUpScreen = (props: AuthScreenNavigatorProps) => {
                 Already have an account?{' '}
               </Text>
               <TouchableOpacity
-                onPress={() => props.navigator(AuthScreenEnum.SIGN_IN_SCREEN)}
+                onPress={() => props.navigation.navigate('SignIn')}
               >
                 <Text
                   style={{

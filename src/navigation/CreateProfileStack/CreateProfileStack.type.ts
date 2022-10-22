@@ -1,4 +1,4 @@
-export type CreateProfileParams = {
+export type CreateProfileStackParams = {
   Info: undefined;
   PersonalInfo: undefined;
   Birthdate: undefined;

@@ -55,13 +55,13 @@ const PersonalityTypeScreen = (props: {
             disabled: false,
             onPress: () => props.navigation.goBack(),
           }}
-          nextComponent={
-            {
-              // onPress: () =>
-              // props.navigator(CreateProfileScreenEnum.PERSONALITY_TYPE),
-              // disabled: !!errors?.email || !!errors?.password || false,
-            }
-          }
+          nextComponent={{
+            onPress: () =>
+              props.navigation.navigate('AuthNavigator', {
+                screen: 'AuthScreen',
+              }),
+            // disabled: !!errors?.email || !!errors?.password || false,
+          }}
         />
       </FormPageLayout.PageFooter>
     </FormPageLayout>

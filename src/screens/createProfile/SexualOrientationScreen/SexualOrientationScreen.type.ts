@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { CreateProfileParams } from '../../../navigation/CreateProfile/CreateProfile.type';
+import { CreateProfileStackParams } from '../../../navigation/CreateProfileStack/CreateProfileStack.type';
 
 export type SexualOrientationScreenProps = NativeStackScreenProps<
-  CreateProfileParams,
+  CreateProfileStackParams,
   'SexualOrientation',
   'CreateProfileStack'
 >;

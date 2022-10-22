@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { GenderIdentities, Genders } from '../../constants/gender';
 
-export const CreateProfileSchema = Yup.object().shape({
+export const CreateProfileStackSchema = Yup.object().shape({
   firstName: Yup.string().min(2, 'Too short').required('Required'),
   lastName: Yup.string().min(1, 'Too short'),
   dob: Yup.date(),

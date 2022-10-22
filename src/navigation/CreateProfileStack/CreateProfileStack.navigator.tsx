@@ -7,12 +7,12 @@ import {
   PersonalityTypeScreen,
   PronounsScreen,
   SexualOrientationScreen,
-} from '../../screens/createProfile';
-import { CreateProfileParams } from './CreateProfile.type';
+} from '../../screens/CreateProfile';
+import { CreateProfileStackParams } from './CreateProfileStack.type';
 
-const Stack = createNativeStackNavigator<CreateProfileParams>();
+const Stack = createNativeStackNavigator<CreateProfileStackParams>();
 
-const CreateProfile = () => {
+const CreateProfileNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, animation: 'simple_push' }}
@@ -30,4 +30,4 @@ const CreateProfile = () => {
     </Stack.Navigator>
   );
 };
-export default CreateProfile;
+export default CreateProfileNavigator;

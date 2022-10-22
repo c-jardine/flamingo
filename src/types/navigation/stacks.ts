@@ -6,10 +6,3 @@ export type MainStackParamList = {
   PhotoAlbum: { id: string };
   AlbumViewer: { id: string };
 };
-
-export type AuthStackParamList = {
-  SignIn: undefined;
-  SignUp: undefined;
-  ForgetPassword: undefined;
-  VerifyId: undefined;
-};

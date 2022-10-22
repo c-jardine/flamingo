@@ -9,13 +9,10 @@ import TextInputError from '../../../components/forms/TextInputError';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { signIn } from '../../../services/auth.service';
-import {
-  AuthScreenEnum,
-  AuthScreenNavigatorProps,
-} from '../AuthScreen/AuthScreen.type';
 import { SignInSchema } from './SignInScreen.schema';
+import { SignInScreenNavigationProp } from './SignInScreen.type';
 
-const SignInScreen = (props: AuthScreenNavigatorProps) => {
+const SignInScreen = (props: { navigation: SignInScreenNavigationProp }) => {
   const { theme } = React.useContext(ThemeContext);
 
   const _handleSignIn = async (values: FormikValues) => {
@@ -91,7 +88,7 @@ const SignInScreen = (props: AuthScreenNavigatorProps) => {
               <View style={{ alignItems: 'flex-end' }}>
                 <TouchableOpacity
                   onPress={() => {
-                    props.navigator(AuthScreenEnum.FORGOT_PASSWORD_SCREEN);
+                    props.navigation.navigate('ForgotPassword');
                   }}
                   style={{ marginTop: theme.spacing.sm }}
                 >
@@ -126,7 +123,7 @@ const SignInScreen = (props: AuthScreenNavigatorProps) => {
                   Don't have an account?{' '}
                 </Text>
                 <TouchableOpacity
-                  onPress={() => props.navigator(AuthScreenEnum.SIGN_UP_SCREEN)}
+                  onPress={() => props.navigation.navigate('SignUp')}
                 >
                   <Text
                     style={{
