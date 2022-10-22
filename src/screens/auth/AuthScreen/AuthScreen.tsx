@@ -17,20 +17,18 @@ const AuthScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <SafeAreaView style={{ flex: 1 }}>
-        {currentScreen === AuthScreenEnum.SIGN_IN_SCREEN && (
-          <SignInScreen navigator={setCurrentScreen} />
-        )}
-        {currentScreen === AuthScreenEnum.SIGN_UP_SCREEN && (
-          <SignUpScreen navigator={setCurrentScreen} />
-        )}
-        {currentScreen === AuthScreenEnum.EMAIL_VERIFICATION_SCREEN && (
-          <EmailConfirmationScreen navigator={setCurrentScreen} />
-        )}
-        {currentScreen === AuthScreenEnum.VERIFY_IDENTITY_SCREEN && (
-          <Verification navigator={setCurrentScreen} />
-        )}
-      </SafeAreaView>
+      {currentScreen === AuthScreenEnum.SIGN_IN_SCREEN && (
+        <SignInScreen navigator={setCurrentScreen} />
+      )}
+      {currentScreen === AuthScreenEnum.SIGN_UP_SCREEN && (
+        <SignUpScreen navigator={setCurrentScreen} />
+      )}
+      {currentScreen === AuthScreenEnum.EMAIL_VERIFICATION_SCREEN && (
+        <EmailConfirmationScreen navigator={setCurrentScreen} />
+      )}
+      {currentScreen === AuthScreenEnum.VERIFY_IDENTITY_SCREEN && (
+        <Verification navigator={setCurrentScreen} />
+      )}
     </View>
   );
 };

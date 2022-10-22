@@ -1,9 +1,7 @@
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { Formik } from 'formik';
 import React from 'react';
 import { AuthContext } from '../provider/AuthProvider';
-
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
-
-import { Formik } from 'formik';
 import { ThemeContext } from '../provider/ThemeProvider';
 import Loading from '../screens/utils/Loading';
 import Auth from './AuthStack';

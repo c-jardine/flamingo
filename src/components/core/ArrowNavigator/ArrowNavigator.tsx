@@ -12,6 +12,9 @@ import { ArrowNavigatorProps } from './ArrowNavigator.type';
 const ArrowNavigator = (props: ArrowNavigatorProps): JSX.Element => {
   // Set necessary default props if they aren't provided.
   const _props: ArrowNavigatorProps = arrowNavigatorDefaults(props);
+  React.useEffect(() => {
+    console.log(_props);
+  });
 
   return (
     <View style={_props.contentContainerStyle}>

@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik, FormikValues } from 'formik';
 import React from 'react';
-import { View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
 import TextInput from '../../../components/forms/TextInput';
 import TextInputError from '../../../components/forms/TextInputError';
@@ -90,14 +90,37 @@ const SignUpScreen = (props: AuthScreenNavigatorProps) => {
           <FormPageLayout.PageFooter>
             <ArrowNavigator
               backComponent={{
-                disabled: false,
-                onPress: () => props.navigator(AuthScreenEnum.SIGN_IN_SCREEN),
+                visible: false,
               }}
               nextComponent={{
                 onPress: handleSubmit,
                 disabled: !!errors?.email || !!errors?.password || false,
               }}
             />
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginVertical: theme.spacing.sm,
+                justifyContent: 'center',
+              }}
+            >
+              <Text style={{ color: theme.colors.text['300'] }}>
+                Already have an account?{' '}
+              </Text>
+              <TouchableOpacity
+                onPress={() => props.navigator(AuthScreenEnum.SIGN_IN_SCREEN)}
+              >
+                <Text
+                  style={{
+                    color: theme.colors.primary,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Sign in
+                </Text>
+              </TouchableOpacity>
+            </View>
           </FormPageLayout.PageFooter>
         </FormPageLayout>
       )}

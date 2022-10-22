@@ -18,6 +18,7 @@ const InfoScreen = (props: { navigation: InfoScreenNavigationProp }) => {
       <FormPageLayout.PageFooter>
         <ArrowNavigator
           backComponent={{
+            icon: 'close-thick',
             disabled: false,
             onPress: () => signOut(),
           }}

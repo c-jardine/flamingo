@@ -25,14 +25,23 @@ export const arrowNavigatorDefaults = (
   const _backButton = (): JSX.Element => {
     return (
       <IconButton
-        name={backComponent?.icon || 'arrow-left-thick'}
-        onPress={
-          backComponent?.onPress ||
-          (() => {
-            return;
-          })
+        name={
+          backComponent?.icon !== undefined
+            ? backComponent.icon
+            : 'arrow-left-thick'
         }
-        disabled={backComponent?.disabled || false}
+        onPress={
+          backComponent?.onPress !== undefined
+            ? backComponent?.onPress
+            : () => {
+                return;
+              }
+        }
+        disabled={
+          backComponent?.disabled !== undefined
+            ? backComponent?.disabled
+            : false
+        }
         contentContainerStyle={{ backgroundColor: theme.colors.text['50'] }}
       />
     );
@@ -57,13 +66,21 @@ export const arrowNavigatorDefaults = (
   // Initialize prop defaults where necessary.
   const initProps: ArrowNavigatorProps = {
     contentContainerStyle:
-      contentContainerStyle || defaultContentContainerStyle(props),
+      contentContainerStyle !== undefined
+        ? contentContainerStyle
+        : defaultContentContainerStyle(props),
 
     backComponent: {
-      disabled: backComponent?.disabled || true,
-      visible: backComponent?.visible || true,
-      icon: backComponent?.icon || 'arrow-left',
-      render: backComponent?.render || _backButton(),
+      disabled:
+        backComponent?.disabled !== undefined ? backComponent?.disabled : true,
+      visible:
+        backComponent?.visible !== undefined ? backComponent?.visible : true,
+      icon:
+        backComponent?.icon !== undefined ? backComponent?.icon : 'arrow-left',
+      render:
+        backComponent?.render !== undefined
+          ? backComponent?.render
+          : _backButton(),
     },
 
     nextComponent: {

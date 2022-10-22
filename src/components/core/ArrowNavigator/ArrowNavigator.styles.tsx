@@ -11,7 +11,11 @@ export const defaultContentContainerStyle = (
   return {
     flexDirection: 'row',
     justifyContent:
-      props.backComponent?.visible || true ? 'space-between' : 'flex-end',
+      props.backComponent?.visible !== undefined
+        ? props.backComponent.visible
+          ? 'space-between'
+          : 'flex-end'
+        : 'space-between',
     marginTop: theme.spacing.lg,
     paddingHorizontal: theme.spacing.md,
   };
