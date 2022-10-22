@@ -15,19 +15,24 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
 
   const { values: formikValues, setFieldValue } = useFormikContext<any>();
 
-  // Set Formik gender field - passed to gender Selector
+  // Set Formik gender field - passed to gender Selector.
   const handleSelectGender = (value: string) => {
     setFieldValue('gender.gender', value);
   };
 
-  // Set Formik gender identities field - passed to gender identity Selector
+  // Set Formik gender identities field - passed to gender identity Selector.
   const handleSelectIdentity = (values: string[]) => {
     setFieldValue('gender.identities', values);
   };
 
+  // Reset identities when new gender is selected.
   React.useEffect(() => {
     setFieldValue('gender.identities', []);
   }, [formikValues.gender.gender]);
+
+  React.useEffect(() => {
+    console.log(formikValues.gender);
+  }, []);
 
   return (
     <FormPageLayout>

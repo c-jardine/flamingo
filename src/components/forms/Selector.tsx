@@ -66,10 +66,13 @@ const Selector = (props: SelectorProps) => {
           {
             paddingVertical: theme.spacing.md,
             paddingHorizontal: theme.spacing.md,
-            backgroundColor:
-              props.value && props.value.includes(item.value)
+            backgroundColor: props.multiselect
+              ? selected.includes(item.value)
                 ? theme.colors.text['900']
-                : theme.colors.text['50'],
+                : theme.colors.text['50']
+              : selected === item.value
+              ? theme.colors.text['900']
+              : theme.colors.text['50'],
             borderRadius: props.horizontal ? 0 : 16,
             justifyContent: 'center',
           },
@@ -77,10 +80,13 @@ const Selector = (props: SelectorProps) => {
       >
         <Text
           style={{
-            color:
-              props.value && props.value.includes(item.value)
+            color: props.multiselect
+              ? selected.includes(item.value)
                 ? theme.colors.black
-                : theme.colors.text['600'],
+                : theme.colors.text['600']
+              : selected === item.value
+              ? theme.colors.black
+              : theme.colors.text['600'],
             textTransform: 'uppercase',
           }}
         >
@@ -89,10 +95,13 @@ const Selector = (props: SelectorProps) => {
         {item.description && (
           <Text
             style={{
-              color:
-                props.value && props.value.includes(item.value)
+              color: props.multiselect
+                ? selected.includes(item.value)
                   ? theme.colors.baseSecondary['500']
-                  : theme.colors.text['300'],
+                  : theme.colors.text['300']
+                : selected === item.value
+                ? theme.colors.baseSecondary['500']
+                : theme.colors.text['300'],
               fontSize: 12,
             }}
           >
@@ -127,45 +136,6 @@ const Selector = (props: SelectorProps) => {
       ]}
       scrollEnabled={!props.horizontal}
     />
-    // <View style={{ flexDirection: 'row' }}>
-    //   {props.items.map((item, index) => (
-    //     <View
-    //       key={item.id}
-    //       style={{
-    //         flex: 1,
-    //         height: 48,
-    //         marginLeft:
-    //           index > 0 && index < props.items.length ? theme.spacing.sm : 0,
-    //       }}
-    //     >
-    //       <TouchableOpacity
-    //         style={{
-    //           flex: 1,
-    //           borderRadius: 16,
-    //           justifyContent: 'center',
-    //           backgroundColor:
-    //             selected === item.value
-    //               ? theme.colors.text[900]
-    //               : theme.colors.text[50],
-    //         }}
-    //         onPress={() => handler(item.value)}
-    //       >
-    //         <Text
-    //           style={{
-    //             textAlign: 'center',
-    //             color:
-    //               selected === item.value
-    //                 ? theme.colors.black
-    //                 : theme.colors.text['400'],
-    //             textTransform: 'uppercase',
-    //           }}
-    //         >
-    //           {item.value}
-    //         </Text>
-    //       </TouchableOpacity>
-    //     </View>
-    //   ))}
-    // </View>
   );
 };
 export default Selector;

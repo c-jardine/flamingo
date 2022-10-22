@@ -28,25 +28,17 @@ const BirthdateScreen = (props: {
         end: new Date(),
       });
 
-      years && years >= 18 && years <= 100
-        ? setIsValid(true)
-        : setIsValid(false);
-
+      const isValid = years && years >= 18 && years <= 100;
       if (isValid) {
+        const date = parse(dob, 'MM/dd/yyyy', new Date());
+        setFieldValue('dob', date);
       }
-    } else {
-      setIsValid(false);
     }
   };
 
   React.useEffect(() => {
     handleSetDate();
   }, [dob]);
-
-  React.useEffect(() => {
-    const date = parse(dob, 'MM/dd/yyyy', new Date());
-    setFieldValue('dob', date);
-  }, [isValid]);
 
   React.useEffect(() => {
     values.dob && setDob(format(values.dob, 'MM/dd/yyyy'));
