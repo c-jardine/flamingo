@@ -8,7 +8,6 @@ import MainTabs from './MainTabs';
 import AlbumViewer from '../components/core/AlbumViewer';
 import { AuthContext } from '../provider/AuthProvider';
 import PhotoAlbum from '../screens/main/PhotoAlbum';
-import NewUserSetup from '../screens/newUser/NewUserSetupScreen/NewUserSetupScreen';
 import { MainStackParamList } from '../types';
 
 const MainStack = createNativeStackNavigator<MainStackParamList>();
@@ -23,9 +22,6 @@ const Main = () => {
         headerShown: false,
       }}
     >
-      {user && !profile && (
-        <MainStack.Screen name='NewUserSetup' component={NewUserSetup} />
-      )}
       <MainStack.Screen name='MainTabs' component={MainTabs} />
       <MainStack.Screen name='EditProfile' component={EditProfile} />
       <MainStack.Screen name='Profile' component={Profile} />

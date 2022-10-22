@@ -42,6 +42,7 @@ const AuthProvider = (props: Props) => {
 
           console.log('USER', user);
           console.log('PROFILE', profile);
+          console.log(data)
 
           if (data) {
             setProfile(data);

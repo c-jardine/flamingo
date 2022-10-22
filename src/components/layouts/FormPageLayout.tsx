@@ -7,6 +7,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import Header from '../core/Header';
 
@@ -25,7 +26,9 @@ const PageHeader = (
   const { theme } = React.useContext(ThemeContext);
 
   return (
-    <View
+    <Animated.View
+      entering={FadeIn.duration(200).delay(400)}
+      exiting={FadeOut.duration(200)}
       style={{
         paddingHorizontal: theme.spacing.md,
         marginBottom: theme.spacing.md,
@@ -35,7 +38,7 @@ const PageHeader = (
         <Header.Title>{props.title}</Header.Title>
         <Header.Description>{props.description}</Header.Description>
       </Header>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -43,9 +46,13 @@ const PageContent = (
   props: ViewProps & { contentContainerStyle?: ViewStyle }
 ) => {
   return (
-    <View style={[{ flex: 1 }, props.contentContainerStyle]}>
+    <Animated.View
+      entering={FadeIn.duration(200).delay(600)}
+      exiting={FadeOut.duration(200)}
+      style={[{ flex: 1 }, props.contentContainerStyle]}
+    >
       {props.children}
-    </View>
+    </Animated.View>
   );
 };
 
@@ -57,22 +64,18 @@ const FormPageLayout = (props: Pick<ViewProps, 'children'>) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={theme.spacing.md}
-      style={{
-        flex: 1,
-        justifyContent: 'space-between',
-      }}
-    >
-      <Animated.View
-        entering={FadeIn.duration(200).delay(200)}
-        exiting={FadeOut.duration(200)}
-        style={{ flex: 1 }}
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={theme.spacing.md}
+        style={{
+          flex: 1,
+          justifyContent: 'space-between',
+        }}
       >
-        {props.children}
-      </Animated.View>
-    </KeyboardAvoidingView>
+        <View style={{ flex: 1 }}>{props.children}</View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 

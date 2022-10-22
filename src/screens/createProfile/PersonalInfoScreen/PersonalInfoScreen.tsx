@@ -5,11 +5,12 @@ import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigat
 import TextInput from '../../../components/forms/TextInput';
 import TextInputError from '../../../components/forms/TextInputError';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
-import { NewProfileScreenEnum } from '../../../enums/NewProfileScreenEnum';
 import { ThemeContext } from '../../../provider/ThemeProvider';
-import { NewProfileScreenNavigatorProps } from '../../../types/auth/NewProfileScreenProps';
+import { PersonalInfoScreenNavigationProp } from './PersonalInfoScreen.type';
 
-const PersonalInfoScreen = (props: NewProfileScreenNavigatorProps) => {
+const PersonalInfoScreen = (props: {
+  navigation: PersonalInfoScreenNavigationProp;
+}) => {
   const { theme } = React.useContext(ThemeContext);
 
   const { values, handleChange, errors, touched } = useFormikContext<{
@@ -53,10 +54,10 @@ const PersonalInfoScreen = (props: NewProfileScreenNavigatorProps) => {
         <ArrowNavigator
           backComponent={{
             disabled: false,
-            onPress: () => props.navigator(NewProfileScreenEnum.START),
+            onPress: () => props.navigation.goBack(),
           }}
           nextComponent={{
-            onPress: () => props.navigator(NewProfileScreenEnum.DATE_OF_BIRTH),
+            onPress: () => props.navigation.navigate('Birthdate'),
             // disabled: !!errors?.email || !!errors?.password || false,
           }}
         />

@@ -5,18 +5,20 @@ import React from 'react';
 import { MaskedTextInput } from 'react-native-mask-text';
 import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
-import { NewProfileScreenEnum } from '../../../enums/NewProfileScreenEnum';
 import { ThemeContext } from '../../../provider/ThemeProvider';
-import { NewProfileScreenNavigatorProps } from '../../../types/auth/NewProfileScreenProps';
 import { ProfileProps } from '../../../types/core/profileProps';
+import { BirthdateScreenNavigationProp } from './BirthdateScreen.type';
 
-const DateOfBirthScreen = (props: NewProfileScreenNavigatorProps) => {
+const BirthdateScreen = (props: {
+  navigation: BirthdateScreenNavigationProp;
+}) => {
   const { theme } = React.useContext(ThemeContext);
+
+  const { values, errors, touched, handleSubmit, setFieldValue } =
+    useFormikContext<ProfileProps>();
 
   const [dob, setDob] = React.useState<string>('');
   const [isValid, setIsValid] = React.useState<boolean>(false);
-
-  const { setFieldValue } = useFormikContext();
 
   const handleSetDate = () => {
     if (dob.length === 10) {
@@ -49,9 +51,6 @@ const DateOfBirthScreen = (props: NewProfileScreenNavigatorProps) => {
   React.useEffect(() => {
     values.dob && setDob(format(values.dob, 'MM/dd/yyyy'));
   }, []);
-
-  const { values, errors, touched, handleSubmit } =
-    useFormikContext<ProfileProps>();
 
   return (
     <FormPageLayout>
@@ -89,10 +88,10 @@ const DateOfBirthScreen = (props: NewProfileScreenNavigatorProps) => {
         <ArrowNavigator
           backComponent={{
             disabled: false,
-            onPress: () => props.navigator(NewProfileScreenEnum.PERSONAL_INFO),
+            onPress: () => props.navigation.goBack(),
           }}
           nextComponent={{
-            onPress: () => props.navigator(NewProfileScreenEnum.GENDER),
+            onPress: () => props.navigation.navigate('Gender'),
             // disabled: !!errors?.email || !!errors?.password || false,
           }}
         />
@@ -100,4 +99,4 @@ const DateOfBirthScreen = (props: NewProfileScreenNavigatorProps) => {
     </FormPageLayout>
   );
 };
-export default DateOfBirthScreen;
+export default BirthdateScreen;

@@ -3,16 +3,16 @@ import React from 'react';
 import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
 import ToggleList from '../../../components/core/ToggleList';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
-import { PersonalityType } from '../../../constants/personalityType';
-import { NewProfileScreenEnum } from '../../../enums/NewProfileScreenEnum';
+import { SexualOrientation } from '../../../constants/sexualOrientation';
 import { ThemeContext } from '../../../provider/ThemeProvider';
-import { NewProfileScreenNavigatorProps } from '../../../types/auth/NewProfileScreenProps';
-import { NewUserProps } from '../NewUserSetupScreen/NewUserSetupScreen';
+import { SexualOrientationScreenNavigationProp } from './SexualOrientationScreen.type';
 
-const PersonalityTypeScreen = (props: NewProfileScreenNavigatorProps) => {
+const SexualOrientationScreen = (props: {
+  navigation: SexualOrientationScreenNavigationProp;
+}) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values, errors, setFieldValue } = useFormikContext<NewUserProps>();
+  const { values, errors, setFieldValue } = useFormikContext<any>();
 
   const handleToggle = (value: string) => {
     let arr = values.gender.identities || [];
@@ -34,15 +34,15 @@ const PersonalityTypeScreen = (props: NewProfileScreenNavigatorProps) => {
   return (
     <FormPageLayout>
       <FormPageLayout.PageHeader
-        title='Personality type'
-        description='Which best describes you?'
+        title='Sexual orientation'
+        description='You can choose up to three that describe you.'
       />
 
       <FormPageLayout.PageContent
         contentContainerStyle={{ paddingHorizontal: theme.spacing.md }}
       >
         <ToggleList
-          data={PersonalityType}
+          data={SexualOrientation}
           handleToggle={handleToggle}
           contentContainerStyle={{ marginTop: theme.spacing.md }}
         />
@@ -53,12 +53,10 @@ const PersonalityTypeScreen = (props: NewProfileScreenNavigatorProps) => {
         <ArrowNavigator
           backComponent={{
             disabled: false,
-            onPress: () =>
-              props.navigator(NewProfileScreenEnum.SEXUAL_ORIENTATION),
+            onPress: () => props.navigation.goBack(),
           }}
           nextComponent={{
-            onPress: () =>
-              props.navigator(NewProfileScreenEnum.PERSONALITY_TYPE),
+            onPress: () => props.navigation.navigate('PersonalityType'),
             // disabled: !!errors?.email || !!errors?.password || false,
           }}
         />
@@ -67,4 +65,4 @@ const PersonalityTypeScreen = (props: NewProfileScreenNavigatorProps) => {
   );
 };
 
-export default PersonalityTypeScreen;
+export default SexualOrientationScreen;

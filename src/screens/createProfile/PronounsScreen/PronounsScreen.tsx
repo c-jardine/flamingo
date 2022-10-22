@@ -4,15 +4,15 @@ import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigat
 import ToggleList from '../../../components/core/ToggleList';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
 import { Pronouns } from '../../../constants/gender';
-import { NewProfileScreenEnum } from '../../../enums/NewProfileScreenEnum';
 import { ThemeContext } from '../../../provider/ThemeProvider';
-import { NewProfileScreenNavigatorProps } from '../../../types/auth/NewProfileScreenProps';
-import { NewUserProps } from '../NewUserSetupScreen/NewUserSetupScreen';
+import { PronounsScreenNavigationProp } from './PronounsScreen.type';
 
-const PronounsScreen = (props: NewProfileScreenNavigatorProps) => {
+const PronounsScreen = (props: {
+  navigation: PronounsScreenNavigationProp;
+}) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values, errors, setFieldValue } = useFormikContext<NewUserProps>();
+  const { values, errors, setFieldValue } = useFormikContext<any>();
 
   const handleToggle = (value: string) => {
     let arr = values.gender.identities || [];
@@ -50,12 +50,11 @@ const PronounsScreen = (props: NewProfileScreenNavigatorProps) => {
       <FormPageLayout.PageFooter>
         <ArrowNavigator
           backComponent={{
-            disabled: false,
-            onPress: () => props.navigator(NewProfileScreenEnum.GENDER),
+            // disabled: false,
+            onPress: () => props.navigation.goBack(),
           }}
           nextComponent={{
-            onPress: () =>
-              props.navigator(NewProfileScreenEnum.SEXUAL_ORIENTATION),
+            onPress: () => props.navigation.navigate('SexualOrientation'),
             // disabled: !!errors?.email || !!errors?.password || false,
           }}
         />

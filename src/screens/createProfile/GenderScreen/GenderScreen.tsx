@@ -7,16 +7,13 @@ import Header from '../../../components/core/Header';
 import Selector from '../../../components/forms/Selector';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
 import { GenderIdentities, Genders } from '../../../constants/gender';
-import { NewProfileScreenEnum } from '../../../enums/NewProfileScreenEnum';
 import { ThemeContext } from '../../../provider/ThemeProvider';
-import { NewProfileScreenNavigatorProps } from '../../../types/auth/NewProfileScreenProps';
-import { NewUserProps } from '../NewUserSetupScreen/NewUserSetupScreen';
+import { GenderScreenNavigationProp } from './GenderScreen.type';
 
-const GenderScreen = (props: NewProfileScreenNavigatorProps) => {
+const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values: formikValues, setFieldValue } =
-    useFormikContext<NewUserProps>();
+  const { values: formikValues, setFieldValue } = useFormikContext<any>();
 
   // Set Formik gender field - passed to gender Selector
   const handleSelectGender = (value: string) => {
@@ -64,7 +61,7 @@ const GenderScreen = (props: NewProfileScreenNavigatorProps) => {
             </Header>
             <View style={{ height: theme.spacing.md }} />
             <Selector
-              items={GenderIdentities[formikValues.gender.gender]}
+              items={GenderIdentities[formikValues.gender?.gender]}
               value={formikValues.gender.identities}
               multiselect
               onSelect={handleSelectIdentity}
@@ -78,10 +75,10 @@ const GenderScreen = (props: NewProfileScreenNavigatorProps) => {
         <ArrowNavigator
           backComponent={{
             disabled: false,
-            onPress: () => props.navigator(NewProfileScreenEnum.DATE_OF_BIRTH),
+            onPress: () => props.navigation.goBack(),
           }}
           nextComponent={{
-            onPress: () => props.navigator(NewProfileScreenEnum.PRONOUNS),
+            onPress: () => props.navigation.navigate('Pronouns'),
             // disabled: !!errors?.email || !!errors?.password || false,
           }}
         />

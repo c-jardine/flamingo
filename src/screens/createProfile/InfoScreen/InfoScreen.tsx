@@ -1,11 +1,10 @@
 import React from 'react';
 import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
-import { NewProfileScreenEnum } from '../../../enums/NewProfileScreenEnum';
 import { signOut } from '../../../services/auth.service';
-import { NewProfileScreenNavigatorProps } from '../../../types/auth/NewProfileScreenProps';
+import { InfoScreenNavigationProp } from './InfoScreen.type';
 
-const NewUserStartScreen = (props: NewProfileScreenNavigatorProps) => {
+const InfoScreen = (props: { navigation: InfoScreenNavigationProp }) => {
   return (
     <FormPageLayout>
       <FormPageLayout.PageHeader
@@ -23,7 +22,7 @@ const NewUserStartScreen = (props: NewProfileScreenNavigatorProps) => {
             onPress: () => signOut(),
           }}
           nextComponent={{
-            onPress: () => props.navigator(NewProfileScreenEnum.PERSONAL_INFO),
+            onPress: () => props.navigation.navigate('PersonalInfo'),
             // disabled: !!errors?.email || !!errors?.password || false,
           }}
         />
@@ -31,4 +30,4 @@ const NewUserStartScreen = (props: NewProfileScreenNavigatorProps) => {
     </FormPageLayout>
   );
 };
-export default NewUserStartScreen;
+export default InfoScreen;
