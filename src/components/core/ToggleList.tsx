@@ -8,8 +8,8 @@ import {
   View,
 } from 'react-native';
 import { ThemeContext } from '../../provider/ThemeProvider';
-import { ProfileProps } from '../../types/core/profileProps';
 import { ToggleListItemProps } from '../../types/core/ToggleListProps';
+import { ProfileProps } from '../../types/profile';
 
 const ToggleList = (
   props: Omit<FlatListProps<any>, 'renderItem'> & {

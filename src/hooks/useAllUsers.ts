@@ -1,7 +1,7 @@
 import React from 'react';
 import { supabase } from '../initSupabase';
 import { AuthContext } from '../provider/AuthProvider';
-import { ProfileProps } from '../types';
+import { ProfileProps } from '../types/profile';
 
 /**
  * Hook to manage the state of all users on screens such as 'NearbyUsers'.

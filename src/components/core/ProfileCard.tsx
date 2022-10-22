@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { ThemeContext } from '../../provider/ThemeProvider';
-import { ProfileProps } from '../../types';
+import { ProfileProps } from '../../types/profile';
 import Photo from './Photo';
 
 const ProfileCard = ({
@@ -38,7 +38,7 @@ const ProfileCard = ({
           }}
         >
           <Photo
-            path={data.avatar_src as string}
+            path={data.avatarSrc as string}
             imgStyle={{ width: '100%', aspectRatio: 0.75 }}
           />
         </View>
@@ -54,7 +54,7 @@ const ProfileCard = ({
           }}
         >
           <Text style={[{ color: theme.colors.text['800'] }]}>
-            {data.first_name} {data.last_name}
+            {data.firstName} {data.lastName}
           </Text>
           <Text style={[{ color: theme.colors.text['400'] }]}>
             {data.location}

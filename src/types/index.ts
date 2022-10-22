@@ -1,5 +1,4 @@
 export * from './core/photoProps';
-export * from './core/profileProps';
 export * from './navigation/mainStack/albumViewerScreen';
 export * from './navigation/mainStack/editProfileScreen';
 export * from './navigation/mainStack/photoAlbumScreen';

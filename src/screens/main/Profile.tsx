@@ -8,7 +8,7 @@ import { useDisclosure } from '../../hooks/useDisclosure';
 import { supabase } from '../../initSupabase';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import { ProfileScreenRouteProp } from '../../types';
-import { ProfileProps } from '../../types/core/profileProps';
+import { ProfileProps } from '../../types/profile';
 
 const Profile = ({ route }: { route: ProfileScreenRouteProp }) => {
   const { theme } = React.useContext(ThemeContext);
@@ -38,7 +38,7 @@ const Profile = ({ route }: { route: ProfileScreenRouteProp }) => {
         albumId={profile?.id as string}
         isVisible={isOpen}
         setIsVisible={setIsOpen}
-        initialPhoto={profile?.avatar_src}
+        initialPhoto={profile?.avatarSrc}
       />
 
       <TouchableOpacity
@@ -46,7 +46,7 @@ const Profile = ({ route }: { route: ProfileScreenRouteProp }) => {
         style={{ width: '100%', aspectRatio: 0.75 }}
       >
         <Photo
-          path={profile?.avatar_src as string}
+          path={profile?.avatarSrc as string}
           imgStyle={{ width: '100%', height: '100%' }}
         />
       </TouchableOpacity>

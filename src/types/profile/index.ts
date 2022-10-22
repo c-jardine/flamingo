@@ -1,4 +1,5 @@
 export type ProfileProps = {
+  id?: string;
   firstName: string;
   lastName: string;
   dob: Date;
@@ -6,4 +7,6 @@ export type ProfileProps = {
   pronouns: string[];
   sexualOrientation: string[];
   personalityType: string;
+  avatarSrc?: string;
+  location?: any;
 };

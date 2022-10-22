@@ -2,7 +2,7 @@ import { PostgrestError } from '@supabase/supabase-js';
 import React from 'react';
 import { supabase } from '../initSupabase';
 import { AuthContext } from '../provider/AuthProvider';
-import { ProfileProps } from '../types';
+import { ProfileProps } from '../types/profile';
 
 /**
  * Get the authenticated user's profile.

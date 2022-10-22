@@ -4,8 +4,8 @@ import { View } from 'react-native';
 import { supabase } from '../../initSupabase';
 import { AuthContext } from '../../provider/AuthProvider';
 import { ThemeContext } from '../../provider/ThemeProvider';
-import { ProfileProps } from '../../types';
 import { PhotoAlbumScreenNavigationProp } from '../../types/navigation/mainStack/photoAlbumScreen';
+import { ProfileProps } from '../../types/profile';
 import IconButton from '../core/IconButton';
 
 const ProfileActionBar = ({ profile }: { profile: ProfileProps }) => {

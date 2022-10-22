@@ -2,7 +2,7 @@ import { Session } from '@supabase/supabase-js';
 import React from 'react';
 import useLocation from '../hooks/useLocation';
 import { supabase } from '../initSupabase';
-import { ProfileProps } from '../types/core/profileProps';
+import { ProfileProps } from '../types/profile';
 type ContextProps = {
   user: null | boolean;
   session: Session | null;
@@ -42,7 +42,7 @@ const AuthProvider = (props: Props) => {
 
           console.log('USER', user);
           console.log('PROFILE', profile);
-          console.log(data)
+          console.log(data);
 
           if (data) {
             setProfile(data);
