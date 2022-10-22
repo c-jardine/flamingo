@@ -7,10 +7,3 @@ export type CreateProfileStackParams = {
   SexualOrientation: undefined;
   PersonalityType: undefined;
 };
-
-export type CreateProfileProps = {
-  firstName: string;
-  lastName: string;
-  dob: Date;
-  gender: { gender: string | null; identities: string[] };
-};

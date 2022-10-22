@@ -1,8 +1,8 @@
 import { Formik } from 'formik';
 import React from 'react';
+import { ProfileProps } from '../../types/profile';
 import CreateProfileNavigator from './CreateProfileStack.navigator';
 import { CreateProfileStackSchema } from './CreateProfileStack.schema';
-import { CreateProfileProps } from './CreateProfileStack.type';
 
 const CreateProfileStack = () => {
   const _createProfile = async () => {};
@@ -19,7 +19,10 @@ const CreateProfileStack = () => {
             gender: null,
             identities: [],
           },
-        } as CreateProfileProps
+          pronouns: [],
+          sexualOrientation: [],
+          personalityType: '',
+        } as ProfileProps
       }
       validateOnMount
       onSubmit={_createProfile}

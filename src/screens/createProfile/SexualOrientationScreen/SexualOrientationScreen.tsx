@@ -1,10 +1,11 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
-import ToggleList from '../../../components/core/ToggleList';
+import Selector from '../../../components/forms/Selector';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
 import { SexualOrientation } from '../../../constants/sexualOrientation';
 import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ProfileProps } from '../../../types/profile';
 import { SexualOrientationScreenNavigationProp } from './SexualOrientationScreen.type';
 
 const SexualOrientationScreen = (props: {
@@ -12,24 +13,11 @@ const SexualOrientationScreen = (props: {
 }) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values, errors, setFieldValue } = useFormikContext<any>();
+  const { values, errors, setFieldValue } = useFormikContext<ProfileProps>();
 
-  const handleToggle = (value: string) => {
-    let arr = values.gender.identities || [];
-    if (arr.includes(value)) {
-      arr.splice(arr.indexOf(value), 1);
-    } else {
-      if (arr.length < 3) {
-        arr.push(value);
-      }
-    }
-    setFieldValue('gender.identities', arr);
+  const _handleSelectSexualOrientation = (values: string[]) => {
+    setFieldValue('sexualOrientation', values);
   };
-
-  React.useEffect(() => {
-    setFieldValue('gender.identities', []);
-    console.log(errors.gender);
-  }, [values.gender.gender]);
 
   return (
     <FormPageLayout>
@@ -41,10 +29,11 @@ const SexualOrientationScreen = (props: {
       <FormPageLayout.PageContent
         contentContainerStyle={{ paddingHorizontal: theme.spacing.md }}
       >
-        <ToggleList
-          data={SexualOrientation}
-          handleToggle={handleToggle}
-          contentContainerStyle={{ marginTop: theme.spacing.md }}
+        <Selector
+          items={SexualOrientation}
+          value={values.sexualOrientation}
+          multiselect
+          onSelect={_handleSelectSexualOrientation}
         />
       </FormPageLayout.PageContent>
 

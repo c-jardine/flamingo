@@ -5,7 +5,7 @@ import { ThemeContext } from '../provider/ThemeProvider';
 import Loading from '../screens/utils/Loading';
 import CreateProfileStack from './CreateProfileStack/CreateProfileStack';
 import Main from './MainStack';
-import UserStack from './UserStack/UserStack';
+import UserStack from './UserStack/UserStack.navigator';
 
 export default () => {
   const { theme } = React.useContext(ThemeContext);

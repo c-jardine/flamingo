@@ -6,7 +6,7 @@ import { MaskedTextInput } from 'react-native-mask-text';
 import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
 import { ThemeContext } from '../../../provider/ThemeProvider';
-import { ProfileProps } from '../../../types/core/profileProps';
+import { ProfileProps } from '../../../types/profile';
 import { BirthdateScreenNavigationProp } from './BirthdateScreen.type';
 
 const BirthdateScreen = (props: {
@@ -18,9 +18,8 @@ const BirthdateScreen = (props: {
     useFormikContext<ProfileProps>();
 
   const [dob, setDob] = React.useState<string>('');
-  const [isValid, setIsValid] = React.useState<boolean>(false);
 
-  const handleSetDate = () => {
+  const _handleSetDate = () => {
     if (dob.length === 10) {
       const birthDate = parse(dob, 'MM/dd/yyyy', new Date());
       const { years } = intervalToDuration({
@@ -37,7 +36,7 @@ const BirthdateScreen = (props: {
   };
 
   React.useEffect(() => {
-    handleSetDate();
+    _handleSetDate();
   }, [dob]);
 
   React.useEffect(() => {

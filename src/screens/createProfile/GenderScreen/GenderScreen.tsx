@@ -8,20 +8,22 @@ import Selector from '../../../components/forms/Selector';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
 import { GenderIdentities, Genders } from '../../../constants/gender';
 import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ProfileProps } from '../../../types/profile';
 import { GenderScreenNavigationProp } from './GenderScreen.type';
 
 const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values: formikValues, setFieldValue } = useFormikContext<any>();
+  const { values: formikValues, setFieldValue } =
+    useFormikContext<ProfileProps>();
 
   // Set Formik gender field - passed to gender Selector.
-  const handleSelectGender = (value: string) => {
+  const _handleSelectGender = (value: string) => {
     setFieldValue('gender.gender', value);
   };
 
   // Set Formik gender identities field - passed to gender identity Selector.
-  const handleSelectIdentity = (values: string[]) => {
+  const _handleSelectIdentity = (values: string[]) => {
     setFieldValue('gender.identities', values);
   };
 
@@ -45,7 +47,7 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
         <View style={{ width: '100%' }}>
           <Selector
             items={Genders}
-            onSelect={handleSelectGender}
+            onSelect={_handleSelectGender}
             value={formikValues.gender.gender}
             horizontal
           />
@@ -69,7 +71,7 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
               items={GenderIdentities[formikValues.gender?.gender]}
               value={formikValues.gender.identities}
               multiselect
-              onSelect={handleSelectIdentity}
+              onSelect={_handleSelectIdentity}
             />
           </Animated.View>
         )}

@@ -6,6 +6,7 @@ import TextInput from '../../../components/forms/TextInput';
 import TextInputError from '../../../components/forms/TextInputError';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
 import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ProfileProps } from '../../../types/profile';
 import { PersonalInfoScreenNavigationProp } from './PersonalInfoScreen.type';
 
 const PersonalInfoScreen = (props: {
@@ -13,10 +14,9 @@ const PersonalInfoScreen = (props: {
 }) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values, handleChange, errors, touched } = useFormikContext<{
-    firstName: string;
-    lastName: string;
-  }>();
+  const { values, handleChange, errors, touched } =
+    useFormikContext<ProfileProps>();
+
   return (
     <FormPageLayout>
       <FormPageLayout.PageHeader

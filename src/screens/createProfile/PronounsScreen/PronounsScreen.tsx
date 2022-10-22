@@ -1,10 +1,11 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
-import ToggleList from '../../../components/core/ToggleList';
+import Selector from '../../../components/forms/Selector';
 import FormPageLayout from '../../../components/layouts/FormPageLayout';
 import { Pronouns } from '../../../constants/gender';
 import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ProfileProps } from '../../../types/profile';
 import { PronounsScreenNavigationProp } from './PronounsScreen.type';
 
 const PronounsScreen = (props: {
@@ -12,22 +13,11 @@ const PronounsScreen = (props: {
 }) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values, errors, setFieldValue } = useFormikContext<any>();
+  const { values, errors, setFieldValue } = useFormikContext<ProfileProps>();
 
-  const handleToggle = (value: string) => {
-    let arr = values.gender.identities || [];
-    if (arr.includes(value)) {
-      arr.splice(arr.indexOf(value), 1);
-    } else {
-      arr.push(value);
-    }
-    setFieldValue('gender.identities', arr);
+  const _handleSelectPronouns = (values: string[]) => {
+    setFieldValue('pronouns', values);
   };
-
-  React.useEffect(() => {
-    setFieldValue('gender.identities', []);
-    console.log(errors.gender);
-  }, [values.gender.gender]);
 
   return (
     <FormPageLayout>
@@ -39,10 +29,11 @@ const PronounsScreen = (props: {
       <FormPageLayout.PageContent
         contentContainerStyle={{ paddingHorizontal: theme.spacing.md }}
       >
-        <ToggleList
-          data={Pronouns}
-          handleToggle={handleToggle}
-          contentContainerStyle={{ marginTop: theme.spacing.md }}
+        <Selector
+          items={Pronouns}
+          value={values.pronouns}
+          multiselect
+          onSelect={_handleSelectPronouns}
         />
       </FormPageLayout.PageContent>
 
