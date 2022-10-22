@@ -2,16 +2,16 @@ import { Formik } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { NewProfileScreenEnum } from '../../enums/NewProfileScreenEnum';
-import { ThemeContext } from '../../provider/ThemeProvider';
-import { PersonalInfoSchema } from '../../validation/profileGeneralSchema';
-import DateOfBirthSetup from './DateOfBirthSetup';
-import GenderSetup from './GenderSetup';
-import NewProfileStart from './NewProfileStart';
-import PersonalInfoSetup from './PersonalInfoSetup';
-import PersonalityTypeSetup from './PersonalityTypeSetup';
-import PronounsSetup from './PronounsSetup';
-import SexualOrientationSetup from './SexualOrientationSetup';
+import { NewProfileScreenEnum } from '../../../enums/NewProfileScreenEnum';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import { PersonalInfoSchema } from '../../../validation/profileGeneralSchema';
+import DateOfBirthScreen from '../DateOfBirthScreen.tsx/DateOfBirthScreen';
+import GenderScreen from '../GenderScreen/GenderScreen';
+import NewUserStartScreen from '../NewUserStartScreen/NewUserStartScreen';
+import PersonalInfoScreen from '../PersonalInfoScreen/PersonalInfoScreen';
+import PersonalityTypeScreen from '../PersonalityTypeScreen/PersonalityTypeScreen';
+import PronounsScreen from '../PronounsScreen/PronounsScreen';
+import SexualOrientationScreen from '../SexualOrientationScreen/SexualOrientationScreen';
 
 export type NewUserProps = {
   firstName: string;
@@ -20,7 +20,7 @@ export type NewUserProps = {
   gender: { gender: string; identities: string[] };
 };
 
-const NewUserSetup = () => {
+const NewUserScreen = () => {
   const { theme } = React.useContext(ThemeContext);
 
   const [currentScreen, setCurrentScreen] =
@@ -45,30 +45,28 @@ const NewUserSetup = () => {
           <View
             style={{
               flex: 1,
-              paddingVertical: theme.spacing.xxl,
-              // paddingHorizontal: theme.spacing.md,
             }}
           >
             {currentScreen === NewProfileScreenEnum.START && (
-              <NewProfileStart navigator={setCurrentScreen} />
+              <NewUserStartScreen navigator={setCurrentScreen} />
             )}
             {currentScreen === NewProfileScreenEnum.PERSONAL_INFO && (
-              <PersonalInfoSetup navigator={setCurrentScreen} />
+              <PersonalInfoScreen navigator={setCurrentScreen} />
             )}
             {currentScreen === NewProfileScreenEnum.DATE_OF_BIRTH && (
-              <DateOfBirthSetup navigator={setCurrentScreen} />
+              <DateOfBirthScreen navigator={setCurrentScreen} />
             )}
             {currentScreen === NewProfileScreenEnum.GENDER && (
-              <GenderSetup navigator={setCurrentScreen} />
+              <GenderScreen navigator={setCurrentScreen} />
             )}
             {currentScreen === NewProfileScreenEnum.PRONOUNS && (
-              <PronounsSetup navigator={setCurrentScreen} />
+              <PronounsScreen navigator={setCurrentScreen} />
             )}
             {currentScreen === NewProfileScreenEnum.SEXUAL_ORIENTATION && (
-              <SexualOrientationSetup navigator={setCurrentScreen} />
+              <SexualOrientationScreen navigator={setCurrentScreen} />
             )}
             {currentScreen === NewProfileScreenEnum.PERSONALITY_TYPE && (
-              <PersonalityTypeSetup navigator={setCurrentScreen} />
+              <PersonalityTypeScreen navigator={setCurrentScreen} />
             )}
           </View>
         </Formik>
@@ -77,4 +75,4 @@ const NewUserSetup = () => {
   );
 };
 
-export default NewUserSetup;
+export default NewUserScreen;

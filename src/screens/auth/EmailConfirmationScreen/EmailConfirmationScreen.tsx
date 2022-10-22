@@ -1,12 +1,14 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, View } from 'react-native';
-import KButton from '../../components/core/KButton';
-import { AuthScreensEnum } from '../../enums/AuthScreenEnum';
-import { ThemeContext } from '../../provider/ThemeProvider';
-import { AuthScreenNavigatorProps } from '../../types/auth/AuthScreen';
+import KButton from '../../../components/core/Button/Button';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import {
+  AuthScreenEnum,
+  AuthScreenNavigatorProps,
+} from '../AuthScreen/AuthScreen.type';
 
-const AwaitEmailVerification = (props: AuthScreenNavigatorProps) => {
+const EmailConfirmationScreen = (props: AuthScreenNavigatorProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
@@ -47,10 +49,10 @@ const AwaitEmailVerification = (props: AuthScreenNavigatorProps) => {
       <KButton
         loading={false}
         label={'Return to sign in'}
-        onPress={() => props.navigator(AuthScreensEnum.SIGN_IN)}
+        onPress={() => props.navigator(AuthScreenEnum.SIGN_IN_SCREEN)}
       />
     </View>
   );
 };
 
-export default AwaitEmailVerification;
+export default EmailConfirmationScreen;

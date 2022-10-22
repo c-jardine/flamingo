@@ -33,6 +33,7 @@ const TextInput = (props: TextInputProps & { leftComponent?: JSX.Element }) => {
           color: theme.colors.text['800'],
           padding: 16,
           paddingLeft: props.leftComponent ? 48 : 16,
+          fontSize: 16,
         }}
       />
     </View>

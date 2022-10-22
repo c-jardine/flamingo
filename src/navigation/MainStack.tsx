@@ -8,7 +8,7 @@ import MainTabs from './MainTabs';
 import AlbumViewer from '../components/core/AlbumViewer';
 import { AuthContext } from '../provider/AuthProvider';
 import PhotoAlbum from '../screens/main/PhotoAlbum';
-import NewUserSetup from '../screens/newUser/NewUserSetup';
+import NewUserSetup from '../screens/newUser/NewUserSetupScreen/NewUserSetupScreen';
 import { MainStackParamList } from '../types';
 
 const MainStack = createNativeStackNavigator<MainStackParamList>();

@@ -6,7 +6,13 @@ const TextInputError = (props: { children: React.ReactNode }) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
-    <Text style={{ marginTop: 4, color: theme.colors.error }}>
+    <Text
+      style={{
+        marginTop: theme.spacing.xs,
+        paddingHorizontal: theme.spacing.md,
+        color: theme.colors.error,
+      }}
+    >
       {props && props.children}
     </Text>
   );

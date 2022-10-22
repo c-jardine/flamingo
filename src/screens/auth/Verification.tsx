@@ -11,9 +11,11 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import BackHeader from '../../components/utils/BackHeader';
 import { KToast } from '../../components/utils/KToast';
-import { AuthScreensEnum } from '../../enums/AuthScreenEnum';
 import { ThemeContext } from '../../provider/ThemeProvider';
-import { AuthScreenNavigatorProps } from '../../types/auth/AuthScreen';
+import {
+  AuthScreenEnum,
+  AuthScreenNavigatorProps,
+} from './AuthScreen/AuthScreen.type';
 import IDVerification from './IDVerification';
 import PhotoVerification from './PhotoVerification';
 
@@ -83,7 +85,9 @@ const Verification = (props: AuthScreenNavigatorProps) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <BackHeader handleBack={() => props.navigator(AuthScreensEnum.SIGN_UP)} />
+      <BackHeader
+        handleBack={() => props.navigator(AuthScreenEnum.SIGN_UP_SCREEN)}
+      />
       {!validId && (
         <IDVerification setValidId={setValidId} setIdImage={setIdImage} />
       )}

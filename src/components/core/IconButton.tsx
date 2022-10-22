@@ -1,11 +1,15 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import {
+  TouchableOpacity,
+  TouchableOpacityProps,
+  ViewStyle,
+} from 'react-native';
 import { ThemeContext } from '../../provider/ThemeProvider';
 
 const IconButton = (
   props: TouchableOpacityProps & {
-    contentContainerStyle?: TouchableOpacityProps;
+    contentContainerStyle?: ViewStyle;
   } & React.ComponentProps<typeof MaterialCommunityIcons>
 ) => {
   const { theme } = React.useContext(ThemeContext);
@@ -18,11 +22,11 @@ const IconButton = (
           backgroundColor: props.disabled
             ? theme.colors.text['50']
             : theme.colors.primary,
-          borderRadius: 24,
+          borderRadius: 16,
           alignItems: 'center',
           justifyContent: 'center',
-          height: 48,
-          width: 48,
+          height: 64,
+          width: 64,
         },
         props.contentContainerStyle,
       ]}

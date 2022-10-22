@@ -1,0 +1,193 @@
+Date : 2022-10-21 19:43:33
+Directory : /Users/chris/Keplux/flamingo/src
+Total : 130 files,  5252 codes, 214 comments, 624 blanks, all 6090 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| TypeScript React |         77 |      4,175 |        140 |        454 |      4,769 |
+| TypeScript       |         53 |      1,077 |         74 |        170 |      1,321 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                  | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                     |        130 |      5,252 |        214 |        624 |      6,090 |
+| components                                                                                            |         50 |      2,404 |        106 |        264 |      2,774 |
+| components/auth                                                                                       |          1 |         74 |          2 |         11 |         87 |
+| components/camera                                                                                     |          8 |        384 |          4 |         44 |        432 |
+| components/core                                                                                       |         23 |      1,053 |         29 |        111 |      1,193 |
+| components/core/ArrowNavigator                                                                        |          4 |        110 |         21 |         20 |        151 |
+| components/core/Button                                                                                |          3 |         51 |          0 |          5 |         56 |
+| components/dumpsterFire                                                                               |          1 |         20 |          0 |          3 |         23 |
+| components/editProfile                                                                                |          5 |        218 |         28 |         26 |        272 |
+| components/forms                                                                                      |          4 |        304 |         39 |         30 |        373 |
+| components/layouts                                                                                    |          1 |         75 |          0 |         10 |         85 |
+| components/profile                                                                                    |          2 |        118 |          1 |         11 |        130 |
+| components/utils                                                                                      |          5 |        158 |          3 |         18 |        179 |
+| constants                                                                                             |          4 |        227 |          0 |          6 |        233 |
+| enums                                                                                                 |          3 |         22 |          0 |          3 |         25 |
+| hooks                                                                                                 |         11 |        358 |         61 |         74 |        493 |
+| navigation                                                                                            |          4 |        127 |         12 |         20 |        159 |
+| provider                                                                                              |          2 |        100 |          4 |         16 |        120 |
+| redux                                                                                                 |          2 |         64 |          0 |          9 |         73 |
+| redux/slices                                                                                          |          1 |         57 |          0 |          6 |         63 |
+| screens                                                                                               |         30 |      1,610 |         26 |        173 |      1,809 |
+| screens/auth                                                                                          |         14 |        745 |         17 |         74 |        836 |
+| screens/auth/EmailConfirmationScreen                                                                  |          2 |         53 |          0 |          5 |         58 |
+| screens/auth/SignInScreen                                                                             |          3 |        157 |          0 |         15 |        172 |
+| screens/auth/SignUpScreen                                                                             |          4 |        113 |         10 |         15 |        138 |
+| screens/main                                                                                          |          6 |        409 |          6 |         39 |        454 |
+| screens/newUser                                                                                       |          8 |        431 |          3 |         55 |        489 |
+| screens/utils                                                                                         |          1 |         15 |          0 |          2 |         17 |
+| services                                                                                              |          3 |         84 |          5 |         12 |        101 |
+| styles                                                                                                |          3 |         80 |          0 |          7 |         87 |
+| types                                                                                                 |         15 |        130 |          0 |         33 |        163 |
+| types/auth                                                                                            |          2 |         10 |          0 |          4 |         14 |
+| types/core                                                                                            |          5 |         37 |          0 |          7 |         44 |
+| types/core/camera                                                                                     |          1 |          7 |          0 |          2 |          9 |
+| types/navigation                                                                                      |          7 |         75 |          0 |         21 |         96 |
+| types/navigation/authStack                                                                            |          1 |          9 |          0 |          3 |         12 |
+| types/navigation/mainStack                                                                            |          4 |         39 |          0 |         12 |         51 |
+| types/navigation/mainTabs                                                                             |          1 |         13 |          0 |          4 |         17 |
+| validation                                                                                            |          2 |         37 |          0 |          4 |         41 |
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                                              | language         | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| /Users/chris/Keplux/flamingo/src/components/auth/IDScanner.tsx                                        | TypeScript React |         74 |          2 |         11 |         87 |
+| /Users/chris/Keplux/flamingo/src/components/camera/AutoFocusToggle.tsx                                | TypeScript React |         38 |          0 |          5 |         43 |
+| /Users/chris/Keplux/flamingo/src/components/camera/BoundingBoxToggle.tsx                              | TypeScript React |         31 |          0 |          5 |         36 |
+| /Users/chris/Keplux/flamingo/src/components/camera/CameraActionBar.tsx                                | TypeScript React |         66 |          0 |          6 |         72 |
+| /Users/chris/Keplux/flamingo/src/components/camera/CameraSettings.tsx                                 | TypeScript React |         66 |          4 |          9 |         79 |
+| /Users/chris/Keplux/flamingo/src/components/camera/CameraTypeToggle.tsx                               | TypeScript React |         26 |          0 |          5 |         31 |
+| /Users/chris/Keplux/flamingo/src/components/camera/FlashToggle.tsx                                    | TypeScript React |         26 |          0 |          5 |         31 |
+| /Users/chris/Keplux/flamingo/src/components/camera/FocusSlider.tsx                                    | TypeScript React |         61 |          0 |          5 |         66 |
+| /Users/chris/Keplux/flamingo/src/components/camera/IDBoundingBox.tsx                                  | TypeScript React |         70 |          0 |          4 |         74 |
+| /Users/chris/Keplux/flamingo/src/components/core/AlbumViewer.tsx                                      | TypeScript React |        110 |          0 |          8 |        118 |
+| /Users/chris/Keplux/flamingo/src/components/core/ArrowNavigator/ArrowNavigator.default.tsx            | TypeScript React |         59 |         11 |          9 |         79 |
+| /Users/chris/Keplux/flamingo/src/components/core/ArrowNavigator/ArrowNavigator.styles.tsx             | TypeScript React |         16 |          0 |          3 |         19 |
+| /Users/chris/Keplux/flamingo/src/components/core/ArrowNavigator/ArrowNavigator.tsx                    | TypeScript React |         18 |          9 |          5 |         32 |
+| /Users/chris/Keplux/flamingo/src/components/core/ArrowNavigator/ArrowNavigator.type.ts                | TypeScript       |         17 |          1 |          3 |         21 |
+| /Users/chris/Keplux/flamingo/src/components/core/Button/Button.spec.ts                                | TypeScript       |          0 |          0 |          1 |          1 |
+| /Users/chris/Keplux/flamingo/src/components/core/Button/Button.tsx                                    | TypeScript React |         51 |          0 |          3 |         54 |
+| /Users/chris/Keplux/flamingo/src/components/core/Button/Button.type.tsx                               | TypeScript React |          0 |          0 |          1 |          1 |
+| /Users/chris/Keplux/flamingo/src/components/core/Camera.tsx                                           | TypeScript React |        130 |          8 |         15 |        153 |
+| /Users/chris/Keplux/flamingo/src/components/core/CameraSettingsButton.tsx                             | TypeScript React |         27 |          0 |          4 |         31 |
+| /Users/chris/Keplux/flamingo/src/components/core/Header.tsx                                           | TypeScript React |         44 |          0 |          6 |         50 |
+| /Users/chris/Keplux/flamingo/src/components/core/IconButton.tsx                                       | TypeScript React |         41 |          0 |          4 |         45 |
+| /Users/chris/Keplux/flamingo/src/components/core/MenuContainer.tsx                                    | TypeScript React |         39 |          0 |          4 |         43 |
+| /Users/chris/Keplux/flamingo/src/components/core/MenuItem.tsx                                         | TypeScript React |         41 |          0 |          2 |         43 |
+| /Users/chris/Keplux/flamingo/src/components/core/Modal.tsx                                            | TypeScript React |         45 |          0 |          4 |         49 |
+| /Users/chris/Keplux/flamingo/src/components/core/OnlineIndicator.tsx                                  | TypeScript React |         53 |          0 |          4 |         57 |
+| /Users/chris/Keplux/flamingo/src/components/core/Photo.tsx                                            | TypeScript React |         51 |          0 |          6 |         57 |
+| /Users/chris/Keplux/flamingo/src/components/core/PhotoView.tsx                                        | TypeScript React |         10 |          0 |          3 |         13 |
+| /Users/chris/Keplux/flamingo/src/components/core/ProfileCard.tsx                                      | TypeScript React |         63 |          0 |          6 |         69 |
+| /Users/chris/Keplux/flamingo/src/components/core/SettingsProfileCard.tsx                              | TypeScript React |         96 |          0 |          6 |        102 |
+| /Users/chris/Keplux/flamingo/src/components/core/TabSelector.tsx                                      | TypeScript React |         43 |          0 |          4 |         47 |
+| /Users/chris/Keplux/flamingo/src/components/core/TextWithIcon.tsx                                     | TypeScript React |         20 |          0 |          4 |         24 |
+| /Users/chris/Keplux/flamingo/src/components/core/ToggleList.tsx                                       | TypeScript React |         79 |          0 |          6 |         85 |
+| /Users/chris/Keplux/flamingo/src/components/dumpsterFire/DumpsterFire.tsx                             | TypeScript React |         20 |          0 |          3 |         23 |
+| /Users/chris/Keplux/flamingo/src/components/editProfile/Birthday.tsx                                  | TypeScript React |         36 |         19 |          6 |         61 |
+| /Users/chris/Keplux/flamingo/src/components/editProfile/EditCard.tsx                                  | TypeScript React |         92 |          9 |          8 |        109 |
+| /Users/chris/Keplux/flamingo/src/components/editProfile/Gender.tsx                                    | TypeScript React |         15 |          0 |          3 |         18 |
+| /Users/chris/Keplux/flamingo/src/components/editProfile/Location.tsx                                  | TypeScript React |         52 |          0 |          5 |         57 |
+| /Users/chris/Keplux/flamingo/src/components/editProfile/Name.tsx                                      | TypeScript React |         23 |          0 |          4 |         27 |
+| /Users/chris/Keplux/flamingo/src/components/forms/ProfileForm.tsx                                     | TypeScript React |        125 |          0 |         10 |        135 |
+| /Users/chris/Keplux/flamingo/src/components/forms/Selector.tsx                                        | TypeScript React |        122 |         39 |         11 |        172 |
+| /Users/chris/Keplux/flamingo/src/components/forms/TextInput.tsx                                       | TypeScript React |         39 |          0 |          5 |         44 |
+| /Users/chris/Keplux/flamingo/src/components/forms/TextInputError.tsx                                  | TypeScript React |         18 |          0 |          4 |         22 |
+| /Users/chris/Keplux/flamingo/src/components/layouts/FormPageLayout.tsx                                | TypeScript React |         75 |          0 |         10 |         85 |
+| /Users/chris/Keplux/flamingo/src/components/profile/ProfileActionBar.tsx                              | TypeScript React |         95 |          1 |          8 |        104 |
+| /Users/chris/Keplux/flamingo/src/components/profile/ProfileDetailsCard.tsx                            | TypeScript React |         23 |          0 |          3 |         26 |
+| /Users/chris/Keplux/flamingo/src/components/utils/BackHeader.tsx                                      | TypeScript React |         32 |          0 |          4 |         36 |
+| /Users/chris/Keplux/flamingo/src/components/utils/KToast.ts                                           | TypeScript       |         18 |          3 |          5 |         26 |
+| /Users/chris/Keplux/flamingo/src/components/utils/SignOutButton.tsx                                   | TypeScript React |         77 |          0 |          3 |         80 |
+| /Users/chris/Keplux/flamingo/src/components/utils/TabBarIcon.tsx                                      | TypeScript React |         14 |          0 |          3 |         17 |
+| /Users/chris/Keplux/flamingo/src/components/utils/TabBarText.tsx                                      | TypeScript React |         17 |          0 |          3 |         20 |
+| /Users/chris/Keplux/flamingo/src/constants/gender.ts                                                  | TypeScript       |        188 |          0 |          3 |        191 |
+| /Users/chris/Keplux/flamingo/src/constants/idScanner.ts                                               | TypeScript       |         13 |          0 |          2 |         15 |
+| /Users/chris/Keplux/flamingo/src/constants/personalityType.ts                                         | TypeScript       |         15 |          0 |          1 |         16 |
+| /Users/chris/Keplux/flamingo/src/constants/sexualOrientation.ts                                       | TypeScript       |         11 |          0 |          0 |         11 |
+| /Users/chris/Keplux/flamingo/src/enums/AuthScreenEnum.ts                                              | TypeScript       |          7 |          0 |          1 |          8 |
+| /Users/chris/Keplux/flamingo/src/enums/CameraSetting.ts                                               | TypeScript       |          6 |          0 |          1 |          7 |
+| /Users/chris/Keplux/flamingo/src/enums/NewProfileScreenEnum.ts                                        | TypeScript       |          9 |          0 |          1 |         10 |
+| /Users/chris/Keplux/flamingo/src/hooks/reduxHooks.ts                                                  | TypeScript       |          4 |          0 |          2 |          6 |
+| /Users/chris/Keplux/flamingo/src/hooks/useAlbum.ts                                                    | TypeScript       |         22 |         15 |          5 |         42 |
+| /Users/chris/Keplux/flamingo/src/hooks/useAllUsers.ts                                                 | TypeScript       |         32 |         13 |          7 |         52 |
+| /Users/chris/Keplux/flamingo/src/hooks/useAuthenticatedUserProfile.ts                                 | TypeScript       |         48 |          7 |          6 |         61 |
+| /Users/chris/Keplux/flamingo/src/hooks/useCamera.ts                                                   | TypeScript       |         51 |         17 |         12 |         80 |
+| /Users/chris/Keplux/flamingo/src/hooks/useDisclosure.ts                                               | TypeScript       |          8 |          4 |          3 |         15 |
+| /Users/chris/Keplux/flamingo/src/hooks/useEncodeForAws.ts                                             | TypeScript       |         12 |          0 |          5 |         17 |
+| /Users/chris/Keplux/flamingo/src/hooks/useIdScanner.ts                                                | TypeScript       |         80 |          0 |         12 |         92 |
+| /Users/chris/Keplux/flamingo/src/hooks/useLocation.ts                                                 | TypeScript       |         20 |          0 |          6 |         26 |
+| /Users/chris/Keplux/flamingo/src/hooks/useMediaLibrary.ts                                             | TypeScript       |         23 |          5 |          6 |         34 |
+| /Users/chris/Keplux/flamingo/src/hooks/useSelfieValidator.ts                                          | TypeScript       |         58 |          0 |         10 |         68 |
+| /Users/chris/Keplux/flamingo/src/initSupabase.ts                                                      | TypeScript       |          9 |          0 |          3 |         12 |
+| /Users/chris/Keplux/flamingo/src/navigation/AuthStack.tsx                                             | TypeScript React |         17 |          3 |          4 |         24 |
+| /Users/chris/Keplux/flamingo/src/navigation/MainStack.tsx                                             | TypeScript React |         32 |          0 |          7 |         39 |
+| /Users/chris/Keplux/flamingo/src/navigation/MainTabs.tsx                                              | TypeScript React |         62 |          9 |          5 |         76 |
+| /Users/chris/Keplux/flamingo/src/navigation/index.tsx                                                 | TypeScript React |         16 |          0 |          4 |         20 |
+| /Users/chris/Keplux/flamingo/src/provider/AuthProvider.tsx                                            | TypeScript React |         63 |          1 |          9 |         73 |
+| /Users/chris/Keplux/flamingo/src/provider/ThemeProvider.tsx                                           | TypeScript React |         37 |          3 |          7 |         47 |
+| /Users/chris/Keplux/flamingo/src/redux/slices/cameraSlice.ts                                          | TypeScript       |         57 |          0 |          6 |         63 |
+| /Users/chris/Keplux/flamingo/src/redux/store.ts                                                       | TypeScript       |          7 |          0 |          3 |         10 |
+| /Users/chris/Keplux/flamingo/src/screens/Loading.tsx                                                  | TypeScript React |         10 |          0 |          3 |         13 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/AuthScreen.tsx                                          | TypeScript React |         34 |          0 |          4 |         38 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/EmailConfirmationScreen/EmailConfirmationScreen.spec.ts | TypeScript       |          0 |          0 |          1 |          1 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/EmailConfirmationScreen/EmailConfirmationScreen.tsx     | TypeScript React |         53 |          0 |          4 |         57 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/ForgetPassword.tsx                                      | TypeScript React |        108 |          7 |          6 |        121 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/IDVerification.tsx                                      | TypeScript React |        131 |          0 |         12 |        143 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/PhotoVerification.tsx                                   | TypeScript React |         59 |          0 |          4 |         63 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/SignInScreen/SignInScreen.schema.ts                     | TypeScript       |          5 |          0 |          2 |          7 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/SignInScreen/SignInScreen.service.ts                    | TypeScript       |          5 |          0 |          1 |          6 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/SignInScreen/SignInScreen.tsx                           | TypeScript React |        147 |          0 |         12 |        159 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/SignUpScreen/SignUpScreen.schema.ts                     | TypeScript       |          5 |          4 |          2 |         11 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/SignUpScreen/SignUpScreen.service.ts                    | TypeScript       |         16 |          0 |          3 |         19 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/SignUpScreen/SignUpScreen.spec.ts                       | TypeScript       |          0 |          0 |          1 |          1 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/SignUpScreen/SignUpScreen.tsx                           | TypeScript React |         92 |          6 |          9 |        107 |
+| /Users/chris/Keplux/flamingo/src/screens/auth/Verification.tsx                                        | TypeScript React |         90 |          0 |         13 |        103 |
+| /Users/chris/Keplux/flamingo/src/screens/main/Community.tsx                                           | TypeScript React |         54 |          0 |          6 |         60 |
+| /Users/chris/Keplux/flamingo/src/screens/main/EditProfile.tsx                                         | TypeScript React |         43 |          0 |          4 |         47 |
+| /Users/chris/Keplux/flamingo/src/screens/main/NearbyUsers.tsx                                         | TypeScript React |         47 |          3 |          5 |         55 |
+| /Users/chris/Keplux/flamingo/src/screens/main/PhotoAlbum.tsx                                          | TypeScript React |        162 |          0 |         10 |        172 |
+| /Users/chris/Keplux/flamingo/src/screens/main/Profile.tsx                                             | TypeScript React |         51 |          0 |          9 |         60 |
+| /Users/chris/Keplux/flamingo/src/screens/main/Settings.tsx                                            | TypeScript React |         52 |          3 |          5 |         60 |
+| /Users/chris/Keplux/flamingo/src/screens/newUser/DateOfBirthSetup.tsx                                 | TypeScript React |         74 |          0 |         12 |         86 |
+| /Users/chris/Keplux/flamingo/src/screens/newUser/GenderSetup.tsx                                      | TypeScript React |         69 |          2 |          8 |         79 |
+| /Users/chris/Keplux/flamingo/src/screens/newUser/NewProfileStart.tsx                                  | TypeScript React |         19 |          0 |          3 |         22 |
+| /Users/chris/Keplux/flamingo/src/screens/newUser/NewUserSetup.tsx                                     | TypeScript React |         74 |          1 |          6 |         81 |
+| /Users/chris/Keplux/flamingo/src/screens/newUser/PersonalInfoSetup.tsx                                | TypeScript React |         52 |          0 |          5 |         57 |
+| /Users/chris/Keplux/flamingo/src/screens/newUser/PersonalityTypeSetup.tsx                             | TypeScript React |         49 |          0 |          7 |         56 |
+| /Users/chris/Keplux/flamingo/src/screens/newUser/PronounsSetup.tsx                                    | TypeScript React |         47 |          0 |          7 |         54 |
+| /Users/chris/Keplux/flamingo/src/screens/newUser/SexualOrientationSetup.tsx                           | TypeScript React |         47 |          0 |          7 |         54 |
+| /Users/chris/Keplux/flamingo/src/screens/utils/Loading.tsx                                            | TypeScript React |         15 |          0 |          2 |         17 |
+| /Users/chris/Keplux/flamingo/src/services/auth.service.ts                                             | TypeScript       |         53 |          0 |          6 |         59 |
+| /Users/chris/Keplux/flamingo/src/services/google-places.service.ts                                    | TypeScript       |         12 |          0 |          4 |         16 |
+| /Users/chris/Keplux/flamingo/src/services/profiles.service.ts                                         | TypeScript       |         19 |          5 |          2 |         26 |
+| /Users/chris/Keplux/flamingo/src/styles/color.ts                                                      | TypeScript       |         34 |          0 |          3 |         37 |
+| /Users/chris/Keplux/flamingo/src/styles/spacing.ts                                                    | TypeScript       |          8 |          0 |          1 |          9 |
+| /Users/chris/Keplux/flamingo/src/styles/theme.ts                                                      | TypeScript       |         38 |          0 |          3 |         41 |
+| /Users/chris/Keplux/flamingo/src/types/auth/AuthScreen.ts                                             | TypeScript       |          5 |          0 |          2 |          7 |
+| /Users/chris/Keplux/flamingo/src/types/auth/NewProfileScreenProps.ts                                  | TypeScript       |          5 |          0 |          2 |          7 |
+| /Users/chris/Keplux/flamingo/src/types/core/ToggleListProps.ts                                        | TypeScript       |          5 |          0 |          1 |          6 |
+| /Users/chris/Keplux/flamingo/src/types/core/accordionMenuItemProps.ts                                 | TypeScript       |          5 |          0 |          1 |          6 |
+| /Users/chris/Keplux/flamingo/src/types/core/camera/CameraProps.ts                                     | TypeScript       |          7 |          0 |          2 |          9 |
+| /Users/chris/Keplux/flamingo/src/types/core/photoProps.ts                                             | TypeScript       |          5 |          0 |          2 |          7 |
+| /Users/chris/Keplux/flamingo/src/types/core/profileProps.ts                                           | TypeScript       |         15 |          0 |          1 |         16 |
+| /Users/chris/Keplux/flamingo/src/types/index.ts                                                       | TypeScript       |          8 |          0 |          1 |          9 |
+| /Users/chris/Keplux/flamingo/src/types/navigation/authStack/verifyIdScreen.ts                         | TypeScript       |          9 |          0 |          3 |         12 |
+| /Users/chris/Keplux/flamingo/src/types/navigation/mainStack/albumViewerScreen.ts                      | TypeScript       |         10 |          0 |          3 |         13 |
+| /Users/chris/Keplux/flamingo/src/types/navigation/mainStack/editProfileScreen.ts                      | TypeScript       |         10 |          0 |          3 |         13 |
+| /Users/chris/Keplux/flamingo/src/types/navigation/mainStack/photoAlbumScreen.ts                       | TypeScript       |         10 |          0 |          3 |         13 |
+| /Users/chris/Keplux/flamingo/src/types/navigation/mainStack/profileScreen.ts                          | TypeScript       |          9 |          0 |          3 |         12 |
+| /Users/chris/Keplux/flamingo/src/types/navigation/mainTabs/settingsTab.ts                             | TypeScript       |         13 |          0 |          4 |         17 |
+| /Users/chris/Keplux/flamingo/src/types/navigation/stacks.ts                                           | TypeScript       |         14 |          0 |          2 |         16 |
+| /Users/chris/Keplux/flamingo/src/validation/index.ts                                                  | TypeScript       |          1 |          0 |          1 |          2 |
+| /Users/chris/Keplux/flamingo/src/validation/profileGeneralSchema.ts                                   | TypeScript       |         36 |          0 |          3 |         39 |
+| Total                                                                                                 |                  |      5,252 |        214 |        624 |      6,090 |
++-------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+

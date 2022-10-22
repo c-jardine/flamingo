@@ -7,7 +7,7 @@ import { ThemeContext } from '../../provider/ThemeProvider';
 import { save } from '../../services/profiles.service';
 import { AccordionMenuItemProps } from '../../types/core/accordionMenuItemProps';
 import { ProfileGeneralSchema } from '../../validation/profileGeneralSchema';
-import KButton from '../core/KButton';
+import KButton from '../core/Button/Button';
 import MenuContainer from '../core/MenuContainer';
 import Birthday from '../editProfile/Birthday';
 import Gender from '../editProfile/Gender';
