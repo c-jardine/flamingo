@@ -1,19 +1,24 @@
 import React from 'react';
-import { Text, View, ViewProps } from 'react-native';
-import { ThemeContext } from '../../provider/ThemeProvider';
+import { Text, View } from 'react-native';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import {
+  HeaderDescriptionProps,
+  HeaderProps,
+  HeaderTitleProps,
+} from './Header.types';
 
-const Title = ({ children }: { children: string }) => {
+const Title = (props: HeaderTitleProps) => {
   const { theme } = React.useContext(ThemeContext);
   return (
     <Text
       style={{ ...theme.textVariants.title, color: theme.colors.text['800'] }}
     >
-      {children}
+      {props.children}
     </Text>
   );
 };
 
-const Description = ({ children }: { children: string }) => {
+const Description = (props: HeaderDescriptionProps) => {
   const { theme } = React.useContext(ThemeContext);
   return (
     <Text
@@ -22,12 +27,12 @@ const Description = ({ children }: { children: string }) => {
         color: theme.colors.text['300'],
       }}
     >
-      {children}
+      {props.children}
     </Text>
   );
 };
 
-const Header = (props: ViewProps) => {
+const Header = (props: HeaderProps) => {
   const { theme } = React.useContext(ThemeContext);
   return (
     <View
@@ -35,7 +40,7 @@ const Header = (props: ViewProps) => {
         {
           marginTop: theme.spacing.sm,
         },
-        props.style,
+        { ...props.contentContainerStyle },
       ]}
     >
       {props.children}

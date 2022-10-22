@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import IDScanner from '../../components/auth/IDScanner';
-import Header from '../../components/core/Header';
+import Header from '../../components/common/Header/Header';
 import MenuContainer from '../../components/core/MenuContainer';
 import MenuItem from '../../components/core/MenuItem';
 import SettingsProfileCard from '../../components/core/SettingsProfileCard';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import AlbumViewer from '../../components/core/AlbumViewer';
-import Photo from '../../components/core/Photo';
+import Photo from '../../components/common/Photo/Photo';
 import ProfileActionBar from '../../components/profile/ProfileActionBar';
 import ProfileDetailsCard from '../../components/profile/ProfileDetailsCard';
 import { useDisclosure } from '../../hooks/useDisclosure';

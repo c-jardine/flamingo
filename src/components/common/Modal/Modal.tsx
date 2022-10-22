@@ -1,17 +1,18 @@
 import React from 'react';
 import { View } from 'react-native';
-import Modal from 'react-native-modal';
+import RNModal from 'react-native-modal';
 import OutsidePressHandler from 'react-native-outside-press';
-import { ThemeContext } from '../../provider/ThemeProvider';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import ModalProps from './Modal.types';
 
-const RNModal = ({ isVisible, setIsVisible, children }) => {
+const Modal = (props: ModalProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
-    <Modal
+    <RNModal
       backdropColor={theme.colors.black}
-      isVisible={isVisible}
-      onModalHide={() => setIsVisible(false)}
+      isVisible={props.isVisible}
+      onModalHide={() => props.setIsVisible(false)}
       useNativeDriver={true}
       hideModalContentWhileAnimating={true}
     >
@@ -24,7 +25,7 @@ const RNModal = ({ isVisible, setIsVisible, children }) => {
       >
         <OutsidePressHandler
           disabled={false}
-          onOutsidePress={() => setIsVisible(false)}
+          onOutsidePress={() => props.setIsVisible(false)}
           style={{ width: '100%' }}
         >
           <View
@@ -37,12 +38,12 @@ const RNModal = ({ isVisible, setIsVisible, children }) => {
               borderRadius: 16,
             }}
           >
-            {children}
+            {props.children}
           </View>
         </OutsidePressHandler>
       </View>
-    </Modal>
+    </RNModal>
   );
 };
 
-export default RNModal;
+export default Modal;

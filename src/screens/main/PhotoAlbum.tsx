@@ -8,11 +8,11 @@ import {
   View,
 } from 'react-native';
 import AlbumViewer from '../../components/core/AlbumViewer';
-import Header from '../../components/core/Header';
+import Header from '../../components/common/Header/Header';
 import MenuItem from '../../components/core/MenuItem';
-import Modal from '../../components/core/Modal';
-import Photo from '../../components/core/Photo';
-import { KToast } from '../../components/utils/KToast';
+import Modal from '../../components/common/Modal/Modal';
+import Photo from '../../components/common/Photo/Photo';
+import { Toast } from '../../components/common/Toast/Toast';
 import { useCamera } from '../../hooks/useCamera';
 import { useDisclosure } from '../../hooks/useDisclosure';
 import { supabase } from '../../initSupabase';
@@ -64,7 +64,7 @@ export default function ({
     const res = await cameraResult();
     if (res) {
       cameraResult();
-      KToast.success('Successfully uploaded!');
+      Toast.success('Successfully uploaded!');
     }
     setUploadModalIsOpen(false);
   };

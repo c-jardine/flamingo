@@ -1,25 +1,17 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import {
-  TouchableOpacity,
-  TouchableOpacityProps,
-  ViewStyle,
-} from 'react-native';
-import { ThemeContext } from '../../provider/ThemeProvider';
+import { TouchableOpacity } from 'react-native';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import IconButtonProps from './IconButton.types';
 
-const IconButton = (
-  props: TouchableOpacityProps & {
-    contentContainerStyle?: ViewStyle;
-  } & React.ComponentProps<typeof MaterialCommunityIcons>
-) => {
+const IconButton = (props: IconButtonProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
     <TouchableOpacity
-      {...props}
       style={[
         {
-          backgroundColor: props.disabled
+          backgroundColor: props.contentContainerProps?.disabled
             ? theme.colors.text['50']
             : theme.colors.primary,
           borderRadius: 16,
@@ -30,12 +22,13 @@ const IconButton = (
         },
         props.contentContainerStyle,
       ]}
-      onPress={props.onPress}
+      onPress={props.contentContainerProps?.onPress}
+      {...props.contentContainerProps}
     >
       <MaterialCommunityIcons
-        name={props.name}
-        color={props.color || theme.colors.text['800']}
-        size={32}
+        color={props.iconProps?.color || theme.colors.text['800']}
+        size={props.iconProps?.size || 32}
+        {...props.iconProps}
       />
     </TouchableOpacity>
   );

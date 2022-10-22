@@ -1,9 +1,9 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
-import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
+import { ArrowNavigator } from '../../../components/common';
 import Selector from '../../../components/forms/Selector';
-import FormPageLayout from '../../../components/layouts/FormPageLayout';
-import { Pronouns } from '../../../constants/gender';
+import { FormPageLayout } from '../../../components/layouts';
+import { Pronouns } from '../../../constants/Gender';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { ProfileProps } from '../../../types/profile';
 import { PronounsScreenNavigationProp } from './PronounsScreen.type';

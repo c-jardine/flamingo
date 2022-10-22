@@ -16,7 +16,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import IDBoundingBox from '../../components/camera/IDBoundingBox';
 import Camera from '../../components/core/Camera';
-import Header from '../../components/core/Header';
+import Header from '../../components/common/Header/Header';
 import { IDRequiredFields, IDType } from '../../constants/idScanner';
 import { CameraSetting } from '../../enums/CameraSetting';
 import { ThemeContext } from '../../provider/ThemeProvider';

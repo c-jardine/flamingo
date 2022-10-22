@@ -1,5 +1,5 @@
 import { FormikValues } from 'formik';
-import { KToast } from '../../../components/utils/KToast';
+import { Toast } from '../../../components/common/Toast/Toast';
 import { signUp } from '../../../services/auth.service';
 
 export const sendVerificationEmail = async (
@@ -13,6 +13,6 @@ export const sendVerificationEmail = async (
       return cb();
     }
   } catch (error) {
-    KToast.error(error?.message);
+    Toast.error(error?.message);
   }
 };

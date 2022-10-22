@@ -1,6 +1,6 @@
 import React from 'react';
-import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
-import FormPageLayout from '../../../components/layouts/FormPageLayout';
+import { ArrowNavigator } from '../../../components/common';
+import { FormPageLayout } from '../../../components/layouts';
 import { signOut } from '../../../services/auth.service';
 import { InfoScreenNavigationProp } from './InfoScreen.type';
 

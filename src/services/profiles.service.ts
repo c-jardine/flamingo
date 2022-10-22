@@ -1,5 +1,5 @@
 import { FormikValues } from 'formik';
-import { KToast } from '../components/utils/KToast';
+import { Toast } from '../components/common/Toast/Toast';
 import { supabase } from '../initSupabase';
 /**
  * Save the authenticated user's profile.
@@ -17,9 +17,9 @@ export async function save(values: FormikValues) {
   });
 
   if (!error && data) {
-    KToast.success('SUCCESS');
+    Toast.success('SUCCESS');
   }
   if (error) {
-    KToast.error(error.message);
+    Toast.error(error.message);
   }
 }

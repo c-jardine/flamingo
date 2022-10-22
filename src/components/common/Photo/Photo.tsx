@@ -1,8 +1,8 @@
 import React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
-import { supabase } from '../../initSupabase';
-import { ThemeContext } from '../../provider/ThemeProvider';
-import { PhotoProps } from '../../types';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import { getPhoto } from './Photo.actions';
+import { PhotoProps } from './Photo.types';
 
 const Photo = (props: PhotoProps) => {
   const { theme } = React.useContext(ThemeContext);
@@ -11,11 +11,13 @@ const Photo = (props: PhotoProps) => {
   const [showPlaceholder, setShowPlaceholder] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    if (props.path) {
-      const { data, error } = supabase.storage
-        .from('albums')
-        .getPublicUrl(props.path);
-      setSrc(data?.publicURL);
+    try {
+      if (props.path) {
+        const res = getPhoto(props.path);
+        setSrc(res?.publicURL);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, [props.path]);
 

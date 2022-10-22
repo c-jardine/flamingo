@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeContext } from '../../../provider/ThemeProvider';
-import IconButton from '../IconButton';
+import IconButton from '../IconButton/IconButton';
 import { defaultContentContainerStyle } from './ArrowNavigator.styles';
 import { ArrowNavigatorProps } from './ArrowNavigator.type';
 
@@ -25,24 +25,28 @@ export const arrowNavigatorDefaults = (
   const _backButton = (): JSX.Element => {
     return (
       <IconButton
-        name={
-          backComponent?.icon !== undefined
-            ? backComponent.icon
-            : 'arrow-left-thick'
-        }
-        onPress={
-          backComponent?.onPress !== undefined
-            ? backComponent?.onPress
-            : () => {
-                return;
-              }
-        }
-        disabled={
-          backComponent?.disabled !== undefined
-            ? backComponent?.disabled
-            : false
-        }
-        contentContainerStyle={{ backgroundColor: theme.colors.text['50'] }}
+        iconProps={{
+          name:
+            backComponent?.icon !== undefined
+              ? backComponent.icon
+              : 'arrow-left-thick',
+
+          disabled:
+            backComponent?.disabled !== undefined
+              ? backComponent?.disabled
+              : false,
+        }}
+        contentContainerStyle={{
+          backgroundColor: theme.colors.text['50'],
+        }}
+        contentContainerProps={{
+          onPress:
+            backComponent?.onPress !== undefined
+              ? backComponent?.onPress
+              : () => {
+                  return;
+                },
+        }}
       />
     );
   };
@@ -51,14 +55,30 @@ export const arrowNavigatorDefaults = (
   const _nextButton = (): JSX.Element => {
     return (
       <IconButton
-        name={nextComponent?.icon || 'arrow-right-thick'}
-        onPress={
-          nextComponent?.onPress ||
-          (() => {
-            return;
-          })
-        }
-        disabled={nextComponent?.disabled || false}
+        iconProps={{
+          name:
+            nextComponent?.icon !== undefined
+              ? nextComponent.icon
+              : 'arrow-right-thick',
+
+          disabled:
+            nextComponent?.disabled !== undefined
+              ? nextComponent?.disabled
+              : false,
+        }}
+        contentContainerStyle={{
+          backgroundColor: nextComponent?.disabled
+            ? theme.colors.text['50']
+            : theme.colors.primary,
+        }}
+        contentContainerProps={{
+          onPress:
+            nextComponent?.onPress !== undefined
+              ? nextComponent?.onPress
+              : () => {
+                  return;
+                },
+        }}
       />
     );
   };

@@ -5,7 +5,7 @@ import { useDisclosure } from '../../hooks/useDisclosure';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import { signOut } from '../../services/auth.service';
 import MenuItem from '../core/MenuItem';
-import Modal from '../core/Modal';
+import Modal from '../common/Modal/Modal';
 
 const SignOutButton = () => {
   const { theme } = React.useContext(ThemeContext);

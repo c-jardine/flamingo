@@ -7,7 +7,7 @@ import {
   EditProfileScreenNavigationProp,
   PhotoAlbumScreenNavigationProp,
 } from '../../types';
-import Photo from './Photo';
+import Photo from '../common/Photo/Photo';
 
 const SettingsProfileCard = () => {
   const { theme } = React.useContext(ThemeContext);

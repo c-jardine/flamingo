@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import { ProfileProps } from '../../types/profile';
-import Photo from './Photo';
+import Photo from '../common/Photo/Photo';
 
 const ProfileCard = ({
   navigation,

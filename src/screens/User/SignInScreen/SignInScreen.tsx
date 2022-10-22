@@ -3,10 +3,10 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Button from '../../../components/core/Button/Button';
+import Button from '../../../components/common/Button/Button';
 import TextInput from '../../../components/forms/TextInput';
 import TextInputError from '../../../components/forms/TextInputError';
-import FormPageLayout from '../../../components/layouts/FormPageLayout';
+import FormPageLayout from '../../../components/layouts/FormPageLayout/FormPageLayout';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { signIn } from '../../../services/auth.service';
 import { SignInSchema } from './SignInScreen.schema';

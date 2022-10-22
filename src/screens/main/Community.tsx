@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { View } from 'react-native';
-import Header from '../../components/core/Header';
+import Header from '../../components/common/Header/Header';
 import TabSelector from '../../components/core/TabSelector';
 import DumpsterFire from '../../components/dumpsterFire/DumpsterFire';
 import { ThemeContext } from '../../provider/ThemeProvider';

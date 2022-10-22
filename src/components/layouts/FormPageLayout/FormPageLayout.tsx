@@ -6,25 +6,18 @@ import {
   TouchableWithoutFeedback,
   View,
   ViewProps,
-  ViewStyle,
 } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ThemeContext } from '../../provider/ThemeProvider';
-import Header from '../core/Header';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import { Header } from '../../common';
+import {
+  FormPageLayoutContentProps,
+  FormPageLayoutHeaderProps,
+  FormPageLayoutProps,
+} from './FormPageLayout.types';
 
-interface FormPageLayoutProps {
-  handleBack?: () => void;
-  handleNext?: () => void;
-  title?: string;
-  description?: string;
-  nextDisabled?: boolean;
-  children?: React.ReactNode;
-}
-
-const PageHeader = (
-  props: ViewProps & { title: string; description: string }
-) => {
+const PageHeader = (props: FormPageLayoutHeaderProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
@@ -42,9 +35,7 @@ const PageHeader = (
   );
 };
 
-const PageContent = (
-  props: ViewProps & { contentContainerStyle?: ViewStyle }
-) => {
+const PageContent = (props: FormPageLayoutContentProps) => {
   return (
     <View style={[{ flex: 1 }, props.contentContainerStyle]}>
       {props.children}
@@ -56,9 +47,7 @@ const PageFooter = (props: Pick<ViewProps, 'children'>) => {
   return <View>{props.children}</View>;
 };
 
-const FormPageLayout = (
-  props: Pick<ViewProps, 'children'> & { touchToCloseKeyboard?: boolean }
-) => {
+const FormPageLayout = (props: FormPageLayoutProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (

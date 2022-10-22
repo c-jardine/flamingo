@@ -1,10 +1,10 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
-import ArrowNavigator from '../../../components/core/ArrowNavigator/ArrowNavigator';
+import { ArrowNavigator } from '../../../components/common';
 import TextInput from '../../../components/forms/TextInput';
 import TextInputError from '../../../components/forms/TextInputError';
-import FormPageLayout from '../../../components/layouts/FormPageLayout';
+import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { ProfileProps } from '../../../types/profile';
 import { PersonalInfoScreenNavigationProp } from './PersonalInfoScreen.type';

@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, View } from 'react-native';
-import KButton from '../../../components/core/Button/Button';
+import KButton from '../../../components/common/Button/Button';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { ConfirmEmailScreenNavigationProp } from './ConfirmEmailScreen.type';
 

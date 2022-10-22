@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { ThemeContext } from '../../provider/ThemeProvider';
+import { Text } from '../common/Text';
 import OnlineIndicator from '../core/OnlineIndicator';
-import TextWithIcon from '../core/TextWithIcon';
 
 const ProfileDetailsCard = ({ profile }) => {
   const { theme } = React.useContext(ThemeContext);
@@ -12,12 +12,9 @@ const ProfileDetailsCard = ({ profile }) => {
         isOnline={profile?.is_online}
         lastOnline={profile?.last_online}
       />
-      <Text
-        style={{ ...theme.textVariants.title, color: theme.colors.text['800'] }}
-      >
+      <Text leftIcon={{ name: 'map-marker' }}>
         {profile?.first_name} {profile?.last_name}
       </Text>
-      <TextWithIcon icon='map-marker'>{profile?.location}</TextWithIcon>
     </View>
   );
 };

@@ -8,7 +8,7 @@ import Animated, {
   ZoomOut,
 } from 'react-native-reanimated';
 import Camera from '../../components/core/Camera';
-import Header from '../../components/core/Header';
+import Header from '../../components/common/Header/Header';
 import { CameraSetting } from '../../enums/CameraSetting';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import { Buffer } from 'buffer';

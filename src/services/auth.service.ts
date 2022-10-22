@@ -1,7 +1,7 @@
 import { format, toDate } from 'date-fns';
 import { FormikValues } from 'formik';
 import { Vibration } from 'react-native';
-import { KToast } from '../components/utils/KToast';
+import { Toast } from '../components/common/Toast/Toast';
 import { supabase } from '../initSupabase';
 
 export async function signIn(values: FormikValues) {
@@ -25,7 +25,7 @@ export async function signIn(values: FormikValues) {
   }
   if (error) {
     Vibration.vibrate(1000);
-    KToast.error('Account not found');
+    Toast.error('Account not found');
   }
 }
 

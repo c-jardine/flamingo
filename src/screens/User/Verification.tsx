@@ -10,7 +10,7 @@ import Constants from 'expo-constants';
 import React from 'react';
 import { Text, View } from 'react-native';
 import BackHeader from '../../components/utils/BackHeader';
-import { KToast } from '../../components/utils/KToast';
+import { Toast } from '../../components/common/Toast/Toast';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import {
   AuthScreenEnum,
@@ -66,7 +66,7 @@ const Verification = (props: AuthScreenNavigatorProps) => {
 
         confidence > 90 ? setUserVerified(true) : setUserVerified(false);
       } else {
-        KToast.error('Unable to verify');
+        Toast.error('Unable to verify');
       }
       setIsLoading(false);
     } catch (error) {

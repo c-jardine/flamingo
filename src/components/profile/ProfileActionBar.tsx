@@ -6,7 +6,7 @@ import { AuthContext } from '../../provider/AuthProvider';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import { PhotoAlbumScreenNavigationProp } from '../../types/navigation/mainStack/photoAlbumScreen';
 import { ProfileProps } from '../../types/profile';
-import IconButton from '../core/IconButton';
+import IconButton from '../common/IconButton/IconButton';
 
 const ProfileActionBar = ({ profile }: { profile: ProfileProps }) => {
   const { theme } = React.useContext(ThemeContext);

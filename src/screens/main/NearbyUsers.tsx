@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
-import Header from '../../components/core/Header';
+import Header from '../../components/common/Header/Header';
 import ProfileCard from '../../components/core/ProfileCard';
 import { useAllUsers } from '../../hooks/useAllUsers';
 import { ThemeContext } from '../../provider/ThemeProvider';
