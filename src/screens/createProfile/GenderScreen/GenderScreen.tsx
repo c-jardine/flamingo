@@ -5,7 +5,7 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { ArrowNavigator, Header } from '../../../components/common';
 import { Selector } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
-import { GenderIdentities, Genders } from '../../../constants/gender';
+import { GenderIdentities, Genders } from '../../../constants/Gender';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { ProfileProps } from '../../../types/profile';
 import { GenderScreenNavigationProp } from './GenderScreen.type';

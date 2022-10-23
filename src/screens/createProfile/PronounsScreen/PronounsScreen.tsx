@@ -3,7 +3,7 @@ import React from 'react';
 import { ArrowNavigator } from '../../../components/common';
 import { Selector } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
-import { Pronouns } from '../../../constants/gender';
+import { Pronouns } from '../../../constants/Gender';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { ProfileProps } from '../../../types/profile';
 import { PronounsScreenNavigationProp } from './PronounsScreen.type';

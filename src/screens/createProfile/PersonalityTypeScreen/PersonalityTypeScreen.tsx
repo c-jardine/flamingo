@@ -3,7 +3,7 @@ import React from 'react';
 import { ArrowNavigator } from '../../../components/common';
 import { Selector } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
-import { PersonalityType } from '../../../constants/personalityType';
+import { PersonalityType } from '../../../constants/PersonalityType';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { ProfileProps } from '../../../types/profile';
 import { PersonalityTypeScreenNavigationProp } from './PersonalityTypeScreen.type';

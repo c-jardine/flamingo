@@ -3,7 +3,7 @@ import React from 'react';
 import { ArrowNavigator } from '../../../components/common';
 import { Selector } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
-import { SexualOrientation } from '../../../constants/sexualOrientation';
+import { SexualOrientation } from '../../../constants/SexualOrientation';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { ProfileProps } from '../../../types/profile';
 import { SexualOrientationScreenNavigationProp } from './SexualOrientationScreen.type';
