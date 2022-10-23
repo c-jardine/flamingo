@@ -14,11 +14,10 @@ import Animated, {
   ZoomIn,
   ZoomOut,
 } from 'react-native-reanimated';
-import IDBoundingBox from '../../components/camera/IDBoundingBox';
-import Camera from '../../components/camera/Camera/Camera';
-import Header from '../../components/common/Header/Header';
+import { Camera, CameraSettingsEnum } from '../../components/camera';
+import { IdBoundingBox } from '../../components/camera/BoundingBox';
+import { Header } from '../../components/common';
 import { IDRequiredFields, IDType } from '../../constants/idScanner';
-import { CameraSetting } from '../../enums/CameraSetting';
 import { ThemeContext } from '../../provider/ThemeProvider';
 
 const accessKeyId = Constants?.manifest?.extra?.awsAccessKeyId as string;
@@ -32,7 +31,7 @@ const IDVerification = (props: {
   const [image, setImage] = React.useState<CameraCapturedPicture | null>(null);
   const [isScanning, setIsScanning] = React.useState<boolean>(false);
 
-  const scan = async (): Promise<void> => {
+  const _scan = async (): Promise<void> => {
     try {
       setIsScanning(true);
 
@@ -118,13 +117,13 @@ const IDVerification = (props: {
             <Camera
               image={image}
               setImage={setImage}
-              boundingBox={IDBoundingBox}
+              boundingBox={IdBoundingBox}
               settings={[
-                CameraSetting.FlashToggle,
-                CameraSetting.AutoFocusToggle,
-                CameraSetting.BoundingBoxToggle,
+                CameraSettingsEnum.FlashToggle,
+                CameraSettingsEnum.AutoFocusToggle,
+                CameraSettingsEnum.BoundingBoxToggle,
               ]}
-              onSubmit={scan}
+              onSubmit={_scan}
             />
           </Animated.View>
         ) : (

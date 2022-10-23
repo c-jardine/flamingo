@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { ArrowNavigator } from '../../../components/common';
-import Selector from '../../../components/form/Selector/Selector';
+import { Selector } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
 import { SexualOrientation } from '../../../constants/sexualOrientation';
 import { ThemeContext } from '../../../provider/ThemeProvider';

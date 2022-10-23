@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import Selector from '../form/Selector/Selector';
+import { Selector } from '../form';
 
 const items = [
   { id: 1, label: 'Man' },

@@ -2,10 +2,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import ArrowNavigator from '../../../components/common/ArrowNavigator/ArrowNavigator';
-import TextInput from '../../../components/form/TextInput';
-import TextInputError from '../../../components/form/TextInputError';
-import FormPageLayout from '../../../components/layouts/FormPageLayout/FormPageLayout';
+import { ArrowNavigator } from '../../../components/common';
+import { TextInput, TextInputError } from '../../../components/form';
+import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { SignUpSchema } from './SignUpScreen.schema';
 import { sendVerificationEmail } from './SignUpScreen.service';
@@ -16,7 +15,7 @@ const SignUpScreen = (props: { navigation: SignUpScreenNavigationProp }) => {
 
   const _handleNext = async (values: FormikValues) => {
     await sendVerificationEmail(values, () =>
-      props.navigation.navigate('EmailConfirmation')
+      props.navigation.navigate('ConfirmEmail')
     );
   };
 

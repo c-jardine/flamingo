@@ -1,8 +1,9 @@
 import React from 'react';
-import { TextInput as RNTextInput, TextInputProps, View } from 'react-native';
-import { ThemeContext } from '../../provider/ThemeProvider';
+import { TextInput as RNTextInput, View } from 'react-native';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import TextInputProps from './TextInput.types';
 
-const TextInput = (props: TextInputProps & { leftComponent?: JSX.Element }) => {
+const TextInput = (props: TextInputProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   const [isFocused, setIsFocused] = React.useState(false);

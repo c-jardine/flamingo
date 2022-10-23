@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-import { ThemeContext } from '../../provider/ThemeProvider';
+import { ThemeContext } from '../../../../provider/ThemeProvider';
 
 const IDBoundingBox = () => {
   const { theme } = React.useContext(ThemeContext);

@@ -1,7 +1,7 @@
 import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
-import TextInput from '../form/TextInput';
+import TextInput from '../form/TextInput/TextInput';
 
 const Name = () => {
   const { values, handleChange, errors, touched } =
