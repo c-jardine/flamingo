@@ -4,8 +4,8 @@ import { View } from 'react-native';
 import { ArrowNavigator } from '../../../components/common';
 import { TextInput, TextInputError } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
-import { ThemeContext } from '../../../provider/ThemeProvider';
-import { ProfileProps } from '../../../types/profile';
+import { ThemeContext } from '../../../providers';
+import { ProfileProps } from '../../../shared/types';
 import { PersonalInfoScreenNavigationProp } from './PersonalInfoScreen.type';
 
 const PersonalInfoScreen = (props: {

@@ -6,7 +6,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 
 const Button = (
   props: TouchableOpacityProps & {

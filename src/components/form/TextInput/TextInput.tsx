@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextInput as RNTextInput, View } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import TextInputProps from './TextInput.types';
 
 const TextInput = (props: TextInputProps) => {

@@ -5,8 +5,8 @@ import React from 'react';
 import { MaskedTextInput } from 'react-native-mask-text';
 import { ArrowNavigator } from '../../../components/common';
 import { FormPageLayout } from '../../../components/layouts';
-import { ThemeContext } from '../../../provider/ThemeProvider';
-import { ProfileProps } from '../../../types/profile';
+import { ThemeContext } from '../../../providers';
+import { ProfileProps } from '../../../shared/types';
 import { BirthdateScreenNavigationProp } from './BirthdateScreen.type';
 
 const BirthdateScreen = (props: {

@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import TabBarIconProps from './TabBarIcon.types';
 
 const TabBarIcon = (props: TabBarIconProps) => {

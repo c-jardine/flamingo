@@ -1,4 +1,4 @@
-import { supabase } from '../../../initSupabase';
+import { supabase } from '../../../supabase';
 
 export const getPhoto = (path: string) => {
   const { data, error } = supabase.storage.from('albums').getPublicUrl(path);

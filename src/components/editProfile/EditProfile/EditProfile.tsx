@@ -2,10 +2,10 @@ import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
-import { useAuthenticatedUserProfile } from '../../../hooks/useAuthenticatedUserProfile';
-import { ThemeContext } from '../../../provider/ThemeProvider';
-import { save } from '../../../services/profiles.service';
-import { ProfileGeneralSchema } from '../../../validation/profileGeneralSchema';
+import { ThemeContext } from '../../../providers';
+import { useAuthenticatedUserProfile } from '../../../shared/hooks';
+import { ProfileSchema } from '../../../shared/schemas';
+import { save } from '../../../shared/services';
 import { Button, MenuContainer, Text } from '../../common';
 import { Birthday } from '../Birthday';
 import { Gender } from '../Gender';
@@ -22,7 +22,7 @@ const EditProfile = () => {
   const sections = [
     {
       title: 'Name',
-      content: `${profile?.first_name} ${profile?.last_name}`,
+      content: `${profile?.firstName} ${profile?.lastName}`,
       contentComponent: <Name />,
     },
     {
@@ -32,7 +32,7 @@ const EditProfile = () => {
     },
     {
       title: 'Gender',
-      content: profile?.gender,
+      content: profile?.gender.gender,
       contentComponent: <Gender />,
     },
     {
@@ -99,7 +99,7 @@ const EditProfile = () => {
         gender: profile.gender,
         location: profile.location,
       }}
-      validationSchema={ProfileGeneralSchema}
+      validationSchema={ProfileSchema}
       onSubmit={(values) => save(values)}
     >
       {({ handleSubmit, values }) => (

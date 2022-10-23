@@ -1,7 +1,8 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
+import MenuItemProps from './MenuItem.types';
 
 const MenuItem = (props: MenuItemProps) => {
   const { theme } = React.useContext(ThemeContext);

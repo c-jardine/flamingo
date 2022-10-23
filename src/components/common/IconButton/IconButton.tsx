@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import IconButtonProps from './IconButton.types';
 
 const IconButton = (props: IconButtonProps) => {

@@ -3,9 +3,9 @@ import React from 'react';
 import { ArrowNavigator } from '../../../components/common';
 import { Selector } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
-import { SexualOrientation } from '../../../constants/SexualOrientation';
-import { ThemeContext } from '../../../provider/ThemeProvider';
-import { ProfileProps } from '../../../types/profile';
+import { ThemeContext } from '../../../providers';
+import { SexualOrientation } from '../../../shared/constants';
+import { ProfileProps } from '../../../shared/types';
 import { SexualOrientationScreenNavigationProp } from './SexualOrientationScreen.type';
 
 const SexualOrientationScreen = (props: {

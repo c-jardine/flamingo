@@ -3,7 +3,7 @@ import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 
 const Location = () => {
   const { theme } = React.useContext(ThemeContext);

@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { useAuthenticatedUserProfile } from '../../../hooks/useAuthenticatedUserProfile';
+import { useAuthenticatedUserProfile } from '../../../shared/hooks';
 import { TextInput } from '../../form';
 
 const Birthday = () => {

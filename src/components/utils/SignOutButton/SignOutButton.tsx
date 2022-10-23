@@ -1,9 +1,9 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { useDisclosure } from '../../../hooks/useDisclosure';
-import { ThemeContext } from '../../../provider/ThemeProvider';
-import { signOut } from '../../../services/auth.service';
+import { ThemeContext } from '../../../providers';
+import { useDisclosure } from '../../../shared/hooks';
+import { signOut } from '../../../shared/services';
 import { MenuItem, Modal } from '../../common';
 
 const SignOutButton = () => {

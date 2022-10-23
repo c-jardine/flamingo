@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import TextInputErrorProps from './TextInputError.types';
 
 const TextInputError = (props: TextInputErrorProps) => {

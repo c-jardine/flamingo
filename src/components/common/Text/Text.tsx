@@ -1,7 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Text as RNText, TextStyle, View } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import TextProps from './Text.types';
 
 const _Text = (props: TextProps & { style: TextStyle }) => {

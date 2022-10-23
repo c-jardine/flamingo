@@ -1,1 +1,1 @@
-export { FormPageLayout } from './FormPageLayout';
+export * from './FormPageLayout';

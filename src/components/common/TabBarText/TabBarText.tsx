@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import TabBarTextProps from './TabBarText.types';
 
 const TabBarText = (props: TabBarTextProps) => {

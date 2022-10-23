@@ -1,5 +1,5 @@
 import RNToast, { ToastProps } from 'react-native-root-toast';
-import { color } from '../../../styles/color';
+import { color } from '../../../styles/color/color';
 import { baseOptions } from './Toast.config';
 
 /**
