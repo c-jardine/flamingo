@@ -1,25 +1,7 @@
 import React from 'react';
-import {
-  FlatList,
-  FlatListProps,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { ThemeContext } from '../../provider/ThemeProvider';
-
-type AOnSelectSingle = (value: string) => void;
-
-type AOnSelectMultiselect = (values: string[]) => void;
-
-interface SelectorProps {
-  items: Array<any>;
-  value?: string | string[];
-  onSelect: AOnSelectSingle | AOnSelectMultiselect;
-  horizontal?: boolean;
-  multiselect?: boolean;
-  contentContainerStyle?: FlatListProps<any>;
-}
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import { RenderItemProps, SelectorProps } from './Selector.types';
 
 const Selector = (props: SelectorProps) => {
   const { theme } = React.useContext(ThemeContext);
@@ -32,7 +14,7 @@ const Selector = (props: SelectorProps) => {
     props.value && setSelected(props.value);
   }, []);
 
-  const handleMultiselect = (value: string) => {
+  const _handleMultiselect = (value: string) => {
     if (props.multiselect) {
       let arr = (props.value as string[]) || [];
       if (arr.includes(value)) {
@@ -45,18 +27,18 @@ const Selector = (props: SelectorProps) => {
     }
   };
 
-  const handleSingle = (value: string) => {
+  const _handleSingle = (value: string) => {
     setSelected(value);
     return props.onSelect(value);
   };
 
-  const _renderItem = ({ item }) => {
+  const _renderItem = ({ item }: { item: RenderItemProps }) => {
     return (
       <TouchableOpacity
         onPress={() => {
           props.multiselect
-            ? handleMultiselect(item.value)
-            : handleSingle(item.value);
+            ? _handleMultiselect(item.value)
+            : _handleSingle(item.value);
         }}
         style={[
           props.horizontal && {
@@ -115,7 +97,7 @@ const Selector = (props: SelectorProps) => {
   return (
     <FlatList
       data={props.items}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item: RenderItemProps) => item.id}
       renderItem={_renderItem}
       ItemSeparatorComponent={() => (
         <View

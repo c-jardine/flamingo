@@ -1,24 +1,17 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { CameraCapturedPicture } from 'expo-camera';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { Layout, ZoomIn } from 'react-native-reanimated';
-import { ThemeContext } from '../../provider/ThemeProvider';
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import CameraActionBarProps from './CameraActionBar.types';
 
-interface CameraActionBarType {
-  handleTakePhoto: () => Promise<void>;
-  handleRetake: () => void;
-  image: CameraCapturedPicture | null;
-  onSubmit: () => void;
-}
-
-const CameraActionBar = (props: CameraActionBarType) => {
+const CameraActionBar = (props: CameraActionBarProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
     <View style={{ alignItems: 'center', marginTop: theme.spacing.xl }}>
       <Animated.View
-      entering={ZoomIn.duration(200)}
+        entering={ZoomIn.duration(200)}
         style={{
           width: 256,
           flexDirection: 'row',

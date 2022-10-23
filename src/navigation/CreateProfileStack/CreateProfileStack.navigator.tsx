@@ -7,7 +7,7 @@ import {
   PersonalityTypeScreen,
   PronounsScreen,
   SexualOrientationScreen,
-} from '../../screens/CreateProfile';
+} from '../../screens/createProfile';
 import { CreateProfileStackParams } from './CreateProfileStack.type';
 
 const Stack = createNativeStackNavigator<CreateProfileStackParams>();

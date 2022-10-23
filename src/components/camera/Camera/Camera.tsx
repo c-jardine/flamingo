@@ -1,27 +1,20 @@
 import {
   AutoFocus,
   Camera as RNCamera,
-  CameraCapturedPicture,
   CameraPictureOptions,
   CameraType,
   FlashMode,
 } from 'expo-camera';
-import React, { SetStateAction } from 'react';
+import React from 'react';
 import { Image, View } from 'react-native';
-import { CameraSetting } from '../../enums/CameraSetting';
-import { ThemeContext } from '../../provider/ThemeProvider';
-import CameraActionBar from '../camera/CameraActionBar';
-import CameraSettings from '../camera/CameraSettings';
-import FocusSlider from '../camera/FocusSlider';
-
-interface CameraProps {
-  boundingBox?: React.ComponentType;
-  image: CameraCapturedPicture | null;
-  setImage: React.Dispatch<SetStateAction<CameraCapturedPicture | null>>;
-  settings: CameraSetting[];
-  onSubmit: () => void;
-  defaultCamera?: CameraType;
-}
+import { ThemeContext } from '../../../provider/ThemeProvider';
+import { CameraActionBar } from '../CameraActionBar';
+import {
+  CameraSettings,
+  CameraSettingsEnum,
+  FocusSlider,
+} from '../CameraSettings';
+import { CameraProps } from '../types';
 
 const Camera = (props: CameraProps) => {
   const { theme } = React.useContext(ThemeContext);
@@ -43,7 +36,7 @@ const Camera = (props: CameraProps) => {
   // Needed to call component functions on the Camera.
   const cameraRef = React.useRef<RNCamera>(null);
 
-  const handleTakePhoto = async () => {
+  const _handleTakePhoto = async () => {
     if (isCameraReady) {
       const result = await cameraRef.current?.takePictureAsync({
         aspect: [1, 1],
@@ -56,6 +49,10 @@ const Camera = (props: CameraProps) => {
     }
   };
 
+  const _handleRetake = () => {
+    props.setImage(null);
+  };
+
   React.useEffect(() => {
     if (props.defaultCamera && props.defaultCamera === CameraType.front) {
       setIsFrontCameraEnabled(true);
@@ -63,10 +60,6 @@ const Camera = (props: CameraProps) => {
       setIsFrontCameraEnabled(false);
     }
   });
-
-  const handleRetake = () => {
-    props.setImage(null);
-  };
 
   return (
     <View
@@ -103,7 +96,7 @@ const Camera = (props: CameraProps) => {
             }}
           >
             {/* Bounding box */}
-            {props.settings.includes(CameraSetting.BoundingBoxToggle) &&
+            {props.settings.includes(CameraSettingsEnum.BoundingBoxToggle) &&
               isBoundingBoxEnabled &&
               BoundingBox}
 
@@ -139,8 +132,8 @@ const Camera = (props: CameraProps) => {
       {/* Camera action bar */}
       {isCameraReady && (
         <CameraActionBar
-          handleTakePhoto={handleTakePhoto}
-          handleRetake={handleRetake}
+          handleTakePhoto={_handleTakePhoto}
+          handleRetake={_handleRetake}
           image={props.image}
           onSubmit={props.onSubmit}
         />

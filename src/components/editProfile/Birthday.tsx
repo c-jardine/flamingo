@@ -3,7 +3,7 @@ import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useAuthenticatedUserProfile } from '../../hooks/useAuthenticatedUserProfile';
-import TextInput from '../forms/TextInput';
+import TextInput from '../form/TextInput';
 
 const Birthday = () => {
   const { loading, error, profile } = useAuthenticatedUserProfile();

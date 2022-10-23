@@ -1,9 +1,9 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { ArrowNavigator } from '../../../components/common';
-import Selector from '../../../components/forms/Selector';
+import Selector from '../../../components/form/Selector/Selector';
 import { FormPageLayout } from '../../../components/layouts';
-import { SexualOrientation } from '../../../constants/SexualOrientation';
+import { SexualOrientation } from '../../../constants/sexualOrientation';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { ProfileProps } from '../../../types/profile';
 import { SexualOrientationScreenNavigationProp } from './SexualOrientationScreen.type';

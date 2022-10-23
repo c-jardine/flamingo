@@ -1,11 +1,7 @@
-import React, { SetStateAction } from 'react';
+import React from 'react';
 import Animated, { Layout, ZoomIn, ZoomOut } from 'react-native-reanimated';
-import CameraSettingsButton from '../core/CameraSettingsButton';
-
-interface FlashToggleProps {
-  isFlashEnabled: boolean;
-  setIsFlashEnabled: React.Dispatch<SetStateAction<boolean>>;
-}
+import { CameraSettingsToggle } from '../../CameraSettings';
+import FlashToggleProps from './FlashToggle.types';
 
 const FlashToggle = (props: FlashToggleProps) => {
   const handleToggle = () => {
@@ -18,7 +14,7 @@ const FlashToggle = (props: FlashToggleProps) => {
       entering={ZoomIn.duration(200).delay(100)}
       exiting={ZoomOut.duration(200).delay(200)}
     >
-      <CameraSettingsButton
+      <CameraSettingsToggle
         name='flash'
         isEnabled={props.isFlashEnabled}
         handleAction={handleToggle}

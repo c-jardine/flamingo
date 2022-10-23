@@ -1,16 +1,11 @@
-import React, { SetStateAction } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import Animated, { Layout, ZoomIn, ZoomOut } from 'react-native-reanimated';
-import CameraSettingsButton from '../core/CameraSettingsButton';
-
-interface AutoFocusToggleProps {
-  isAutoFocusEnabled: boolean;
-  setIsAutoFocusEnabled: React.Dispatch<SetStateAction<boolean>>;
-  isFrontCameraEnabled: boolean;
-}
+import { CameraSettingsToggle } from '../CameraSettingsToggle';
+import AutoFocusToggleProps from './AutoFocusToggle.types';
 
 const AutoFocusToggle = (props: AutoFocusToggleProps) => {
-  const handleToggle = () => {
+  const _handleToggle = () => {
     props.setIsAutoFocusEnabled(!props.isAutoFocusEnabled);
   };
 
@@ -27,10 +22,10 @@ const AutoFocusToggle = (props: AutoFocusToggleProps) => {
             }
             exiting={ZoomOut.duration(200).delay(100)}
           >
-            <CameraSettingsButton
+            <CameraSettingsToggle
               name='focus-auto'
               isEnabled={props.isAutoFocusEnabled}
-              handleAction={handleToggle}
+              handleAction={_handleToggle}
             />
           </Animated.View>
         )}

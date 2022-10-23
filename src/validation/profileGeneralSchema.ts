@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { GenderIdentities, Genders } from '../constants/Gender';
+import { GenderIdentities, Genders } from '../constants/gender';
 
 export const ProfileGeneralSchema = Yup.object().shape({
   firstName: Yup.string().min(2, 'Too short').required('Required'),

@@ -1,9 +1,9 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { ArrowNavigator } from '../../../components/common';
-import Selector from '../../../components/forms/Selector';
+import Selector from '../../../components/form/Selector/Selector';
 import { FormPageLayout } from '../../../components/layouts';
-import { PersonalityType } from '../../../constants/PersonalityType';
+import { PersonalityType } from '../../../constants/personalityType';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import { ProfileProps } from '../../../types/profile';
 import { PersonalityTypeScreenNavigationProp } from './PersonalityTypeScreen.type';

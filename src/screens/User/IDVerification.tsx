@@ -15,7 +15,7 @@ import Animated, {
   ZoomOut,
 } from 'react-native-reanimated';
 import IDBoundingBox from '../../components/camera/IDBoundingBox';
-import Camera from '../../components/core/Camera';
+import Camera from '../../components/camera/Camera/Camera';
 import Header from '../../components/common/Header/Header';
 import { IDRequiredFields, IDType } from '../../constants/idScanner';
 import { CameraSetting } from '../../enums/CameraSetting';

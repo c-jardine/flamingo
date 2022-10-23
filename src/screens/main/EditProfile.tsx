@@ -2,7 +2,7 @@ import React from 'react';
 import { KeyboardAvoidingView, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from '../../components/common/Header/Header';
-import ProfileForm from '../../components/forms/ProfileForm';
+import ProfileForm from '../../components/form/ProfileForm';
 import BackHeader from '../../components/utils/BackHeader';
 import { ThemeContext } from '../../provider/ThemeProvider';
 import { EditProfileScreenNavigationProp } from '../../types';

@@ -1,15 +1,10 @@
-import React, { SetStateAction } from 'react';
+import React from 'react';
 import Animated, { Layout, ZoomIn, ZoomOut } from 'react-native-reanimated';
-import CameraSettingsButton from '../core/CameraSettingsButton';
-
-interface BoundingBoxToggleProps {
-  isBoundingBoxEnabled: boolean;
-  setIsBoundingBoxEnabled: React.Dispatch<SetStateAction<boolean>>;
-  isFrontCameraEnabled: boolean;
-}
+import { CameraSettingsToggle } from '../CameraSettingsToggle';
+import BoundingBoxToggleProps from './BoundingBoxToggle.types';
 
 const BoundingBoxToggle = (props: BoundingBoxToggleProps) => {
-  const handleToggle = () => {
+  const _handleToggle = () => {
     props.setIsBoundingBoxEnabled(!props.isBoundingBoxEnabled);
   };
 
@@ -23,10 +18,10 @@ const BoundingBoxToggle = (props: BoundingBoxToggleProps) => {
       }
       exiting={ZoomOut.duration(200)}
     >
-      <CameraSettingsButton
+      <CameraSettingsToggle
         name='crop-free'
         isEnabled={props.isBoundingBoxEnabled}
-        handleAction={handleToggle}
+        handleAction={_handleToggle}
       />
     </Animated.View>
   );

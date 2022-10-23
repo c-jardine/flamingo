@@ -2,11 +2,8 @@ import Slider from '@react-native-community/slider';
 import React from 'react';
 import { Text, View } from 'react-native';
 import Animated, { ZoomIn, ZoomOut } from 'react-native-reanimated';
-import { ThemeContext } from '../../provider/ThemeProvider';
-
-interface FocusSliderProps {
-  setFocusDepth: (value: number) => void;
-}
+import { ThemeContext } from '../../../../provider/ThemeProvider';
+import FocusSliderProps from './FocusSlider.types';
 
 const FocusSlider = (props: FocusSliderProps) => {
   const { theme } = React.useContext(ThemeContext);

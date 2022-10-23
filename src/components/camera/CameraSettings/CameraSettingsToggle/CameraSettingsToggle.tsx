@@ -1,9 +1,9 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { ThemeContext } from '../../provider/ThemeProvider';
+import { ThemeContext } from '../../../../provider/ThemeProvider';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const CameraSettingsButton = (props) => {
+const CameraSettingsToggle = (props) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
@@ -27,4 +27,4 @@ const CameraSettingsButton = (props) => {
   );
 };
 
-export default CameraSettingsButton;
+export default CameraSettingsToggle;
