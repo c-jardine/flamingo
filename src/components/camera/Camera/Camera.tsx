@@ -7,7 +7,7 @@ import {
 } from 'expo-camera';
 import React from 'react';
 import { Image, View } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import { CameraActionBar } from '../CameraActionBar';
 import {
   CameraSettings,

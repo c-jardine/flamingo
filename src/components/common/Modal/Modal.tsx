@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import RNModal from 'react-native-modal';
 import OutsidePressHandler from 'react-native-outside-press';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import ModalProps from './Modal.types';
 
 const Modal = (props: ModalProps) => {

@@ -2,7 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Animated, { Layout, ZoomIn } from 'react-native-reanimated';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import CameraActionBarProps from './CameraActionBar.types';
 
 const CameraActionBar = (props: CameraActionBarProps) => {

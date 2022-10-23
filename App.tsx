@@ -1,20 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { AppState, AppStateStatus } from 'react-native';
+import { setGlobalStyles } from 'react-native-floating-label-input';
 import { EventProvider } from 'react-native-outside-press';
 import { RootSiblingParent } from 'react-native-root-siblings';
-
 import 'react-native-url-polyfill/auto';
-import { supabase } from './src/initSupabase';
-import Navigation from './src/navigation';
-import { AuthContext, AuthProvider } from './src/provider/AuthProvider';
-
-// globalStyles.js
-import { setGlobalStyles } from 'react-native-floating-label-input';
 import { Provider } from 'react-redux';
-import { ThemeProvider } from './src/provider/ThemeProvider';
+import { NavigationContainer } from './src/navigation';
+import { AuthContext, AuthProvider, ThemeProvider } from './src/providers';
 import { store } from './src/redux/store';
-import { color } from './src/styles/color';
+import { color } from './src/styles/color/color';
+import { supabase } from './src/supabase';
 
 setGlobalStyles.containerStyles = {
   backgroundColor: color.basePrimary['50'],
@@ -80,7 +76,7 @@ const App = () => {
           <AuthProvider>
             <ThemeProvider>
               <StatusBar />
-              <Navigation />
+              <NavigationContainer />
             </ThemeProvider>
           </AuthProvider>
         </EventProvider>

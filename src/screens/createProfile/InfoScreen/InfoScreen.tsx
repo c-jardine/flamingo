@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowNavigator } from '../../../components/common';
 import { FormPageLayout } from '../../../components/layouts';
-import { signOut } from '../../../services/auth.service';
+import { signOut } from '../../../shared/services';
 import { InfoScreenNavigationProp } from './InfoScreen.type';
 
 const InfoScreen = (props: { navigation: InfoScreenNavigationProp }) => {

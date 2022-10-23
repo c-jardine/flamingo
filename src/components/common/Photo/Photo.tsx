@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import { getPhoto } from './Photo.actions';
 import { PhotoProps } from './Photo.types';
 

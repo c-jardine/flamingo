@@ -1,6 +1,6 @@
 import React from 'react';
-import { ThemeContext } from '../../../provider/ThemeProvider';
-import IconButton from '../IconButton/IconButton';
+import { ThemeContext } from '../../../providers';
+import { IconButton } from '../IconButton';
 import { defaultContentContainerStyle } from './ArrowNavigator.styles';
 import { ArrowNavigatorProps } from './ArrowNavigator.type';
 

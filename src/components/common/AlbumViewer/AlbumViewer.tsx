@@ -2,8 +2,8 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import ImageView from 'react-native-image-viewing';
 import { ImageSource } from 'react-native-image-viewing/dist/@types';
-import { supabase } from '../../../initSupabase';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
+import { supabase } from '../../../supabase';
 import AlbumViewerProps from './AlbumViewer.types';
 
 const AlbumViewer = (props: AlbumViewerProps) => {

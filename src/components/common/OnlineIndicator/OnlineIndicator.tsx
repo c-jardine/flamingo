@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from 'date-fns';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import OnlineIndicatorProps from './OnlineIndicator.types';
 
 const OnlineIndicator = (props: OnlineIndicatorProps) => {

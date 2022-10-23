@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import React from 'react';
-import { ProfileProps } from '../../types/profile';
+import { ProfileProps } from '../../shared/types';
 import CreateProfileNavigator from './CreateProfileStack.navigator';
 import { CreateProfileStackSchema } from './CreateProfileStack.schema';
 

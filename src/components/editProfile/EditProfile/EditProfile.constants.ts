@@ -1,6 +1,6 @@
 import React from 'react';
 import { Birthday, Gender, Location, Name } from '../';
-import { ProfileProps } from '../../../types/profile';
+import { ProfileProps } from '../../../shared/types';
 import EditProfileSectionsProps from './EditProfile.types';
 
 const editProfileSections = (

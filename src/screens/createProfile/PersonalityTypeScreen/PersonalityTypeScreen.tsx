@@ -3,9 +3,9 @@ import React from 'react';
 import { ArrowNavigator } from '../../../components/common';
 import { Selector } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
-import { PersonalityType } from '../../../constants/PersonalityType';
-import { ThemeContext } from '../../../provider/ThemeProvider';
-import { ProfileProps } from '../../../types/profile';
+import { ThemeContext } from '../../../providers';
+import { PersonalityType } from '../../../shared/constants';
+import { ProfileProps } from '../../../shared/types';
 import { PersonalityTypeScreenNavigationProp } from './PersonalityTypeScreen.type';
 
 const PersonalityTypeScreen = (props: {

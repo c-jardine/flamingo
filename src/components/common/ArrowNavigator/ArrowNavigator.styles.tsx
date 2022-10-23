@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewStyle } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import { ArrowNavigatorProps } from './ArrowNavigator.type';
 
 export const defaultContentContainerStyle = (

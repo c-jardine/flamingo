@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import { RenderItemProps, SelectorProps } from './Selector.types';
 
 const Selector = (props: SelectorProps) => {

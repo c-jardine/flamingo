@@ -1,11 +1,11 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { View } from 'react-native';
-import { ThemeContext } from '../../../provider/ThemeProvider';
+import { ThemeContext } from '../../../providers';
 import { Text } from '../Text';
 import {
   MenuContainerProps,
-  MenuContainerTitleProps
+  MenuContainerTitleProps,
 } from './MenuContainer.types';
 
 const Title = (props: MenuContainerTitleProps) => {
