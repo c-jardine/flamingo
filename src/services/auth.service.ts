@@ -1,7 +1,6 @@
-import { format, toDate } from 'date-fns';
 import { FormikValues } from 'formik';
 import { Vibration } from 'react-native';
-import { Toast } from '../components/common/Toast/Toast';
+import { Toast } from '../components/common';
 import { supabase } from '../initSupabase';
 
 export async function signIn(values: FormikValues) {

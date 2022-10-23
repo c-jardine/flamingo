@@ -1,11 +1,8 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import IDScanner from '../../components/auth/IDScanner';
-import Header from '../../components/common/Header/Header';
-import MenuContainer from '../../components/core/MenuContainer';
-import MenuItem from '../../components/core/MenuItem';
+import { Header, MenuContainer, MenuItem } from '../../components/common';
 import SettingsProfileCard from '../../components/core/SettingsProfileCard';
-import SignOutButton from '../../components/utils/SignOutButton';
+import { SignOutButton } from '../../components/utils';
 import { ThemeContext } from '../../provider/ThemeProvider';
 
 const Settings = () => {
@@ -47,7 +44,6 @@ const Settings = () => {
             </MenuContainer.Title>
             <MenuItem>Help</MenuItem>
             <MenuItem>About</MenuItem>
-            <IDScanner />
           </MenuContainer>
         </ScrollView>
         <SignOutButton />

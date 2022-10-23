@@ -1,8 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { ThemeContext } from '../../provider/ThemeProvider';
-import { Text } from '../common/Text';
-import OnlineIndicator from '../core/OnlineIndicator';
+import { OnlineIndicator, Text } from '../common';
 
 const ProfileDetailsCard = ({ profile }) => {
   const { theme } = React.useContext(ThemeContext);

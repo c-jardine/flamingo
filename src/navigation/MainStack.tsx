@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
-import EditProfile from '../screens/main/EditProfile';
+import EditProfileScreen from '../screens/main/EditProfileScreen';
 import Profile from '../screens/main/Profile';
 import MainTabs from './MainTabs';
 
-import AlbumViewer from '../components/core/AlbumViewer';
+import { AlbumViewer } from '../components/common';
 import { AuthContext } from '../provider/AuthProvider';
 import PhotoAlbum from '../screens/main/PhotoAlbum';
 import { MainStackParamList } from '../types';
@@ -23,7 +23,7 @@ const Main = () => {
       }}
     >
       <MainStack.Screen name='MainTabs' component={MainTabs} />
-      <MainStack.Screen name='EditProfile' component={EditProfile} />
+      <MainStack.Screen name='EditProfile' component={EditProfileScreen} />
       <MainStack.Screen name='Profile' component={Profile} />
       <MainStack.Screen name='PhotoAlbum' component={PhotoAlbum} />
       <MainStack.Screen name='AlbumViewer' component={AlbumViewer} />

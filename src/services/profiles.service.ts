@@ -1,5 +1,5 @@
 import { FormikValues } from 'formik';
-import { Toast } from '../components/common/Toast/Toast';
+import { Toast } from '../components/common';
 import { supabase } from '../initSupabase';
 /**
  * Save the authenticated user's profile.

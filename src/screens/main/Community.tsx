@@ -2,7 +2,6 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { View } from 'react-native';
 import Header from '../../components/common/Header/Header';
-import TabSelector from '../../components/core/TabSelector';
 import DumpsterFire from '../../components/dumpsterFire/DumpsterFire';
 import { ThemeContext } from '../../provider/ThemeProvider';
 
@@ -43,11 +42,11 @@ const Community = () => {
         </Header.Description>
       </Header>
       <View style={{ marginTop: 8 }}>
-        <TabSelector
+        {/* <TabSelector
           items={items}
           selected={selected}
           setSelected={setSelected}
-        />
+        /> */}
       </View>
       <View style={{ flex: 1 }}>
         <>{items[selected - 1].content}</>

@@ -1,15 +1,15 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { Text as RNText, View } from 'react-native';
+import { Text as RNText, TextStyle, View } from 'react-native';
 import { ThemeContext } from '../../../provider/ThemeProvider';
 import TextProps from './Text.types';
 
-const _Text = (props: TextProps) => {
+const _Text = (props: TextProps & { style: TextStyle }) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
     <RNText
-      style={{ ...theme.textVariants.title, color: theme.colors.text['800'] }}
+      style={[{ color: theme.colors.text['800'] }, props.style]}
       {...props.textProps}
     >
       {props.children}
@@ -29,7 +29,7 @@ const _Icon = (props: Pick<TextProps, 'leftIcon' | 'rightIcon'>) => {
   );
 };
 
-const Text = (props: TextProps) => {
+const Text = (props: TextProps & { style: TextStyle }) => {
   const { theme } = React.useContext(ThemeContext);
 
   if (props.leftIcon) {
@@ -59,7 +59,7 @@ const Text = (props: TextProps) => {
       </View>
     );
   } else {
-    return <_Text>{props.children}</_Text>;
+    return <_Text style={{ ...props.style }}>{props.children}</_Text>;
   }
 };
 

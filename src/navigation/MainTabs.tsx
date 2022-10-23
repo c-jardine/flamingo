@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import TabBarIcon from '../components/utils/TabBarIcon';
-import NearbyUsers from '../screens/main/NearbyUsers';
-import { MainTabsParamList } from '../types';
-import Settings from '../screens/main/Settings';
-import Community from '../screens/main/Community';
+import { TabBarIcon } from '../components/common';
 import { ThemeContext } from '../provider/ThemeProvider';
+import Community from '../screens/main/Community';
+import NearbyUsers from '../screens/main/NearbyUsers';
+import Settings from '../screens/main/Settings';
+import { MainTabsParamList } from '../types';
 
 const Tabs = createBottomTabNavigator<MainTabsParamList>();
 

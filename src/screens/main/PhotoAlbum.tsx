@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import AlbumViewer from '../../components/core/AlbumViewer';
-import Header from '../../components/common/Header/Header';
-import MenuItem from '../../components/core/MenuItem';
-import Modal from '../../components/common/Modal/Modal';
-import Photo from '../../components/common/Photo/Photo';
-import { Toast } from '../../components/common/Toast/Toast';
+import {
+  AlbumViewer,
+  Header,
+  MenuItem,
+  Modal,
+  Photo,
+  Toast,
+} from '../../components/common';
 import { useCamera } from '../../hooks/useCamera';
 import { useDisclosure } from '../../hooks/useDisclosure';
 import { supabase } from '../../initSupabase';
@@ -23,13 +25,10 @@ import {
   PhotoAlbumScreenRouteProp,
 } from '../../types';
 
-export default function ({
-  navigation,
-  route,
-}: {
+const PhotoAlbum = (props: {
   navigation: PhotoAlbumScreenNavigationProp;
   route: PhotoAlbumScreenRouteProp;
-}) {
+}) => {
   const { theme } = React.useContext(ThemeContext);
 
   const { session } = React.useContext(AuthContext);
@@ -44,7 +43,7 @@ export default function ({
   const getPhotos = async () => {
     const { data, error } = await supabase.storage
       .from('albums')
-      .list(route.params.id, {
+      .list(props.route.params.id, {
         limit: 10,
         sortBy: { column: 'created_at', order: 'desc' },
       });
@@ -71,7 +70,7 @@ export default function ({
 
   const handleOpenAlbumViewer = (photo: any) => {
     setAlbumViewerIsOpen(true);
-    const path = `${route.params.id}/${photo.name}`;
+    const path = `${props.route.params.id}/${photo.name}`;
     setSelectedPhoto(path);
   };
 
@@ -85,7 +84,7 @@ export default function ({
     >
       <Header>
         <Header.Title>Photos</Header.Title>
-        {route.params.id === session?.user?.id && (
+        {props.route.params.id === session?.user?.id && (
           <Header.Description>
             Change your profile photo, add and remove photos, and manage photo
             comments.
@@ -117,7 +116,7 @@ export default function ({
                   }}
                 >
                   <Photo
-                    path={`${route.params.id}/${photo.name}`}
+                    path={`${props.route.params.id}/${photo.name}`}
                     imgStyle={{
                       width: '100%',
                       height: '100%',
@@ -126,7 +125,7 @@ export default function ({
                 </TouchableOpacity>
               ))}
           </View>
-          {route.params.id === session?.user?.id && photos.length < 5 && (
+          {props.route.params.id === session?.user?.id && photos.length < 5 && (
             <TouchableOpacity
               onPress={() => setUploadModalIsOpen(true)}
               style={{
@@ -148,7 +147,7 @@ export default function ({
         </ScrollView>
       </View>
       <AlbumViewer
-        albumId={route.params.id}
+        albumId={props.route.params.id}
         isVisible={albumViewerIsOpen}
         setIsVisible={setAlbumViewerIsOpen}
         initialPhoto={selectedPhoto}
@@ -168,4 +167,6 @@ export default function ({
       </Modal>
     </View>
   );
-}
+};
+
+export default PhotoAlbum;
