@@ -6,6 +6,10 @@ const url = Constants?.manifest?.extra?.supabaseUrl as string;
 const key = Constants?.manifest?.extra?.supabaseKey as string;
 
 export const supabase = createClient(url, key, {
-  localStorage: AsyncStorage as any,
-  detectSessionInUrl: false, // Prevents Supabase from evaluating window.location.href, breaking mobile
+  auth: {
+    storage: AsyncStorage as any,
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: false,
+  },
 });

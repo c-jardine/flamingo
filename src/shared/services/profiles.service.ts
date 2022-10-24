@@ -8,7 +8,7 @@ import { supabase } from '../../supabase';
 export async function save(values: FormikValues) {
   // Attempt to save the profile.
   const { data, error } = await supabase.from('profiles').upsert({
-    id: supabase.auth.user()?.id,
+    // id: supabase.auth.user()?.id,
     first_name: values.firstName,
     last_name: values.lastName,
     dob: values.dob,

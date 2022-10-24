@@ -2,8 +2,7 @@ import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
-import { ThemeContext } from '../../../providers';
-import { useAuthenticatedUserProfile } from '../../../shared/hooks';
+import { AuthContext, ThemeContext } from '../../../providers';
 import { ProfileSchema } from '../../../shared/schemas';
 import { save } from '../../../shared/services';
 import { Button, MenuContainer, Text } from '../../common';
@@ -16,7 +15,7 @@ import EditProfileSectionsProps from './EditProfile.types';
 const EditProfile = () => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { loading, error, profile } = useAuthenticatedUserProfile();
+  const { user, session, profile } = React.useContext(AuthContext);
   const [activeSections, setActiveSections] = React.useState<number[]>([]);
 
   const sections = [
@@ -93,11 +92,11 @@ const EditProfile = () => {
     <Formik
       enableReinitialize
       initialValues={{
-        firstName: profile.firstName,
-        lastName: profile.lastName,
-        dob: profile.dob,
-        gender: profile.gender,
-        location: profile.location,
+        firstName: profile?.firstName,
+        lastName: profile?.lastName,
+        dob: profile?.dob,
+        gender: profile?.gender,
+        location: profile?.location,
       }}
       validationSchema={ProfileSchema}
       onSubmit={(values) => save(values)}

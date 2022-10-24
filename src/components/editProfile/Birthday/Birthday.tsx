@@ -2,13 +2,13 @@ import { format } from 'date-fns';
 import { FormikValues, useFormikContext } from 'formik';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { useAuthenticatedUserProfile } from '../../../shared/hooks';
+import { AuthContext } from '../../../providers';
 import { TextInput } from '../../form';
 
 const Birthday = () => {
-  const { loading, error, profile } = useAuthenticatedUserProfile();
+  const { user, session, profile } = React.useContext(AuthContext);
   const [dob, setDob] = React.useState<string>(
-    format(new Date(profile?.dob), 'MM/dd/yyyy')
+    format(new Date(profile?.dob || new Date()), 'MM/dd/yyyy')
   );
 
   const _handleSave = () => {

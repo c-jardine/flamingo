@@ -1,18 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { ThemeContext } from '../../../providers';
+import { AuthContext, ThemeContext } from '../../../providers';
 import {
   EditProfileScreenNavigationProp,
   PhotoAlbumScreenNavigationProp,
 } from '../../../screens/main';
-import { useAuthenticatedUserProfile } from '../../../shared/hooks';
 import { Photo } from '../../common';
 
 const SettingsProfileCard = () => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { loading, error, profile } = useAuthenticatedUserProfile();
+  const { user, session, profile } = React.useContext(AuthContext);
 
   const navigation = useNavigation<
     EditProfileScreenNavigationProp | PhotoAlbumScreenNavigationProp
@@ -32,7 +31,7 @@ const SettingsProfileCard = () => {
         }
       >
         <Photo
-          path={profile.avatarSrc as string}
+          path={profile?.avatarSrc as string}
           imgStyle={{
             width: 100,
             aspectRatio: 1,
@@ -42,7 +41,7 @@ const SettingsProfileCard = () => {
       </TouchableOpacity>
       <View style={{ flex: 1, marginLeft: 16 }}>
         <Text style={{ color: theme.colors.text['700'], fontSize: 22 }}>
-          {profile.firstName} {profile.lastName}
+          {profile?.firstName} {profile?.lastName}
         </Text>
         <Text
           style={{
@@ -51,7 +50,7 @@ const SettingsProfileCard = () => {
             marginTop: 2,
           }}
         >
-          {profile.location}
+          {profile?.location}
         </Text>
         <View style={{ flexDirection: 'row', marginTop: 12 }}>
           <TouchableOpacity

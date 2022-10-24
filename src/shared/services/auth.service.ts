@@ -4,24 +4,25 @@ import { Toast } from '../../components/common';
 import { supabase } from '../../supabase';
 
 export async function signIn(values: FormikValues) {
-  const { user, error } = await supabase.auth.signIn({
+  const { error } = await supabase.auth.signInWithPassword({
     email: values.email,
     password: values.password,
   });
-  if (!error && user) {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('id', user.id)
-      .single();
 
-    if (data) {
-      await supabase
-        .from('profiles')
-        .update({ is_online: true, last_online: new Date().toISOString() })
-        .eq('id', supabase.auth.user()?.id);
-    }
-  }
+  // if (!error) {
+  //   const { data, error } = await supabase
+  //     .from('profiles')
+  //     .select('id')
+  //     .eq('id', user.user?.id)
+  //     .single();
+
+  //   if (data) {
+  //     await supabase
+  //       .from('profiles')
+  //       .update({ is_online: true, last_online: new Date().toISOString() })
+  //       .eq('id', authUser.user?.id);
+  //   }
+  // }
   if (error) {
     Vibration.vibrate(1000);
     Toast.error('Account not found');
@@ -29,24 +30,31 @@ export async function signIn(values: FormikValues) {
 }
 
 export async function signUp(values: FormikValues) {
-  const { user, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email: values.email,
     password: values.password,
   });
-  if (!error && !user) {
-    return user;
-  }
-  if (error) {
-    throw error;
-  }
-  return user;
+
+  // const { data: user, error } = await supabase.auth.signUp({
+  //   email: values.email,
+  //   password: values.password,
+  // });
+  // if (!error && !user) {
+  //   return user;
+  // }
+  // if (error) {
+  //   throw error;
+  // }
+  // return user;
 }
 
 export async function signOut() {
+  const { data: authUser, error: authUserError } =
+    await supabase.auth.getUser();
   await supabase
     .from('profiles')
     .update({ is_online: false, last_online: new Date().toISOString() })
-    .eq('id', supabase.auth.user()?.id);
+    .eq('id', authUser.user?.id);
 
   const { error } = await supabase.auth.signOut();
   if (!error) {
