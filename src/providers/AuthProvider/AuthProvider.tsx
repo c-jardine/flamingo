@@ -1,23 +1,15 @@
 import { Session } from '@supabase/supabase-js';
 import React from 'react';
-import { useLocation } from '../../shared/hooks';
 import { ProfileProps } from '../../shared/types';
 import { supabase } from '../../supabase';
+import AuthContext from './AuthContext';
 import AuthProviderProps from './AuthProvider.types';
-type ContextProps = {
-  user: null | boolean;
-  session: Session | null;
-  profile: ProfileProps | null;
-};
-
-const AuthContext = React.createContext<Partial<ContextProps>>({});
 
 const AuthProvider = (props: AuthProviderProps) => {
   // user null = loading
   const [user, setUser] = React.useState<null | boolean>(null);
   const [session, setSession] = React.useState<Session | null>(null);
   const [profile, setProfile] = React.useState<ProfileProps | null>(null);
-  const [location, error] = useLocation();
 
   React.useEffect(() => {
     (async () => {
@@ -70,4 +62,4 @@ const AuthProvider = (props: AuthProviderProps) => {
   );
 };
 
-export { AuthContext, AuthProvider };
+export default AuthProvider;
