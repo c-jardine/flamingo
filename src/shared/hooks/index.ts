@@ -1,7 +1,6 @@
 export * from './reduxHooks';
 export * from './useAlbum';
 export * from './useAllUsers';
-export * from './useAuthenticatedUserProfile';
 export * from './useCamera';
 export * from './useDisclosure';
 export * from './useEncodeForAws';

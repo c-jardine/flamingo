@@ -20,38 +20,41 @@ const AuthProvider = (props: AuthProviderProps) => {
   const [location, error] = useLocation();
 
   React.useEffect(() => {
-    const session = supabase.auth.session();
-    setSession(session);
-    setUser(session ? true : false);
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log(`Supabase auth event: ${event}`);
-        setSession(session);
-        setUser(session ? true : false);
-        if (event === 'SIGNED_OUT') {
-          setProfile(null);
-        } else if (event === 'SIGNED_IN') {
-          const { data, error } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', session?.user?.id)
-            .single();
+    (async () => {
+      const { data, error } = await supabase.auth.getSession();
+      setSession(data.session);
+      setUser(data.session ? true : false);
 
-          console.log('USER', user);
-          console.log('PROFILE', profile);
-          console.log(data);
-
-          if (data) {
-            setProfile(data);
-          } else {
+      const { data: authListener } = supabase.auth.onAuthStateChange(
+        async (event, session) => {
+          console.log(`Supabase auth event: ${event}`);
+          setSession(session);
+          setUser(session ? true : false);
+          if (event === 'SIGNED_OUT') {
             setProfile(null);
+          } else if (event === 'SIGNED_IN') {
+            const { data, error } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', session?.user?.id)
+              .single();
+
+            console.log('USER', user);
+            console.log('PROFILE', profile);
+            console.log(data);
+
+            if (data) {
+              setProfile(data);
+            } else {
+              setProfile(null);
+            }
           }
         }
-      }
-    );
-    return () => {
-      authListener!.unsubscribe();
-    };
+      );
+      return () => {
+        authListener.subscription!.unsubscribe();
+      };
+    })();
   }, [user]);
 
   return (

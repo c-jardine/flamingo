@@ -4,7 +4,7 @@ import React from 'react';
 import TextInput from './TextInput';
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
-jest.mock('../../../supabase/initSupabase.ts');
+jest.mock('../../../supabase/supabase.ts');
 
 describe('<TextInput />', () => {
   it('should update the input text', async () => {
@@ -13,6 +13,6 @@ describe('<TextInput />', () => {
     );
     const textInput = getByPlaceholderText('Test input');
     expect(textInput).not.toBeNull();
-    console.log(textInput.children)
+    console.log(textInput.children);
   });
 });

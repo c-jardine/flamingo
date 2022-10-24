@@ -1,1 +1,2 @@
-export * from './initSupabase';
+export * from './request';
+export * from './supabase';
