@@ -10,12 +10,12 @@ const Name = () => {
   return (
     <View>
       <TextInput
-        label='First name'
+        placeholder='First name'
         value={values.firstName}
         onChangeText={handleChange('firstName')}
       />
       <TextInput
-        label='Last name'
+        placeholder='Last name'
         value={values.lastName}
         onChangeText={handleChange('lastName')}
       />

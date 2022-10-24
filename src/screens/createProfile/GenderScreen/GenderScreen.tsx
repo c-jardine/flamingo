@@ -13,8 +13,7 @@ import { GenderScreenNavigationProp } from './GenderScreen.type';
 const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const { values: formikValues, setFieldValue } =
-    useFormikContext<ProfileProps>();
+  const { values, setFieldValue, errors } = useFormikContext<ProfileProps>();
 
   // Set Formik gender field - passed to gender Selector.
   const _handleSelectGender = (value: string) => {
@@ -29,10 +28,10 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
   // Reset identities when new gender is selected.
   React.useEffect(() => {
     setFieldValue('gender.identities', []);
-  }, [formikValues.gender.gender]);
+  }, [values.gender.gender]);
 
   React.useEffect(() => {
-    console.log(formikValues.gender);
+    console.log(values.gender);
   }, []);
 
   return (
@@ -47,11 +46,11 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
           <Selector
             items={Genders}
             onSelect={_handleSelectGender}
-            value={formikValues.gender.gender}
+            value={values.gender.gender}
             horizontal
           />
         </View>
-        {formikValues.gender.gender && (
+        {values.gender.gender && (
           <Animated.View
             entering={FadeIn.duration(200)}
             exiting={FadeOut.duration(200)}
@@ -67,8 +66,8 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
             </Header>
             <View style={{ height: theme.spacing.md }} />
             <Selector
-              items={GenderIdentities[formikValues.gender?.gender]}
-              value={formikValues.gender.identities}
+              items={GenderIdentities[values.gender?.gender]}
+              value={values.gender.identities}
               multiselect
               onSelect={_handleSelectIdentity}
             />
@@ -85,7 +84,8 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
           }}
           nextComponent={{
             onPress: () => props.navigation.navigate('Pronouns'),
-            // disabled: !!errors?.email || !!errors?.password || false,
+            disabled:
+              !!errors.gender?.gender || !!errors.gender?.identities || false,
           }}
         />
       </FormPageLayout.PageFooter>

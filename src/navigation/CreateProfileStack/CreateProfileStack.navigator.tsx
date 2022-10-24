@@ -21,6 +21,11 @@ const CreateProfileNavigator = () => {
       screenOptions={{ headerShown: false, animation: 'simple_push' }}
     >
       <Stack.Screen name='Info' component={InfoScreen} />
+      <Stack.Screen name='IdVerification' component={IdVerificationScreen} />
+      <Stack.Screen
+        name='PhotoVerification'
+        component={PhotoVerificationScreen}
+      />
       <Stack.Screen name='PersonalInfo' component={PersonalInfoScreen} />
       <Stack.Screen name='Birthdate' component={BirthdateScreen} />
       <Stack.Screen name='Gender' component={GenderScreen} />
@@ -30,11 +35,6 @@ const CreateProfileNavigator = () => {
         component={SexualOrientationScreen}
       />
       <Stack.Screen name='PersonalityType' component={PersonalityTypeScreen} />
-      <Stack.Screen name='IdVerification' component={IdVerificationScreen} />
-      <Stack.Screen
-        name='PhotoVerification'
-        component={PhotoVerificationScreen}
-      />
     </Stack.Navigator>
   );
 };
