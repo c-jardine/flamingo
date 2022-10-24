@@ -1,8 +1,8 @@
 import React from 'react';
-import CameraSettingsEnum from './CameraSettings.enum';
+import SettingsMenuEnum from './SettingsMenu.enum';
 
-type CameraSettingsProps = {
-  settings: CameraSettingsEnum[];
+type SettingsMenuProps = {
+  settings: SettingsMenuEnum[];
   isFrontCameraEnabled: boolean;
   setIsFrontCameraEnabled: React.Dispatch<React.SetStateAction<boolean>>;
   isFlashEnabled: boolean;
@@ -13,4 +13,4 @@ type CameraSettingsProps = {
   setIsBoundingBoxEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default CameraSettingsProps;
+export default SettingsMenuProps;

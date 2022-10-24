@@ -1,8 +1,8 @@
-enum CameraSettingsEnum {
+enum SettingsMenuEnum {
   FrontCameraToggle,
   FlashToggle,
   AutoFocusToggle,
   BoundingBoxToggle,
 }
 
-export default CameraSettingsEnum;
+export default SettingsMenuEnum;

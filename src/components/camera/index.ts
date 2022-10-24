@@ -1,3 +1,6 @@
+export * from './BoundingBox';
+export * from './BoundingBox/IdBoundingBox';
 export * from './Camera';
 export * from './CameraActionBar';
-export * from './CameraSettings';
+export * from './settings';
+export * from './types';

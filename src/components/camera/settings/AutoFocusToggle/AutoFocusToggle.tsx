@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import Animated, { Layout, ZoomIn, ZoomOut } from 'react-native-reanimated';
-import { CameraSettingsToggle } from '../CameraSettingsToggle';
+import { ToggleButton } from '../ToggleButton';
 import AutoFocusToggleProps from './AutoFocusToggle.types';
 
 const AutoFocusToggle = (props: AutoFocusToggleProps) => {
@@ -22,7 +22,7 @@ const AutoFocusToggle = (props: AutoFocusToggleProps) => {
             }
             exiting={ZoomOut.duration(200).delay(100)}
           >
-            <CameraSettingsToggle
+            <ToggleButton
               name='focus-auto'
               isEnabled={props.isAutoFocusEnabled}
               handleAction={_handleToggle}

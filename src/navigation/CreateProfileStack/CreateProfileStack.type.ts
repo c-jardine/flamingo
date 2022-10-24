@@ -1,3 +1,5 @@
+import { Buffer } from 'buffer';
+
 export type CreateProfileStackParams = {
   Info: undefined;
   PersonalInfo: undefined;
@@ -6,4 +8,6 @@ export type CreateProfileStackParams = {
   Pronouns: undefined;
   SexualOrientation: undefined;
   PersonalityType: undefined;
+  IdVerification: undefined;
+  PhotoVerification: { sourceImage: Buffer | null };
 };

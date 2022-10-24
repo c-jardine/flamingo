@@ -11,9 +11,8 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { Toast } from '../../components/common';
 import { ThemeContext } from '../../providers';
-import { AuthScreenNavigatorProps } from '../../types/auth/AuthScreen';
-import IDVerification from './IDVerification';
-import PhotoVerification from './PhotoVerification';
+import IDVerificationScreen from './IdVerificationScreen/IdVerificationScreen';
+import PhotoVerification from './PhotoVerificationScreen/PhotoVerificationScreen';
 
 export type AwsEncodedImage = {
   Image: {
@@ -24,7 +23,7 @@ export type AwsEncodedImage = {
 const accessKeyId = Constants?.manifest?.extra?.awsAccessKeyId as string;
 const secretKey = Constants?.manifest?.extra?.awsSecretAccessKey as string;
 
-const Verification = (props: AuthScreenNavigatorProps) => {
+const Verification = () => {
   const { theme } = React.useContext(ThemeContext);
   const [idImage, setIdImage] = React.useState<Buffer | null>(null);
   const [selfie, setSelfie] = React.useState<Buffer | null>(null);
@@ -82,7 +81,7 @@ const Verification = (props: AuthScreenNavigatorProps) => {
   return (
     <View style={{ flex: 1 }}>
       {!validId && (
-        <IDVerification setValidId={setValidId} setIdImage={setIdImage} />
+        <IDVerificationScreen setValidId={setValidId} setIdImage={setIdImage} />
       )}
       {validId && !userVerified && <PhotoVerification setSelfie={setSelfie} />}
       {userVerified && (

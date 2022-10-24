@@ -1,8 +1,8 @@
 import React from 'react';
 
-type CameraTypeToggleProps = {
+type CameraDirectionToggleProps = {
   isFrontCameraEnabled: boolean;
   setIsFrontCameraEnabled: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default CameraTypeToggleProps;
+export default CameraDirectionToggleProps;

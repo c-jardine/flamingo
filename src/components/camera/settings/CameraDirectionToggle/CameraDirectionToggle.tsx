@@ -1,9 +1,9 @@
 import React from 'react';
 import Animated, { Layout, ZoomIn, ZoomOut } from 'react-native-reanimated';
-import { CameraSettingsToggle } from '../../CameraSettings';
-import CameraTypeToggleProps from './CameraTypeToggle.types';
+import { ToggleButton } from '../ToggleButton';
+import CameraDirectionToggleProps from './CameraDirectionToggle.types';
 
-const CameraTypeToggle = (props: CameraTypeToggleProps) => {
+const CameraDirectionToggle = (props: CameraDirectionToggleProps) => {
   const _handleToggle = () => {
     props.setIsFrontCameraEnabled(!props.isFrontCameraEnabled);
   };
@@ -14,7 +14,7 @@ const CameraTypeToggle = (props: CameraTypeToggleProps) => {
       entering={ZoomIn.duration(200)}
       exiting={ZoomOut.duration(200).delay(300)}
     >
-      <CameraSettingsToggle
+      <ToggleButton
         name={props.isFrontCameraEnabled ? 'camera-rear' : 'camera-front'}
         isEnabled={props.isFrontCameraEnabled}
         handleAction={_handleToggle}
@@ -23,4 +23,4 @@ const CameraTypeToggle = (props: CameraTypeToggleProps) => {
   );
 };
 
-export default CameraTypeToggle;
+export default CameraDirectionToggle;

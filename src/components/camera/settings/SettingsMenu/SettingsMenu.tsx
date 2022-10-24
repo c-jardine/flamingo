@@ -1,16 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
-import {
-  AutoFocusToggle,
-  BoundingBoxToggle,
-  CameraSettingsEnum,
-  CameraSettingsToggle,
-  CameraTypeToggle,
-  FlashToggle,
-} from '../../CameraSettings';
-import { CameraSettingsProps } from '../../types';
+import { AutoFocusToggle } from '../AutoFocusToggle';
+import { BoundingBoxToggle } from '../BoundingBoxToggle';
+import { CameraDirectionToggle } from '../CameraDirectionToggle';
+import { FlashToggle } from '../FlashToggle';
+import { ToggleButton } from '../ToggleButton';
+import SettingsMenuEnum from './SettingsMenu.enum';
+import SettingsMenuProps from './SettingsMenu.types';
 
-const CameraSettings = (props: CameraSettingsProps) => {
+const SettingsMenu = (props: SettingsMenuProps) => {
   const [isSettingsEnabled, setIsSettingsEnabled] =
     React.useState<boolean>(false);
 
@@ -20,7 +18,7 @@ const CameraSettings = (props: CameraSettingsProps) => {
 
   return (
     <View>
-      <CameraSettingsToggle
+      <ToggleButton
         name='dots-horizontal'
         isEnabled={isSettingsEnabled}
         handleAction={_handleToggleSettings}
@@ -28,15 +26,15 @@ const CameraSettings = (props: CameraSettingsProps) => {
       {isSettingsEnabled && (
         <View>
           {/* Camera type toggle */}
-          {props.settings.includes(CameraSettingsEnum.FrontCameraToggle) && (
-            <CameraTypeToggle
+          {props.settings.includes(SettingsMenuEnum.FrontCameraToggle) && (
+            <CameraDirectionToggle
               isFrontCameraEnabled={props.isFrontCameraEnabled}
               setIsFrontCameraEnabled={props.setIsFrontCameraEnabled}
             />
           )}
 
           {/* Flash toggle */}
-          {props.settings.includes(CameraSettingsEnum.FlashToggle) && (
+          {props.settings.includes(SettingsMenuEnum.FlashToggle) && (
             <FlashToggle
               isFlashEnabled={props.isFlashEnabled}
               setIsFlashEnabled={props.setIsFlashEnabled}
@@ -44,7 +42,7 @@ const CameraSettings = (props: CameraSettingsProps) => {
           )}
 
           {/* Auto focus toggle */}
-          {props.settings.includes(CameraSettingsEnum.AutoFocusToggle) && (
+          {props.settings.includes(SettingsMenuEnum.AutoFocusToggle) && (
             <AutoFocusToggle
               isAutoFocusEnabled={props.isAutoFocusEnabled}
               setIsAutoFocusEnabled={props.setIsAutoFocusEnabled}
@@ -53,7 +51,7 @@ const CameraSettings = (props: CameraSettingsProps) => {
           )}
 
           {/* Bounding box toggle */}
-          {props.settings.includes(CameraSettingsEnum.BoundingBoxToggle) && (
+          {props.settings.includes(SettingsMenuEnum.BoundingBoxToggle) && (
             <BoundingBoxToggle
               isBoundingBoxEnabled={props.isBoundingBoxEnabled}
               setIsBoundingBoxEnabled={props.setIsBoundingBoxEnabled}
@@ -66,4 +64,4 @@ const CameraSettings = (props: CameraSettingsProps) => {
   );
 };
 
-export default CameraSettings;
+export default SettingsMenu;
