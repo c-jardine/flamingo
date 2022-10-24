@@ -1,7 +1,7 @@
 export { CameraProps } from '../Camera';
-export { AutoFocusToggleProps } from '../CameraSettings/AutoFocusToggle';
-export { BoundingBoxToggleProps } from '../CameraSettings/BoundingBoxToggle';
-export { CameraSettingsProps } from '../CameraSettings/CameraSettings';
-export { CameraTypeToggleProps } from '../CameraSettings/CameraTypeToggle';
-export { FlashToggleProps } from '../CameraSettings/FlashToggle';
-export { FocusSliderProps } from '../CameraSettings/FocusSlider';
+export { AutoFocusToggleProps } from '../settings/AutoFocusToggle';
+export { BoundingBoxToggleProps } from '../settings/BoundingBoxToggle';
+export { CameraDirectionToggleProps } from '../settings/CameraDirectionToggle';
+export { FlashToggleProps } from '../settings/FlashToggle';
+export { FocusSliderProps } from '../settings/FocusSlider';
+export { SettingsMenuProps } from '../settings/SettingsMenu';

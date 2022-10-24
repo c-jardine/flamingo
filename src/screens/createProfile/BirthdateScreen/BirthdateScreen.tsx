@@ -31,7 +31,13 @@ const BirthdateScreen = (props: {
       if (isValid) {
         const date = parse(dob, 'MM/dd/yyyy', new Date());
         setFieldValue('dob', date);
+      } else {
+        // Reset to null when invalid
+        setFieldValue('dob', null);
       }
+    } else {
+      // Reset to null when invalid
+      setFieldValue('dob', null);
     }
   };
 
@@ -83,7 +89,7 @@ const BirthdateScreen = (props: {
           }}
           nextComponent={{
             onPress: () => props.navigation.navigate('Gender'),
-            // disabled: !!errors?.email || !!errors?.password || false,
+            disabled: !!errors?.dob || false,
           }}
         />
       </FormPageLayout.PageFooter>

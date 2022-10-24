@@ -1,6 +1,6 @@
 import React from 'react';
 import Animated, { Layout, ZoomIn, ZoomOut } from 'react-native-reanimated';
-import { CameraSettingsToggle } from '../CameraSettingsToggle';
+import { ToggleButton } from '../ToggleButton';
 import BoundingBoxToggleProps from './BoundingBoxToggle.types';
 
 const BoundingBoxToggle = (props: BoundingBoxToggleProps) => {
@@ -18,7 +18,7 @@ const BoundingBoxToggle = (props: BoundingBoxToggleProps) => {
       }
       exiting={ZoomOut.duration(200)}
     >
-      <CameraSettingsToggle
+      <ToggleButton
         name='crop-free'
         isEnabled={props.isBoundingBoxEnabled}
         handleAction={_handleToggle}

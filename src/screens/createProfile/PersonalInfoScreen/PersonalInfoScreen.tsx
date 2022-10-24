@@ -57,7 +57,7 @@ const PersonalInfoScreen = (props: {
           }}
           nextComponent={{
             onPress: () => props.navigation.navigate('Birthdate'),
-            // disabled: !!errors?.email || !!errors?.password || false,
+            disabled: !!errors?.firstName || !!errors?.lastName || false,
           }}
         />
       </FormPageLayout.PageFooter>

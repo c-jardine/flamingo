@@ -1,7 +1,6 @@
 import {
   AutoFocus,
   Camera as RNCamera,
-  CameraPictureOptions,
   CameraType,
   FlashMode,
 } from 'expo-camera';
@@ -9,17 +8,16 @@ import React from 'react';
 import { Image, View } from 'react-native';
 import { ThemeContext } from '../../../providers';
 import { CameraActionBar } from '../CameraActionBar';
-import {
-  CameraSettings,
-  CameraSettingsEnum,
-  FocusSlider,
-} from '../CameraSettings';
+import { FocusSlider, SettingsMenu, SettingsMenuEnum } from '../settings';
 import { CameraProps } from '../types';
+import { _takePhoto } from './Camera.actions';
 
 const Camera = (props: CameraProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   const [isCameraReady, setIsCameraReady] = React.useState<boolean>(false);
+
+  // Camera settings
   const [isFlashEnabled, setIsFlashEnabled] = React.useState<boolean>(false);
   const [isFrontCameraEnabled, setIsFrontCameraEnabled] =
     React.useState<boolean>(false);
@@ -27,7 +25,6 @@ const Camera = (props: CameraProps) => {
     React.useState<boolean>(true);
   const [isBoundingBoxEnabled, setIsBoundingBoxEnabled] =
     React.useState<boolean>(false);
-
   const [focusDepth, setFocusDepth] = React.useState<number>(0);
 
   const BoundingBox =
@@ -38,11 +35,7 @@ const Camera = (props: CameraProps) => {
 
   const _handleTakePhoto = async () => {
     if (isCameraReady) {
-      const result = await cameraRef.current?.takePictureAsync({
-        aspect: [1, 1],
-        quality: 0.5,
-        base64: true,
-      } as CameraPictureOptions);
+      const result = await _takePhoto(cameraRef);
       if (result) {
         props.setImage(result);
       }
@@ -59,7 +52,7 @@ const Camera = (props: CameraProps) => {
     } else {
       setIsFrontCameraEnabled(false);
     }
-  });
+  }, [isFrontCameraEnabled]);
 
   return (
     <View
@@ -96,7 +89,7 @@ const Camera = (props: CameraProps) => {
             }}
           >
             {/* Bounding box */}
-            {props.settings.includes(CameraSettingsEnum.BoundingBoxToggle) &&
+            {props.settings.includes(SettingsMenuEnum.BoundingBoxToggle) &&
               isBoundingBoxEnabled &&
               BoundingBox}
 
@@ -108,7 +101,7 @@ const Camera = (props: CameraProps) => {
                 right: 0,
               }}
             >
-              <CameraSettings
+              <SettingsMenu
                 settings={props.settings}
                 isFrontCameraEnabled={isFrontCameraEnabled}
                 setIsFrontCameraEnabled={setIsFrontCameraEnabled}

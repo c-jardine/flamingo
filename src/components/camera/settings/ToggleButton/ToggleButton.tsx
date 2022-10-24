@@ -2,8 +2,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { ThemeContext } from '../../../../providers';
+import ToggleButtonProps from './ToggleButton.types';
 
-const CameraSettingsToggle = (props) => {
+const ToggleButton = (props: ToggleButtonProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   return (
@@ -27,4 +28,4 @@ const CameraSettingsToggle = (props) => {
   );
 };
 
-export default CameraSettingsToggle;
+export default ToggleButton;

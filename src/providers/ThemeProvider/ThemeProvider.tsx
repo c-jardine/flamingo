@@ -1,21 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import { darkTheme } from '../../styles/theme/theme';
+import ThemeContext from './ThemeContext';
+import themeInitialState from './ThemeContext.default';
 import ThemeProviderProps from './ThemeProvider.types';
-
-const initialState = {
-  dark: false,
-  theme: darkTheme,
-  toggleDarkMode: () => {},
-};
-
-export const ThemeContext = React.createContext(initialState);
 
 export const ThemeProvider = (props: ThemeProviderProps) => {
   const [isDarkMode, setIsDarkMode] = React.useState<boolean>(
-    initialState.dark
+    themeInitialState.dark
   );
-  const [currentTheme, setCurrentTheme] = React.useState(initialState.theme);
+  const [currentTheme, setCurrentTheme] = React.useState(
+    themeInitialState.theme
+  );
 
   /**
    * Get stored dark mode status.
@@ -45,3 +40,5 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
     </ThemeContext.Provider>
   );
 };
+
+export default ThemeProvider;

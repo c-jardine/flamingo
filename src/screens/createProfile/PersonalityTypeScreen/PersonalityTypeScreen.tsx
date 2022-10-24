@@ -45,10 +45,7 @@ const PersonalityTypeScreen = (props: {
             onPress: () => props.navigation.goBack(),
           }}
           nextComponent={{
-            onPress: () =>
-              props.navigation.navigate('AuthNavigator', {
-                screen: 'AuthScreen',
-              }),
+            onPress: () => props.navigation.navigate('IdVerification'),
             // disabled: !!errors?.email || !!errors?.password || false,
           }}
         />

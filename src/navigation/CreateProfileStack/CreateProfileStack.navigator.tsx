@@ -1,10 +1,13 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
 import {
   BirthdateScreen,
   GenderScreen,
+  IdVerificationScreen,
   InfoScreen,
   PersonalInfoScreen,
   PersonalityTypeScreen,
+  PhotoVerificationScreen,
   PronounsScreen,
   SexualOrientationScreen,
 } from '../../screens/createProfile';
@@ -18,6 +21,11 @@ const CreateProfileNavigator = () => {
       screenOptions={{ headerShown: false, animation: 'simple_push' }}
     >
       <Stack.Screen name='Info' component={InfoScreen} />
+      <Stack.Screen name='IdVerification' component={IdVerificationScreen} />
+      <Stack.Screen
+        name='PhotoVerification'
+        component={PhotoVerificationScreen}
+      />
       <Stack.Screen name='PersonalInfo' component={PersonalInfoScreen} />
       <Stack.Screen name='Birthdate' component={BirthdateScreen} />
       <Stack.Screen name='Gender' component={GenderScreen} />
