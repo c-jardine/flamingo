@@ -10,4 +10,5 @@ export type CreateProfileStackParams = {
   PersonalityType: undefined;
   IdVerification: undefined;
   PhotoVerification: { sourceImage: Buffer | null };
+  PhotoUpload: undefined;
 };

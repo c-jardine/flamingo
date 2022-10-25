@@ -33,7 +33,7 @@ const Button = (
           },
           props.style,
         ]}
-        onPress={props.onPress}
+        // onPress={props.onPress}
       >
         <Text
           style={{

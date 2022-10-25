@@ -45,8 +45,7 @@ const PersonalityTypeScreen = (props: {
             onPress: () => props.navigation.goBack(),
           }}
           nextComponent={{
-            onPress: () => props.navigation.navigate('IdVerification'),
-            // disabled: !!errors?.email || !!errors?.password || false,
+            onPress: () => props.navigation.navigate('PhotoUpload'),
           }}
         />
       </FormPageLayout.PageFooter>
