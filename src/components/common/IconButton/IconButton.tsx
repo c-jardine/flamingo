@@ -22,7 +22,6 @@ const IconButton = (props: IconButtonProps) => {
         },
         props.contentContainerStyle,
       ]}
-      onPress={props.contentContainerProps?.onPress}
       {...props.contentContainerProps}
     >
       <MaterialCommunityIcons

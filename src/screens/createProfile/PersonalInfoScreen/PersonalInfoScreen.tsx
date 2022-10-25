@@ -1,10 +1,11 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
-import { ArrowNavigator } from '../../../components/common';
+import { ArrowNavigator, IconButton } from '../../../components/common';
 import { TextInput, TextInputError } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../providers';
+import { signOut } from '../../../shared/services';
 import { ProfileProps } from '../../../shared/types';
 import { PersonalInfoScreenNavigationProp } from './PersonalInfoScreen.type';
 
@@ -52,8 +53,23 @@ const PersonalInfoScreen = (props: {
       <FormPageLayout.PageFooter>
         <ArrowNavigator
           backComponent={{
-            disabled: false,
-            onPress: () => props.navigation.goBack(),
+            render: (
+              <View
+                style={{
+                  transform: [{ rotate: '180deg' }],
+                }}
+              >
+                <IconButton
+                  iconProps={{
+                    name: 'logout-variant',
+                    onPress: () => signOut(),
+                  }}
+                  contentContainerStyle={{
+                    backgroundColor: theme.colors.text[50],
+                  }}
+                />
+              </View>
+            ),
           }}
           nextComponent={{
             onPress: () => props.navigation.navigate('Birthdate'),

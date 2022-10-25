@@ -41,12 +41,14 @@ const Selector = (props: SelectorProps) => {
             : _handleSingle(item.value);
         }}
         style={[
-          props.horizontal && {
-            flexBasis: `${100 / props.items.length}%`,
-            alignItems: 'center',
-          },
+          props.horizontal
+            ? {
+                flexBasis: `${100 / props.items.length}%`,
+                alignItems: 'center',
+                paddingVertical: theme.spacing.lg,
+              }
+            : { paddingVertical: theme.spacing.md },
           {
-            paddingVertical: theme.spacing.md,
             paddingHorizontal: theme.spacing.md,
             backgroundColor: props.multiselect
               ? selected.includes(item.value)
