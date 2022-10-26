@@ -31,7 +31,7 @@ export const CreateProfileStackSchema = Yup.object().shape({
     gender: Yup.array()
       .test('gender.gender', 'Invalid selection', (values: string[]) => {
         const arr = Genders.map((gender) => gender.value);
-        return values.some((item) => arr.includes(item)) || values.length === 0;
+        return values.some((item) => arr.includes(item)) || values.length !== 0;
       })
       .required('Required')
       .max(1),
@@ -61,24 +61,18 @@ export const CreateProfileStackSchema = Yup.object().shape({
     .test('pronouns', 'Invalid selection', (values: string[]) => {
       const arr = Pronouns.map((pronoun) => pronoun.value);
       return values.some((item) => arr.includes(item));
-    })
-    .max(2),
+    }),
 
   sexualOrientation: Yup.array()
     .of(Yup.string())
     .test('sexualOrientation', 'Invalid selection', (values: string[]) => {
       const arr = SexualOrientation.map((orientation) => orientation.value);
-      return values.some((item) => arr.includes(item)) || values.length === 0;
-    })
-    .max(3),
+      return values.some((item) => arr.includes(item)) && values.length <= 3;
+    }),
 
-  personalityType: Yup.array()
-    .of(Yup.string())
-    .test('personalityType', 'Invalid selection', (values: string[]) => {
-      const arr = PersonalityType.map((type) => type.value);
-      return values.some((item) => arr.includes(item)) || values.length === 0;
-    })
-    .max(3),
+  personalityType: Yup.string().oneOf([
+    ...PersonalityType.map((type) => type.value),
+  ]),
 
   photos: Yup.array().of(Yup.string()),
 });

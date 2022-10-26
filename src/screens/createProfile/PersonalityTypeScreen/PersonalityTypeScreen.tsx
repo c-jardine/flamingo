@@ -12,10 +12,20 @@ const PersonalityTypeScreen = (props: {
   navigation: PersonalityTypeScreenNavigationProp;
 }) => {
   const { theme } = React.useContext(ThemeContext);
+  const [selectedPersonality, setSelectedPersonality] = React.useState<
+    string[]
+  >([]);
 
   const { values, errors, setFieldValue } = useFormikContext<ProfileProps>();
 
-  const _handleSelectPersonalityType = (value: string[]) => {
+  // Load initial values from context.
+  React.useEffect(() => {
+    setSelectedPersonality(values.personalityType as string[]);
+  }, []);
+
+  const _handleSelectPersonalityType = (value: string) => {
+    const arr = [value];
+    setSelectedPersonality(arr);
     setFieldValue('personalityType', value);
   };
 
@@ -31,9 +41,8 @@ const PersonalityTypeScreen = (props: {
       >
         <Selector
           items={PersonalityType}
-          value={values.personalityType}
-          multiselect
           onSelect={_handleSelectPersonalityType}
+          selectedValues={selectedPersonality}
         />
       </FormPageLayout.PageContent>
 

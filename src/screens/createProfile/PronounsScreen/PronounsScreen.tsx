@@ -12,16 +12,26 @@ const PronounsScreen = (props: {
   navigation: PronounsScreenNavigationProp;
 }) => {
   const { theme } = React.useContext(ThemeContext);
+  const [selectedPronouns, setSelectedPronouns] = React.useState<string[]>([]);
 
   const { values, errors, setFieldValue } = useFormikContext<ProfileProps>();
 
-  const _handleSelectPronouns = (values: string[]) => {
-    setFieldValue('pronouns', values);
-  };
-
+  // Load initial values from context.
   React.useEffect(() => {
-    console.log(errors.pronouns)
-  }, [])
+    setSelectedPronouns(values.pronouns as string[]);
+  }, []);
+
+  const _handleSelectPronouns = (value: string) => {
+    const arr = [...selectedPronouns];
+    if (arr.includes(value)) {
+      arr.splice(arr.indexOf(value), 1);
+    } else {
+      arr.push(value);
+    }
+
+    setSelectedPronouns(arr);
+    setFieldValue('pronouns', arr);
+  };
 
   return (
     <FormPageLayout>
@@ -35,9 +45,8 @@ const PronounsScreen = (props: {
       >
         <Selector
           items={Pronouns}
-          value={values.pronouns}
-          multiselect
           onSelect={_handleSelectPronouns}
+          selectedValues={selectedPronouns}
         />
       </FormPageLayout.PageContent>
 
