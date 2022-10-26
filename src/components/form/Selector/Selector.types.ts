@@ -1,18 +1,23 @@
 import { FlatListProps } from 'react-native';
 
-type _AOnSelectMultiselect = (values: string[]) => void;
-
 export type SelectorProps = {
   items: Array<any>;
-  value?: string | string[];
-  onSelect: _AOnSelectMultiselect;
+  onSelect: (values: string) => void;
   horizontal?: boolean;
-  multiselect?: boolean;
   contentContainerStyle?: FlatListProps<any>;
+  selectedValues: string[];
+};
+
+export type SelectorItemProps = {
+  id: string;
+  value: string;
+  description: string;
 };
 
 export type RenderItemProps = {
-  id: number;
-  value: string;
-  description: string;
+  item: SelectorItemProps;
+  horizontal: boolean;
+  length: number;
+  selected: boolean;
+  onPress: (value: string) => void;
 };

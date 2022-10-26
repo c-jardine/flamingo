@@ -28,9 +28,13 @@ export const CreateProfileStackSchema = Yup.object().shape({
   }),
 
   gender: Yup.object().shape({
-    gender: Yup.string()
-      .oneOf([...Genders.map((gender) => gender.value)], 'Invalid selection')
-      .required('Required'),
+    gender: Yup.array()
+      .test('gender.gender', 'Invalid selection', (values: string[]) => {
+        const arr = Genders.map((gender) => gender.value);
+        return values.some((item) => arr.includes(item)) || values.length === 0;
+      })
+      .required('Required')
+      .max(1),
     identities: Yup.array()
       .when('gender.gender', {
         is: 'Man',

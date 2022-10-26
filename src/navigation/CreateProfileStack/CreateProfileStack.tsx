@@ -16,7 +16,7 @@ const CreateProfileStack = () => {
           lastName: '',
           dob: new Date(),
           gender: {
-            gender: null,
+            gender: [],
             identities: [],
           },
           pronouns: [],

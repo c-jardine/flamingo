@@ -4,7 +4,7 @@ export type ProfileProps = {
   lastName?: string;
   dob: Date;
   gender: {
-    gender: string | null;
+    gender: string[];
     identities: string[];
   };
   pronouns?: string[];
