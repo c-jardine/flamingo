@@ -4,12 +4,12 @@ export type ProfileProps = {
   lastName?: string;
   dob: Date;
   gender: {
-    gender: string | null;
+    gender: string[];
     identities: string[];
   };
   pronouns?: string[];
   sexualOrientation?: string[];
-  personalityType?: string;
+  personalityType?: string[];
   location?: any;
   avatarSrc?: string;
 };

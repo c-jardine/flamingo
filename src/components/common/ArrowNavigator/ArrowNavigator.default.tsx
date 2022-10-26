@@ -30,11 +30,6 @@ export const arrowNavigatorDefaults = (
             backComponent?.icon !== undefined
               ? backComponent.icon
               : 'arrow-left-thick',
-
-          disabled:
-            backComponent?.disabled !== undefined
-              ? backComponent?.disabled
-              : false,
         }}
         contentContainerStyle={{
           backgroundColor: theme.colors.text['50'],
@@ -46,6 +41,10 @@ export const arrowNavigatorDefaults = (
               : () => {
                   return;
                 },
+          disabled:
+            backComponent?.disabled !== undefined
+              ? backComponent?.disabled
+              : false,
         }}
       />
     );
@@ -60,11 +59,6 @@ export const arrowNavigatorDefaults = (
             nextComponent?.icon !== undefined
               ? nextComponent.icon
               : 'arrow-right-thick',
-
-          disabled:
-            nextComponent?.disabled !== undefined
-              ? nextComponent?.disabled
-              : false,
         }}
         contentContainerStyle={{
           backgroundColor: nextComponent?.disabled
@@ -78,6 +72,10 @@ export const arrowNavigatorDefaults = (
               : () => {
                   return;
                 },
+          disabled:
+            nextComponent?.disabled !== undefined
+              ? nextComponent?.disabled
+              : false,
         }}
       />
     );

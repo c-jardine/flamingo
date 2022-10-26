@@ -11,4 +11,5 @@ export * from './Photo';
 export * from './TabBarIcon';
 export * from './TabBarText';
 export * from './Text';
+export * from './Thumbnail';
 export * from './Toast';

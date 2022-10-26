@@ -5,6 +5,7 @@ import {
   FaceMatch,
   RekognitionClient,
 } from '@aws-sdk/client-rekognition';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buffer } from 'buffer';
 import { CameraCapturedPicture, CameraType } from 'expo-camera';
 import Constants from 'expo-constants';
@@ -57,10 +58,17 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
       if (matches.length > 0) {
         const confidence = matches[0].Face?.Confidence as FaceMatch;
 
-        confidence > 90 ? setIsValid(true) : setIsValid(false);
+        if (confidence > 90) {
+          await AsyncStorage.setItem('@isVerified', 'true');
+          setIsValid(true);
+        } else {
+          await AsyncStorage.setItem('@isVerified', 'false');
+          setIsValid(false);
+        }
       } else {
         Toast.error('Unable to verify');
       }
+
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);

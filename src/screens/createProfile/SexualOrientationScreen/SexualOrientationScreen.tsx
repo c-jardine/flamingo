@@ -12,11 +12,26 @@ const SexualOrientationScreen = (props: {
   navigation: SexualOrientationScreenNavigationProp;
 }) => {
   const { theme } = React.useContext(ThemeContext);
+  const [selectedOrientation, setSelectedOrientation] = React.useState<
+    string[]
+  >([]);
 
   const { values, errors, setFieldValue } = useFormikContext<ProfileProps>();
 
-  const _handleSelectSexualOrientation = (values: string[]) => {
-    setFieldValue('sexualOrientation', values);
+  // Load initial values from context.
+  React.useEffect(() => {
+    setSelectedOrientation(values.sexualOrientation as string[]);
+  }, []);
+
+  const _handleSelectSexualOrientation = (value: string) => {
+    const arr = [...selectedOrientation];
+    if (arr.includes(value)) {
+      arr.splice(arr.indexOf(value), 1);
+    } else {
+      arr.push(value);
+    }
+    setSelectedOrientation(arr);
+    setFieldValue('sexualOrientation', arr);
   };
 
   return (
@@ -31,9 +46,8 @@ const SexualOrientationScreen = (props: {
       >
         <Selector
           items={SexualOrientation}
-          value={values.sexualOrientation}
-          multiselect
           onSelect={_handleSelectSexualOrientation}
+          selectedValues={selectedOrientation}
         />
       </FormPageLayout.PageContent>
 
@@ -46,7 +60,7 @@ const SexualOrientationScreen = (props: {
           }}
           nextComponent={{
             onPress: () => props.navigation.navigate('PersonalityType'),
-            // disabled: !!errors?.email || !!errors?.password || false,
+            disabled: !!errors?.sexualOrientation || false,
           }}
         />
       </FormPageLayout.PageFooter>

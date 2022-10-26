@@ -4,6 +4,7 @@ export * from './IdVerificationScreen';
 export * from './InfoScreen';
 export * from './PersonalInfoScreen';
 export * from './PersonalityTypeScreen';
+export * from './PhotoUploadScreen';
 export * from './PhotoVerificationScreen';
 export * from './PronounsScreen';
 export * from './SexualOrientationScreen';

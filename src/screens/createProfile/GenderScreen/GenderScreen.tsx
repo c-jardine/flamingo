@@ -12,27 +12,39 @@ import { GenderScreenNavigationProp } from './GenderScreen.type';
 
 const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
   const { theme } = React.useContext(ThemeContext);
+  const [selectedGender, setSelectedGender] = React.useState<string[]>([]);
+  const [selectedIdentities, setSelectedIdentities] = React.useState<string[]>(
+    []
+  );
 
   const { values, setFieldValue, errors } = useFormikContext<ProfileProps>();
 
+  // Load initial values from context.
+  React.useEffect(() => {
+    setSelectedGender(values.gender.gender);
+    setSelectedIdentities(values.gender.identities);
+  }, []);
+
   // Set Formik gender field - passed to gender Selector.
   const _handleSelectGender = (value: string) => {
-    setFieldValue('gender.gender', value);
+    const arr = [value];
+    setSelectedGender(arr);
+    setSelectedIdentities([]);
+    setFieldValue('gender.gender', arr);
+    setFieldValue('gender.identities', []);
   };
 
   // Set Formik gender identities field - passed to gender identity Selector.
-  const _handleSelectIdentity = (values: string[]) => {
-    setFieldValue('gender.identities', values);
+  const _handleSelectIdentity = (value: string) => {
+    const arr = [...selectedIdentities];
+    if (arr.includes(value)) {
+      arr.splice(arr.indexOf(value), 1);
+    } else {
+      arr.push(value);
+    }
+    setSelectedIdentities(arr);
+    setFieldValue('gender.identities', arr);
   };
-
-  // Reset identities when new gender is selected.
-  React.useEffect(() => {
-    setFieldValue('gender.identities', []);
-  }, [values.gender.gender]);
-
-  React.useEffect(() => {
-    console.log(values.gender);
-  }, []);
 
   return (
     <FormPageLayout>
@@ -46,7 +58,7 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
           <Selector
             items={Genders}
             onSelect={_handleSelectGender}
-            value={values.gender.gender}
+            selectedValues={selectedGender}
             horizontal
           />
         </View>
@@ -56,7 +68,7 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
             exiting={FadeOut.duration(200)}
             style={{ flex: 1, paddingHorizontal: theme.spacing.md }}
           >
-            <Header style={{ marginTop: theme.spacing.xxl }}>
+            <Header>
               <Header.Title>Want to be more specific?</Header.Title>
               <Header.Description>
                 We strive to be inclusive. Please reach out if you feel we're
@@ -66,10 +78,13 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
             </Header>
             <View style={{ height: theme.spacing.md }} />
             <Selector
-              items={GenderIdentities[values.gender?.gender]}
-              value={values.gender.identities}
-              multiselect
+              items={
+                Object.entries(GenderIdentities)
+                  .filter(([key]) => key === values.gender.gender.toString())
+                  .map((v) => v[1])[0]
+              }
               onSelect={_handleSelectIdentity}
+              selectedValues={selectedIdentities}
             />
           </Animated.View>
         )}

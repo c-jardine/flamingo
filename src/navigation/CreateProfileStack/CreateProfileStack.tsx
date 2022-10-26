@@ -16,12 +16,12 @@ const CreateProfileStack = () => {
           lastName: '',
           dob: new Date(),
           gender: {
-            gender: null,
+            gender: [],
             identities: [],
           },
           pronouns: [],
           sexualOrientation: [],
-          personalityType: '',
+          personalityType: [],
         } as ProfileProps
       }
       validateOnMount
