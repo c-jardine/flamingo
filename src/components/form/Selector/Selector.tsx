@@ -6,40 +6,26 @@ import { RenderItemProps, SelectorProps } from './Selector.types';
 const Selector = (props: SelectorProps) => {
   const { theme } = React.useContext(ThemeContext);
 
-  const [selected, setSelected] = React.useState<string | string[]>(
-    props.multiselect ? [] : ''
-  );
+  const [selected, setSelected] = React.useState<string[]>([]);
 
   React.useEffect(() => {
     props.value && setSelected(props.value);
   }, []);
 
-  const _handleMultiselect = (value: string) => {
-    if (props.multiselect) {
-      let arr = (props.value as string[]) || [];
-      if (arr.includes(value)) {
-        arr.splice(arr.indexOf(value), 1);
-      } else {
-        arr.push(value);
-      }
-      setSelected(arr as string[]);
-      return props.onSelect(arr);
+  const _handleSelect = (value: string) => {
+    if (arr.includes(value)) {
+      arr.splice(arr.indexOf(value), 1);
+    } else {
+      arr.push(value);
     }
-  };
-
-  const _handleSingle = (value: string) => {
-    setSelected(value);
-    return props.onSelect(value);
+    setSelected(arr as string[]);
+    return props.onSelect(arr);
   };
 
   const _renderItem = ({ item }: { item: RenderItemProps }) => {
     return (
       <TouchableOpacity
-        onPress={() => {
-          props.multiselect
-            ? _handleMultiselect(item.value)
-            : _handleSingle(item.value);
-        }}
+        onPress={() => _handleSelect(item.value)}
         style={[
           props.horizontal
             ? {
@@ -50,11 +36,7 @@ const Selector = (props: SelectorProps) => {
             : { paddingVertical: theme.spacing.md },
           {
             paddingHorizontal: theme.spacing.md,
-            backgroundColor: props.multiselect
-              ? selected.includes(item.value)
-                ? theme.colors.text['900']
-                : theme.colors.text['50']
-              : selected === item.value
+            backgroundColor: selected.includes(item.value)
               ? theme.colors.text['900']
               : theme.colors.text['50'],
             borderRadius: props.horizontal ? 0 : 16,
@@ -64,11 +46,7 @@ const Selector = (props: SelectorProps) => {
       >
         <Text
           style={{
-            color: props.multiselect
-              ? selected.includes(item.value)
-                ? theme.colors.black
-                : theme.colors.text['600']
-              : selected === item.value
+            color: selected.includes(item.value)
               ? theme.colors.black
               : theme.colors.text['600'],
             textTransform: 'uppercase',
@@ -79,11 +57,7 @@ const Selector = (props: SelectorProps) => {
         {item.description && (
           <Text
             style={{
-              color: props.multiselect
-                ? selected.includes(item.value)
-                  ? theme.colors.baseSecondary['500']
-                  : theme.colors.text['300']
-                : selected === item.value
+              color: selected.includes(item.value)
                 ? theme.colors.baseSecondary['500']
                 : theme.colors.text['300'],
               fontSize: 12,

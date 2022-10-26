@@ -19,6 +19,10 @@ const PronounsScreen = (props: {
     setFieldValue('pronouns', values);
   };
 
+  React.useEffect(() => {
+    console.log(errors.pronouns)
+  }, [])
+
   return (
     <FormPageLayout>
       <FormPageLayout.PageHeader
@@ -46,7 +50,7 @@ const PronounsScreen = (props: {
           }}
           nextComponent={{
             onPress: () => props.navigation.navigate('SexualOrientation'),
-            // disabled: !!errors?.email || !!errors?.password || false,
+            disabled: !!errors?.pronouns || false,
           }}
         />
       </FormPageLayout.PageFooter>

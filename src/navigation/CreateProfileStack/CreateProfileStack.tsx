@@ -21,7 +21,7 @@ const CreateProfileStack = () => {
           },
           pronouns: [],
           sexualOrientation: [],
-          personalityType: '',
+          personalityType: [],
         } as ProfileProps
       }
       validateOnMount

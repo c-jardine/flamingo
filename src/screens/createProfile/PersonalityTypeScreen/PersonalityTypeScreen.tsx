@@ -15,7 +15,7 @@ const PersonalityTypeScreen = (props: {
 
   const { values, errors, setFieldValue } = useFormikContext<ProfileProps>();
 
-  const _handleSelectPersonalityType = (value: string) => {
+  const _handleSelectPersonalityType = (value: string[]) => {
     setFieldValue('personalityType', value);
   };
 
@@ -46,6 +46,7 @@ const PersonalityTypeScreen = (props: {
           }}
           nextComponent={{
             onPress: () => props.navigation.navigate('PhotoUpload'),
+            disabled: !!errors.personalityType || false,
           }}
         />
       </FormPageLayout.PageFooter>

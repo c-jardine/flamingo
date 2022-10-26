@@ -46,7 +46,7 @@ const SexualOrientationScreen = (props: {
           }}
           nextComponent={{
             onPress: () => props.navigation.navigate('PersonalityType'),
-            // disabled: !!errors?.email || !!errors?.password || false,
+            disabled: !!errors?.sexualOrientation || false,
           }}
         />
       </FormPageLayout.PageFooter>

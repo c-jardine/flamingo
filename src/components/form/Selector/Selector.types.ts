@@ -1,13 +1,11 @@
 import { FlatListProps } from 'react-native';
 
-type _AOnSelectSingle = (value: string) => void;
-
 type _AOnSelectMultiselect = (values: string[]) => void;
 
 export type SelectorProps = {
   items: Array<any>;
   value?: string | string[];
-  onSelect: _AOnSelectSingle | _AOnSelectMultiselect;
+  onSelect: _AOnSelectMultiselect;
   horizontal?: boolean;
   multiselect?: boolean;
   contentContainerStyle?: FlatListProps<any>;

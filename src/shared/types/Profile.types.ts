@@ -9,7 +9,7 @@ export type ProfileProps = {
   };
   pronouns?: string[];
   sexualOrientation?: string[];
-  personalityType?: string;
+  personalityType?: string[];
   location?: any;
   avatarSrc?: string;
 };
