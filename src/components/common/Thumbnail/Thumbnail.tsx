@@ -38,7 +38,10 @@ const Thumbnail = (props: ThumbnailProps) => {
           </Text>
           <TouchableOpacity
             style={{ paddingVertical: theme.spacing.lg }}
-            onPress={props.onDelete}
+            onPress={() => {
+              props.onDelete();
+              setIsModalOpen(false);
+            }}
           >
             <Text>Delete</Text>
           </TouchableOpacity>

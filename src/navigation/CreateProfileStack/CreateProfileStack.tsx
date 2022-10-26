@@ -1,15 +1,15 @@
 import { Formik } from 'formik';
 import React from 'react';
+import { ProfileSchema } from '../../shared/schemas';
 import { ProfileProps } from '../../shared/types';
 import CreateProfileNavigator from './CreateProfileStack.navigator';
-import { CreateProfileStackSchema } from './CreateProfileStack.schema';
 
 const CreateProfileStack = () => {
   const _createProfile = async () => {};
 
   return (
     <Formik
-      validationSchema={CreateProfileStackSchema}
+      validationSchema={ProfileSchema}
       initialValues={
         {
           firstName: '',
@@ -22,6 +22,7 @@ const CreateProfileStack = () => {
           pronouns: [],
           sexualOrientation: [],
           personalityType: [],
+          photos: [],
         } as ProfileProps
       }
       validateOnMount

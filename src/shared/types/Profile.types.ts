@@ -12,4 +12,5 @@ export type ProfileProps = {
   personalityType?: string[];
   location?: any;
   avatarSrc?: string;
+  photos?: string[];
 };

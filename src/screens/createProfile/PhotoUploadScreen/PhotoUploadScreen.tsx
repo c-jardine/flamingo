@@ -1,17 +1,15 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import * as ImagePicker from 'expo-image-picker';
+import { useFormikContext } from 'formik';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import {
-  ArrowNavigator,
-  Modal,
-  Text,
-  Thumbnail,
-} from '../../../components/common';
+import { ArrowNavigator, Thumbnail } from '../../../components/common';
 import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../providers';
 import { useDisclosure } from '../../../shared/hooks/useDisclosure';
+import { ProfileProps } from '../../../shared/types';
+import { supabase } from '../../../supabase';
 import { PhotoUploadScreenProps } from './PhotoUploadScreen.types';
 
 const accessKeyId = Constants?.manifest?.extra?.awsAccessKeyId as string;
@@ -24,6 +22,13 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
   const [isValid, setIsValid] = React.useState<boolean>(false);
 
   const [isModalOpen, setIsModalOpen] = useDisclosure();
+
+  const { values, errors, setFieldValue } = useFormikContext<ProfileProps>();
+
+  // Load initial values from context.
+  React.useEffect(() => {
+    setImages(values.photos as string[]);
+  }, []);
 
   const _takePhoto = async () => {
     let result: ImagePicker.ImagePickerResult =
@@ -38,7 +43,45 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
 
     if (!result.cancelled) {
       const uri = result?.uri;
-      setImages((prev) => [uri, ...prev]);
+      const arr = [uri, ...images];
+      setImages(arr);
+      setFieldValue('photos', arr);
+    }
+  };
+
+  const _handleCreate = async () => {
+    try {
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
+      console.log('USER', { userData, userError });
+      const userId = userData.user?.id;
+      const profile = { id: userId, ...values };
+      const { data, error } = await supabase.rpc('create_new_profile', {
+        data: profile,
+      });
+      // console.log(profile);
+      console.log('DATA', { data, error });
+      // const { data: profileData, error: profileError } = await supabase
+      //   .from('profiles')
+      //   .upsert({
+      //     id: userId,
+      //     first_name: values.firstName,
+      //     last_name: values.lastName,
+      //     dob: values.dob,
+      //   });
+      // console.log('PROFILE', { data: profileData, error: profileError });
+
+      // const { data: genderData, error: genderError } = await supabase
+      //   .from('genders')
+      //   .upsert(
+      //     values.gender.gender.map((g) => {
+      //       gender: g;
+      //     })
+      //   );
+
+      // console.log('GENDER', { data: genderData, error: genderError });
+    } catch (error) {
+      console.log('CATCH', error);
     }
   };
 
@@ -82,7 +125,11 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
             <Thumbnail
               uri={image}
               onDelete={
-                () => setImages(images.filter((img) => img !== image))
+                () => {
+                  const arr = images.filter((img) => img !== image);
+                  setImages(arr);
+                  setFieldValue('photos', arr);
+                }
                 //
               }
             />
@@ -98,7 +145,8 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
             onPress: () => props.navigation.goBack(),
           }}
           nextComponent={{
-            visible: false,
+            disabled: !!errors.photos || false,
+            onPress: _handleCreate,
           }}
         />
       </FormPageLayout.PageFooter>

@@ -2,8 +2,8 @@ import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
-import { CreateProfileStackSchema } from '../../../navigation';
 import { AuthContext, ThemeContext } from '../../../providers';
+import { ProfileSchema } from '../../../shared/schemas';
 import { save } from '../../../shared/services';
 import { Button, MenuContainer, Text } from '../../common';
 import { Birthday } from '../Birthday';
@@ -98,7 +98,7 @@ const EditProfile = () => {
         gender: profile?.gender,
         location: profile?.location,
       }}
-      validationSchema={CreateProfileStackSchema}
+      validationSchema={ProfileSchema}
       onSubmit={(values) => save(values)}
     >
       {({ handleSubmit, values }) => (
