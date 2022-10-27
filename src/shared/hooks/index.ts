@@ -8,3 +8,4 @@ export * from './useIdScanner';
 export { default as useLocation } from './useLocation';
 export * from './useMediaLibrary';
 export * from './useSelfieValidator';
+export * from './useProfile';

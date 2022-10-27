@@ -1,3 +1,4 @@
+import { differenceInYears } from 'date-fns';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { ThemeContext } from '../../../providers';
@@ -8,7 +9,7 @@ const ProfileCard = (props: ProfileCardProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   const viewProfile = () => {
-    props.navigation.navigate('Profile', { id: props.data.id });
+    props.navigation.navigate('Profile', { id: props.data.id as string });
   };
 
   return (
@@ -51,7 +52,7 @@ const ProfileCard = (props: ProfileCardProps) => {
             {props.data.firstName} {props.data.lastName}
           </Text>
           <Text style={[{ color: theme.colors.text['400'] }]}>
-            {props.data.location}
+            {differenceInYears(new Date(), new Date(props.data.dob))} years old
           </Text>
         </View>
       </View>

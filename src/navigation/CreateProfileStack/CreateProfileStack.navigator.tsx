@@ -24,7 +24,6 @@ const CreateProfileNavigator = () => {
     (async () => {
       const res = await AsyncStorage.getItem('@isVerified');
       setIsVerified(res === 'true');
-      console.log(res);
     })();
   }, []);
 

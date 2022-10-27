@@ -52,13 +52,10 @@ export const useSelfieValidator = (
 
       const command = new CompareFacesCommand(input);
       const data = await rekognitionClient.send(command);
-      console.log(data);
-      console.log('yay')
       setIsValid(true);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.log('hmm')
       console.log(error);
     }
   };

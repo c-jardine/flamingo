@@ -1,6 +1,7 @@
 import React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
 import { ThemeContext } from '../../../providers';
+import { Text } from '../Text';
 import { getPhoto } from './Photo.actions';
 import { PhotoProps } from './Photo.types';
 
@@ -12,10 +13,8 @@ const Photo = (props: PhotoProps) => {
 
   React.useEffect(() => {
     try {
-      if (props.path) {
-        const res = getPhoto(props.path);
-        setSrc(res?.publicURL);
-      }
+      const res = getPhoto(props.path);
+      setSrc(res);
     } catch (error) {
       console.log(error);
     }

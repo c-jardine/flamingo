@@ -5,6 +5,8 @@ import ProfileCard from '../../../components/profile/ProfileCard/ProfileCard';
 import { ThemeContext } from '../../../providers';
 import { useAllUsers } from '../../../shared/hooks';
 import { NearbyUsersScreenNavigationProp } from './NearbyUsersScreen.types';
+import snakecaseKeys from 'snakecase-keys';
+import camelcaseKeys from 'camelcase-keys';
 
 /**
  * Shows a list of nearby users.
@@ -43,7 +45,7 @@ export const NearbyUsersScreen = (props: {
               return (
                 <ProfileCard
                   key={index}
-                  data={user}
+                  data={camelcaseKeys(user)}
                   navigation={props.navigation}
                 />
               );

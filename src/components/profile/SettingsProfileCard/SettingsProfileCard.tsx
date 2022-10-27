@@ -1,17 +1,21 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { AuthContext, ThemeContext } from '../../../providers';
+import { ThemeContext } from '../../../providers';
 import {
   EditProfileScreenNavigationProp,
   PhotoAlbumScreenNavigationProp,
 } from '../../../screens/main';
+import useProfile from '../../../shared/hooks/useProfile';
 import { Photo } from '../../common';
 
 const SettingsProfileCard = () => {
   const { theme } = React.useContext(ThemeContext);
+  const [loading, profile] = useProfile();
 
-  const { user, session, profile } = React.useContext(AuthContext);
+  // React.useEffect(() => {
+  //   console.log(profile);
+  // }, []);
 
   const navigation = useNavigation<
     EditProfileScreenNavigationProp | PhotoAlbumScreenNavigationProp

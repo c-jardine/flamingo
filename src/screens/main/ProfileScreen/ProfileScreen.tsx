@@ -1,3 +1,4 @@
+import camelcaseKeys from 'camelcase-keys';
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { AlbumViewer, Photo } from '../../../components/common';
@@ -24,7 +25,7 @@ const ProfileScreen = ({ route }: { route: ProfileScreenRouteProp }) => {
       .eq('id', route.params.id)
       .single();
 
-    setProfile(data);
+    setProfile(camelcaseKeys(data));
   };
 
   React.useEffect(() => {
@@ -51,8 +52,14 @@ const ProfileScreen = ({ route }: { route: ProfileScreenRouteProp }) => {
           imgStyle={{ width: '100%', height: '100%' }}
         />
       </TouchableOpacity>
-      <ProfileActionBar profile={profile as ProfileProps} />
-      <ProfileDetailsCard profile={profile} />
+      <ProfileActionBar
+        id={route.params.id}
+        profile={camelcaseKeys(profile as ProfileProps)}
+      />
+      <ProfileDetailsCard
+        id={route.params.id}
+        profile={camelcaseKeys(profile as ProfileProps)}
+      />
     </View>
   );
 };

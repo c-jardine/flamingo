@@ -3,11 +3,12 @@ import React from 'react';
 import { View } from 'react-native';
 import { AuthContext, ThemeContext } from '../../../providers';
 import { PhotoAlbumScreenNavigationProp } from '../../../screens/main';
-import { ProfileProps } from '../../../shared/types';
 import { supabase } from '../../../supabase';
 import { IconButton } from '../../common';
+import ProfileActionBarProps from './ProfileActionBar.types';
+import camelcaseKeys from 'camelcase-keys';
 
-const ProfileActionBar = (props: ProfileProps) => {
+const ProfileActionBar = (props: ProfileActionBarProps) => {
   const { theme } = React.useContext(ThemeContext);
 
   const { session } = React.useContext(AuthContext);
@@ -28,7 +29,7 @@ const ProfileActionBar = (props: ProfileProps) => {
 
     if (!error) {
       if (data?.length > 0) {
-        if (data[0].is_mutual) {
+        if (camelcaseKeys(data[0]).isMutual) {
           setIsMutual(true);
         }
         return true;
@@ -73,10 +74,11 @@ const ProfileActionBar = (props: ProfileProps) => {
       }}
     >
       <IconButton
-        iconProps={{ name: 'folder-image' }}
-        onPress={() =>
-          navigation.navigate('PhotoAlbum', { id: props.id as string })
-        }
+        iconProps={{
+          name: 'folder-image',
+          onPress: () =>
+            navigation.navigate('PhotoAlbum', { id: props.id as string }),
+        }}
       />
       {props.id !== session?.user?.id && (
         <>
@@ -89,8 +91,8 @@ const ProfileActionBar = (props: ProfileProps) => {
                   ? theme.colors.warning
                   : theme.colors.error
                 : theme.colors.text['800'],
+              onPress: handleFavorite,
             }}
-            onPress={handleFavorite}
           />
         </>
       )}

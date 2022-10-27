@@ -40,6 +40,8 @@ export const useAllUsers = (): [
       .select('*')
       .neq('id', session?.user?.id as string);
 
+    setUsers(profiles);
+
     if (error) {
       throw new Error();
     }

@@ -13,4 +13,6 @@ export type ProfileProps = {
   location?: any;
   avatarSrc?: string;
   photos?: string[];
+  isOnline: boolean;
+  lastOnline: Date;
 };

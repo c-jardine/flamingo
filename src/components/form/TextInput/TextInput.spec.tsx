@@ -13,6 +13,5 @@ describe('<TextInput />', () => {
     );
     const textInput = getByPlaceholderText('Test input');
     expect(textInput).not.toBeNull();
-    console.log(textInput.children);
   });
 });

@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { AuthContext } from '../../providers';
 import {
   EditProfileScreen,
   PhotoAlbumScreen,
@@ -12,8 +11,6 @@ import MainStackParams from './MainStack.types';
 const Main = createNativeStackNavigator<MainStackParams>();
 
 const MainStack = () => {
-  const { user, profile } = React.useContext(AuthContext);
-
   return (
     <Main.Navigator
       id='Main'

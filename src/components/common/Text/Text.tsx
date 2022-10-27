@@ -29,7 +29,7 @@ const _Icon = (props: Pick<TextProps, 'leftIcon' | 'rightIcon'>) => {
   );
 };
 
-const Text = (props: TextProps & { style: TextStyle }) => {
+const Text = (props: TextProps & { style?: TextStyle }) => {
   const { theme } = React.useContext(ThemeContext);
 
   if (props.leftIcon) {

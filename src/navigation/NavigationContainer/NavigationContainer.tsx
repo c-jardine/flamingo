@@ -4,13 +4,15 @@ import {
 } from '@react-navigation/native';
 import React from 'react';
 import { AuthContext, ThemeContext } from '../../providers';
+import useProfile from '../../shared/hooks/useProfile';
+import { AuthStack } from '../AuthStack';
 import { CreateProfileStack } from '../CreateProfileStack';
 import { MainStack } from '../MainStack';
-import { AuthStack } from '../AuthStack';
 
 const NavigationContainer = () => {
   const { theme } = React.useContext(ThemeContext);
-  const { user, profile } = React.useContext(AuthContext);
+  const { user } = React.useContext(AuthContext);
+  const [loading, profile] = useProfile();
 
   return (
     <RNNavigationContainer

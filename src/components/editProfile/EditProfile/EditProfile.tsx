@@ -2,7 +2,8 @@ import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
-import { AuthContext, ThemeContext } from '../../../providers';
+import { ThemeContext } from '../../../providers';
+import useProfile from '../../../shared/hooks/useProfile';
 import { ProfileSchema } from '../../../shared/schemas';
 import { save } from '../../../shared/services';
 import { Button, MenuContainer, Text } from '../../common';
@@ -11,12 +12,22 @@ import { Gender } from '../Gender';
 import { Location } from '../Location';
 import { Name } from '../Name';
 import EditProfileSectionsProps from './EditProfile.types';
+import { supabase } from '../../../supabase/supabase';
 
 const EditProfile = () => {
   const { theme } = React.useContext(ThemeContext);
-
-  const { user, session, profile } = React.useContext(AuthContext);
+  const [loading, profile] = useProfile();
   const [activeSections, setActiveSections] = React.useState<number[]>([]);
+
+  React.useEffect(() => {
+    (async () => {
+      const { data, error } = await supabase.from('profiles').select(`
+        
+      `);
+
+      console.log(data);
+    })();
+  }, []);
 
   const sections = [
     {
@@ -29,16 +40,16 @@ const EditProfile = () => {
       content: profile?.dob?.toString(),
       contentComponent: <Birthday />,
     },
-    {
-      title: 'Gender',
-      content: profile?.gender.gender,
-      contentComponent: <Gender />,
-    },
-    {
-      title: 'Location',
-      content: profile?.location,
-      contentComponent: <Location />,
-    },
+    // {
+    //   title: 'Gender',
+    //   content: profile?.gender.gender,
+    //   contentComponent: <Gender />,
+    // },
+    // {
+    //   title: 'Location',
+    //   content: profile?.location,
+    //   contentComponent: <Location />,
+    // },
   ];
 
   const _renderHeader = (section: EditProfileSectionsProps) => {

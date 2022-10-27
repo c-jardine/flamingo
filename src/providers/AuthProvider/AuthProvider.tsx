@@ -4,6 +4,7 @@ import { ProfileProps } from '../../shared/types';
 import { supabase } from '../../supabase';
 import AuthContext from './AuthContext';
 import AuthProviderProps from './AuthProvider.types';
+import camelcaseKeys from 'camelcase-keys';
 
 const AuthProvider = (props: AuthProviderProps) => {
   // user null = loading
@@ -33,12 +34,8 @@ const AuthProvider = (props: AuthProviderProps) => {
               .eq('id', session?.user?.id)
               .single();
 
-            console.log('USER', user);
-            console.log('PROFILE', profile);
-            console.log(data);
-
             if (data) {
-              setProfile(data);
+              setProfile(camelcaseKeys(data));
             } else {
               setProfile(null);
             }
