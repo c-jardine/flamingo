@@ -9,7 +9,9 @@ const AuthProvider = (props: AuthProviderProps) => {
   // user null = loading
   const [user, setUser] = React.useState<null | boolean>(null);
   const [session, setSession] = React.useState<Session | null>(null);
-  const [profile, setProfile] = React.useState<ProfileProps | null>(null);
+  const [profile, setProfile] = React.useState<ProfileProps | null>(
+    {} as ProfileProps
+  );
 
   React.useEffect(() => {
     (async () => {
@@ -55,6 +57,7 @@ const AuthProvider = (props: AuthProviderProps) => {
         user,
         session,
         profile,
+        setProfile,
       }}
     >
       {props.children}

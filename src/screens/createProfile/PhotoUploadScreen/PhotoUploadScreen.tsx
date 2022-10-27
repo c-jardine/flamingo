@@ -71,7 +71,7 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
         data: profile,
       });
 
-      values.photos.map(async (img) => {
+      values.photos?.map(async (img) => {
         const manipulatedResult = await manipulateAsync(
           img,
           [{ resize: { width: 1200 } }],
@@ -108,7 +108,7 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
   };
 
   return isLoading ? (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <ActivityIndicator size='large' color={theme.colors.primary} />
     </View>
   ) : (

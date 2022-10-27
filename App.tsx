@@ -1,8 +1,8 @@
-import 'react-native-get-random-values';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 import { setGlobalStyles } from 'react-native-floating-label-input';
+import 'react-native-get-random-values';
 import { EventProvider } from 'react-native-outside-press';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import 'react-native-url-polyfill/auto';
@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { NavigationContainer } from './src/navigation';
 import { AuthContext, AuthProvider, ThemeProvider } from './src/providers';
 import { store } from './src/redux/store';
+import { ProfileProps } from './src/shared/types';
 import { color } from './src/styles/color/color';
 import { supabase } from './src/supabase';
 
@@ -31,10 +32,21 @@ setGlobalStyles.customLabelStyles = {
  * Main entry point of the app.
  */
 const App = () => {
-  const { session } = React.useContext(AuthContext);
+  const { session, setProfile } = React.useContext(AuthContext);
   const appState = React.useRef(AppState.currentState);
 
   React.useEffect(() => {
+    (async () => {
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
+      const userId = userData.user?.id;
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
+      setProfile && setProfile(data as ProfileProps);
+    })();
     const subscription = AppState.addEventListener(
       'change',
       _handleAppStateChange
