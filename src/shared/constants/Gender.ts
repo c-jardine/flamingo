@@ -82,13 +82,13 @@ export const GenderIdentities = {
     },
     {
       id: 3,
-      value: 'Gender-fluid',
+      value: 'Gender fluid',
       description:
         "You don't identify with a fixed gender, and it may change over time.",
     },
     {
       id: 4,
-      value: 'Genderqueer',
+      value: 'Gender queer',
       description: "Your gender identity doesn't fit within societal norms.",
     },
     {

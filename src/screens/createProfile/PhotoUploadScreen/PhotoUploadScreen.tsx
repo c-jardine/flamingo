@@ -1,9 +1,10 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
+import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 import { useFormikContext } from 'formik';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { ArrowNavigator, Thumbnail } from '../../../components/common';
 import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../providers';
@@ -35,11 +36,9 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
       await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
-        aspect: [4, 3],
+        aspect: [4, 5],
         quality: 1,
       });
-
-    console.log(result);
 
     if (!result.cancelled) {
       const uri = result?.uri;
@@ -50,42 +49,69 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
   };
 
   const _handleCreate = async () => {
+    setIsLoading(true);
     try {
       const { data: userData, error: userError } =
         await supabase.auth.getUser();
-      console.log('USER', { userData, userError });
+      // console.log('USER', { userData, userError });
       const userId = userData.user?.id;
-      const profile = { id: userId, ...values };
+      const profile = {
+        ...values,
+        id: userId,
+        gender: {
+          gender: values.gender.gender[0],
+          identities: values.gender.identities,
+        },
+        pronouns: values.pronouns,
+        sexualOrientation: values.sexualOrientation,
+        personalityType: [values.personalityType],
+      };
+
       const { data, error } = await supabase.rpc('create_new_profile', {
         data: profile,
       });
-      // console.log(profile);
-      console.log('DATA', { data, error });
-      // const { data: profileData, error: profileError } = await supabase
-      //   .from('profiles')
-      //   .upsert({
-      //     id: userId,
-      //     first_name: values.firstName,
-      //     last_name: values.lastName,
-      //     dob: values.dob,
-      //   });
-      // console.log('PROFILE', { data: profileData, error: profileError });
 
-      // const { data: genderData, error: genderError } = await supabase
-      //   .from('genders')
-      //   .upsert(
-      //     values.gender.gender.map((g) => {
-      //       gender: g;
-      //     })
-      //   );
+      values.photos.map(async (img) => {
+        const manipulatedResult = await manipulateAsync(
+          img,
+          [{ resize: { width: 1200 } }],
+          { compress: 0.5, format: SaveFormat.JPEG }
+        );
 
-      // console.log('GENDER', { data: genderData, error: genderError });
+        const filename = `${userId}/${manipulatedResult.uri.replace(
+          /^.*[\\\/]/,
+          ''
+        )}`;
+        const supabaseUrl = `${userId}/${filename}`;
+        const formData = new FormData();
+        //TODO: Fix this to remove type error
+        const blob = {
+          uri: manipulatedResult.uri,
+          name: filename,
+          type: 'image/jpeg',
+        };
+        formData.append('files', blob);
+
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('albums')
+          .upload(supabaseUrl, formData, {
+            cacheControl: '3600',
+            upsert: false,
+          });
+
+        console.log('PHOTO', { uploadData, uploadError });
+      });
     } catch (error) {
       console.log('CATCH', error);
     }
+    setIsLoading(false);
   };
 
-  return (
+  return isLoading ? (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <ActivityIndicator size='large' color={theme.colors.primary} />
+    </View>
+  ) : (
     <FormPageLayout>
       <FormPageLayout.PageHeader
         title='Upload some selfies'
