@@ -1,5 +1,4 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Constants from 'expo-constants';
 import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 import { useFormikContext } from 'formik';
@@ -8,21 +7,14 @@ import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { ArrowNavigator, Thumbnail } from '../../../components/common';
 import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../providers';
-import { useDisclosure } from '../../../shared/hooks/useDisclosure';
 import { ProfileProps } from '../../../shared/types';
 import { supabase } from '../../../supabase';
 import { PhotoUploadScreenProps } from './PhotoUploadScreen.types';
-
-const accessKeyId = Constants?.manifest?.extra?.awsAccessKeyId as string;
-const secretKey = Constants?.manifest?.extra?.awsSecretAccessKey as string;
 
 const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
   const { theme } = React.useContext(ThemeContext);
   const [images, setImages] = React.useState<string[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [isValid, setIsValid] = React.useState<boolean>(false);
-
-  const [isModalOpen, setIsModalOpen] = useDisclosure();
 
   const { values, errors, setFieldValue } = useFormikContext<ProfileProps>();
 
@@ -84,13 +76,12 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
         )}`;
         const supabaseUrl = `${userId}/${filename}`;
         const formData = new FormData();
-        //TODO: Fix this to remove type error
         const blob = {
           uri: manipulatedResult.uri,
           name: filename,
           type: 'image/jpeg',
         };
-        formData.append('files', blob);
+        formData.append('files', blob as any);
 
         const { data: uploadData, error: uploadError } = await supabase.storage
           .from('albums')

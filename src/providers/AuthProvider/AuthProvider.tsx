@@ -4,7 +4,6 @@ import { ProfileProps } from '../../shared/types';
 import { supabase } from '../../supabase';
 import AuthContext from './AuthContext';
 import AuthProviderProps from './AuthProvider.types';
-import camelcaseKeys from 'camelcase-keys';
 
 const AuthProvider = (props: AuthProviderProps) => {
   // user null = loading
@@ -28,17 +27,6 @@ const AuthProvider = (props: AuthProviderProps) => {
           if (event === 'SIGNED_OUT') {
             setProfile(null);
           } else if (event === 'SIGNED_IN') {
-            const { data, error } = await supabase
-              .from('profiles')
-              .select('*')
-              .eq('id', session?.user?.id)
-              .single();
-
-            if (data) {
-              setProfile(camelcaseKeys(data));
-            } else {
-              setProfile(null);
-            }
           }
         }
       );

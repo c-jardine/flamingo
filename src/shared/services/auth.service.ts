@@ -9,20 +9,6 @@ export async function signIn(values: FormikValues) {
     password: values.password,
   });
 
-  // if (!error) {
-  //   const { data, error } = await supabase
-  //     .from('profiles')
-  //     .select('id')
-  //     .eq('id', user.user?.id)
-  //     .single();
-
-  //   if (data) {
-  //     await supabase
-  //       .from('profiles')
-  //       .update({ is_online: true, last_online: new Date().toISOString() })
-  //       .eq('id', authUser.user?.id);
-  //   }
-  // }
   if (error) {
     Vibration.vibrate(1000);
     Toast.error('Account not found');
@@ -30,22 +16,14 @@ export async function signIn(values: FormikValues) {
 }
 
 export async function signUp(values: FormikValues) {
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email: values.email,
     password: values.password,
   });
 
-  // const { data: user, error } = await supabase.auth.signUp({
-  //   email: values.email,
-  //   password: values.password,
-  // });
-  // if (!error && !user) {
-  //   return user;
-  // }
-  // if (error) {
-  //   throw error;
-  // }
-  // return user;
+  if (!error) {
+    return true;
+  }
 }
 
 export async function signOut() {

@@ -102,10 +102,16 @@ export const arrowNavigatorDefaults = (
     },
 
     nextComponent: {
-      disabled: nextComponent?.disabled || false,
-      visible: nextComponent?.visible || true,
-      icon: nextComponent?.icon || 'arrow-left',
-      render: nextComponent?.render || _nextButton(),
+      disabled:
+        nextComponent?.disabled !== undefined ? nextComponent?.disabled : true,
+      visible:
+        nextComponent?.visible !== undefined ? nextComponent?.visible : true,
+      icon:
+        nextComponent?.icon !== undefined ? nextComponent?.icon : 'arrow-right',
+      render:
+        nextComponent?.render !== undefined
+          ? nextComponent?.render
+          : _nextButton(),
     },
   };
 

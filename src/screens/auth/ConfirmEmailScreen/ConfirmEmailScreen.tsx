@@ -48,6 +48,7 @@ const ConfirmEmailScreen = (props: {
       <Button
         label={'Return to sign in'}
         onPress={() => props.navigation.navigate('SignIn')}
+        contentContainerStyle={{ marginTop: theme.spacing.xxl }}
       />
     </View>
   );

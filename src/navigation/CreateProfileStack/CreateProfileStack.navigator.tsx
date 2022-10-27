@@ -1,6 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import { AuthContext } from '../../providers';
 import {
   BirthdateScreen,
   GenderScreen,
@@ -13,17 +13,32 @@ import {
   PronounsScreen,
   SexualOrientationScreen,
 } from '../../screens/createProfile';
+import { supabase } from '../../supabase/supabase';
 import { CreateProfileStackParams } from './CreateProfileStack.type';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { useDispatch } from 'react-redux';
+import { setIsVerified } from '../../redux/slices/verificationSlice';
 
 const Stack = createNativeStackNavigator<CreateProfileStackParams>();
 
 const CreateProfileNavigator = () => {
-  const [isVerified, setIsVerified] = React.useState(false);
+  const { session } = React.useContext(AuthContext);
+
+  const dispatch = useDispatch();
+  const isVerified = useSelector(
+    (state: RootState) => state.verificationReducer.isVerified
+  );
 
   React.useEffect(() => {
+    const userId = session?.user.id;
     (async () => {
-      const res = await AsyncStorage.getItem('@isVerified');
-      setIsVerified(res === 'true');
+      const { data, error } = await supabase
+        .from('verified_users')
+        .select('*')
+        .eq('id', userId)
+        .single();
+      dispatch(setIsVerified(!!data));
     })();
   }, []);
 
@@ -44,16 +59,23 @@ const CreateProfileNavigator = () => {
           />
         </>
       )}
-      <Stack.Screen name='PersonalInfo' component={PersonalInfoScreen} />
-      <Stack.Screen name='Birthdate' component={BirthdateScreen} />
-      <Stack.Screen name='Gender' component={GenderScreen} />
-      <Stack.Screen name='Pronouns' component={PronounsScreen} />
-      <Stack.Screen
-        name='SexualOrientation'
-        component={SexualOrientationScreen}
-      />
-      <Stack.Screen name='PersonalityType' component={PersonalityTypeScreen} />
-      <Stack.Screen name='PhotoUpload' component={PhotoUploadScreen} />
+      {isVerified && (
+        <>
+          <Stack.Screen name='PersonalInfo' component={PersonalInfoScreen} />
+          <Stack.Screen name='Birthdate' component={BirthdateScreen} />
+          <Stack.Screen name='Gender' component={GenderScreen} />
+          <Stack.Screen name='Pronouns' component={PronounsScreen} />
+          <Stack.Screen
+            name='SexualOrientation'
+            component={SexualOrientationScreen}
+          />
+          <Stack.Screen
+            name='PersonalityType'
+            component={PersonalityTypeScreen}
+          />
+          <Stack.Screen name='PhotoUpload' component={PhotoUploadScreen} />
+        </>
+      )}
     </Stack.Navigator>
   );
 };

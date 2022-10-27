@@ -9,11 +9,13 @@ import Constants from 'expo-constants';
 import React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
 import Animated, { ZoomIn, ZoomOut } from 'react-native-reanimated';
+import { useDispatch } from 'react-redux';
 import { Camera, SettingsMenuEnum } from '../../../components/camera';
 import { IdBoundingBox } from '../../../components/camera/BoundingBox';
 import { ArrowNavigator, Toast } from '../../../components/common';
 import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../providers';
+import { setIdImage } from '../../../redux/slices/verificationSlice';
 import { IdRequiredFields, IdType } from '../../../shared/constants/IdScanner';
 import { IdVerificationScreenNavigationProp } from './IdVerificationScreen.types';
 
@@ -28,7 +30,8 @@ const IdVerificationScreen = (props: {
   const [isScanning, setIsScanning] = React.useState<boolean>(false);
 
   const [isValid, setIsValid] = React.useState<boolean>(false);
-  const [imageBuffer, setImageBuffer] = React.useState<Buffer | null>(null);
+
+  const dispatch = useDispatch();
 
   const _scan = async (): Promise<void> => {
     try {
@@ -44,7 +47,6 @@ const IdVerificationScreen = (props: {
 
       const result = image?.base64 as string;
       const b = Buffer.from(result, 'base64');
-      // props.setIdImage(b);
 
       const input = {
         DocumentPages: [{ Bytes: b }],
@@ -85,7 +87,7 @@ const IdVerificationScreen = (props: {
             Toast.error(`Unable to located field: ${fieldType}`);
             return;
           }
-          setImageBuffer(b);
+          dispatch(setIdImage(result));
         }
       }
       setIsScanning(false);
@@ -151,10 +153,7 @@ const IdVerificationScreen = (props: {
             onPress: () => props.navigation.goBack(),
           }}
           nextComponent={{
-            onPress: () =>
-              props.navigation.navigate('PhotoVerification', {
-                sourceImage: imageBuffer,
-              }),
+            onPress: () => props.navigation.navigate('PhotoVerification'),
             disabled: !image || !isValid,
           }}
         />

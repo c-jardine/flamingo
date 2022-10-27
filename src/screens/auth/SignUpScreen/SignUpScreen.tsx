@@ -28,8 +28,8 @@ const SignUpScreen = (props: { navigation: SignUpScreenNavigationProp }) => {
     >
       {({ handleChange, handleSubmit, values, errors, touched }) => (
         <FormPageLayout
-          // nextDisabled={!!errors}
-          handleNext={handleSubmit as () => void}
+        // nextDisabled={!!errors}
+        // handleNext={handleSubmit as () => void}
         >
           {/* Header */}
           <FormPageLayout.PageHeader

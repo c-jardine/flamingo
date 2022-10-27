@@ -3,6 +3,7 @@ export * from './ArrowNavigator';
 export * from './Button';
 export * from './Header';
 export * from './IconButton';
+export * from './LoadingOverlay';
 export * from './MenuContainer';
 export * from './MenuItem';
 export * from './Modal';

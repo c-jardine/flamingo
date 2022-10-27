@@ -5,17 +5,21 @@ import {
   FaceMatch,
   RekognitionClient,
 } from '@aws-sdk/client-rekognition';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Buffer } from 'buffer';
 import { CameraCapturedPicture, CameraType } from 'expo-camera';
 import Constants from 'expo-constants';
 import React from 'react';
 import { ActivityIndicator, Image, View } from 'react-native';
 import Animated, { ZoomIn, ZoomOut } from 'react-native-reanimated';
+import { useDispatch, useSelector } from 'react-redux';
 import { Camera, SettingsMenuEnum } from '../../../components/camera';
 import { ArrowNavigator, Toast } from '../../../components/common';
 import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../providers';
+import AuthContext from '../../../providers/AuthProvider/AuthContext';
+import { setIsVerified } from '../../../redux/slices/verificationSlice';
+import { RootState } from '../../../redux/store';
+import { supabase } from '../../../supabase/supabase';
 import { PhotoVerificationScreenProps } from './PhotoVerificationScreen.types';
 
 const accessKeyId = Constants?.manifest?.extra?.awsAccessKeyId as string;
@@ -25,15 +29,24 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
   const { theme } = React.useContext(ThemeContext);
   const [image, setImage] = React.useState<CameraCapturedPicture | null>(null);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [isValid, setIsValid] = React.useState<boolean>(false);
+
+  const { session } = React.useContext(AuthContext);
+
+  const isVerified = useSelector(
+    (state: RootState) => state.verificationReducer.isVerified
+  );
+  const dispatch = useDispatch();
+
+  const idImage = useSelector(
+    (state: RootState) => state.verificationReducer.idImage
+  ) as string;
 
   const handleSubmit = async (): Promise<void> => {
-    const selfie = image?.base64 as string;
-    const selfieData = Buffer.from(selfie, 'base64');
-
     try {
       setIsLoading(true);
-
+      const idData = Buffer.from(idImage, 'base64');
+      const selfie = image?.base64 as string;
+      const selfieData = Buffer.from(selfie, 'base64');
       const rekognitionClient = new RekognitionClient({
         region: 'us-east-2',
         credentials: {
@@ -44,7 +57,7 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
 
       const input = {
         SourceImage: {
-          Bytes: props.route.params.sourceImage as Buffer,
+          Bytes: idData,
         },
         TargetImage: {
           Bytes: selfieData as Buffer,
@@ -58,12 +71,23 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
       if (matches.length > 0) {
         const confidence = matches[0].Face?.Confidence as FaceMatch;
 
-        if (confidence > 90) {
-          await AsyncStorage.setItem('@isVerified', 'true');
-          setIsValid(true);
+        const userId = session?.user.id;
+        if (confidence >= 90) {
+          const { data: verifiedData, error: verifiedError } =
+            await supabase.rpc('user_verify_identity', {
+              user_id: '39e71041-d0af-4e73-bdf9-e89b8f396e5e',
+              verification_state: true,
+            });
+          !verifiedError && dispatch(setIsVerified(true));
+          console.log('>90', { verifiedData, verifiedError });
         } else {
-          await AsyncStorage.setItem('@isVerified', 'false');
-          setIsValid(false);
+          const { data: verifiedData, error: verifiedError } =
+            await supabase.rpc('user_verify_identity', {
+              user_id: '39e71041-d0af-4e73-bdf9-e89b8f396e5e',
+              verification_state: false,
+            });
+          !verifiedError && dispatch(setIsVerified(false));
+          console.log('<90', { verifiedData, verifiedError });
         }
       } else {
         Toast.error('Unable to verify');
@@ -89,7 +113,7 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
             entering={ZoomIn.duration(200)}
             exiting={ZoomOut.duration(200)}
           >
-            {!isValid ? (
+            {!isVerified ? (
               <Camera
                 image={image}
                 setImage={setImage}
@@ -129,8 +153,9 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
             onPress: () => props.navigation.goBack(),
           }}
           nextComponent={{
-            onPress: () => props.navigation.navigate('PersonalInfo'),
-            disabled: !image || !isValid,
+            // onPress: () => props.navigation.navigate('PersonalInfo'),
+            // disabled: image === null || !isValid,
+            visible: false,
           }}
         />
       </FormPageLayout.PageFooter>

@@ -3,13 +3,13 @@ import React from 'react';
 import { AppState, AppStateStatus } from 'react-native';
 import { setGlobalStyles } from 'react-native-floating-label-input';
 import 'react-native-get-random-values';
-import { EventProvider } from 'react-native-outside-press';
-import { RootSiblingParent } from 'react-native-root-siblings';
 import 'react-native-url-polyfill/auto';
-import { Provider } from 'react-redux';
+import { useSelector } from 'react-redux';
+import AppContext from './AppContext';
+import { LoadingOverlay } from './src/components/common';
 import { NavigationContainer } from './src/navigation';
-import { AuthContext, AuthProvider, ThemeProvider } from './src/providers';
-import { store } from './src/redux/store';
+import { AuthContext } from './src/providers';
+import { RootState } from './src/redux/store';
 import { ProfileProps } from './src/shared/types';
 import { color } from './src/styles/color/color';
 import { supabase } from './src/supabase';
@@ -34,6 +34,8 @@ setGlobalStyles.customLabelStyles = {
 const App = () => {
   const { session, setProfile } = React.useContext(AuthContext);
   const appState = React.useRef(AppState.currentState);
+
+  const loading = useSelector((state: RootState) => state.appReducer.loading);
 
   React.useEffect(() => {
     (async () => {
@@ -83,18 +85,11 @@ const App = () => {
   };
 
   return (
-    <Provider store={store}>
-      <RootSiblingParent>
-        <EventProvider style={{ flex: 1 }}>
-          <AuthProvider>
-            <ThemeProvider>
-              <StatusBar />
-              <NavigationContainer />
-            </ThemeProvider>
-          </AuthProvider>
-        </EventProvider>
-      </RootSiblingParent>
-    </Provider>
+    <AppContext>
+      {loading && <LoadingOverlay />}
+      <StatusBar />
+      <NavigationContainer />
+    </AppContext>
   );
 };
 

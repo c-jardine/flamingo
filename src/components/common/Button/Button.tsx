@@ -29,7 +29,7 @@ const Button = (
               : theme.colors.primary,
             borderWidth: 0,
             borderRadius: 16,
-            paddingVertical: theme.spacing.md,
+            padding: theme.spacing.md,
           },
           props.style,
         ]}
