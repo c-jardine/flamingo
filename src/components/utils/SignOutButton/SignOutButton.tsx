@@ -1,15 +1,26 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { ThemeContext } from '../../../providers';
+import { setLoading } from '../../../redux/slices/appSlice';
 import { useDisclosure } from '../../../shared/hooks';
 import { signOut } from '../../../shared/services';
 import { MenuItem, Modal } from '../../common';
 
 const SignOutButton = () => {
   const { theme } = React.useContext(ThemeContext);
-
   const [isOpen, setIsOpen] = useDisclosure();
+
+  const dispatch = useDispatch();
+
+  const _handleSignOut = async () => {
+    setIsOpen(false);
+    dispatch(setLoading(true));
+    await signOut();
+    dispatch(setLoading(false));
+  };
+
   return (
     <View>
       <MenuItem
@@ -45,7 +56,7 @@ const SignOutButton = () => {
               justifyContent: 'center',
               alignItems: 'center',
             }}
-            onPress={signOut}
+            onPress={_handleSignOut}
           >
             <MaterialCommunityIcons
               name='check-bold'

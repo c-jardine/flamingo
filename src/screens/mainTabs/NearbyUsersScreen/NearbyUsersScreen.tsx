@@ -1,3 +1,4 @@
+import camelcaseKeys from 'camelcase-keys';
 import React from 'react';
 import { RefreshControl, ScrollView, View } from 'react-native';
 import { Header } from '../../../components/common';
@@ -5,8 +6,6 @@ import ProfileCard from '../../../components/profile/ProfileCard/ProfileCard';
 import { ThemeContext } from '../../../providers';
 import { useAllUsers } from '../../../shared/hooks';
 import { NearbyUsersScreenNavigationProp } from './NearbyUsersScreen.types';
-import snakecaseKeys from 'snakecase-keys';
-import camelcaseKeys from 'camelcase-keys';
 
 /**
  * Shows a list of nearby users.
@@ -15,7 +14,6 @@ export const NearbyUsersScreen = (props: {
   navigation: NearbyUsersScreenNavigationProp;
 }) => {
   const { theme } = React.useContext(ThemeContext);
-
   const [users, isRefreshing, refresh] = useAllUsers();
 
   return (

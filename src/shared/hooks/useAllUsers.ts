@@ -33,20 +33,25 @@ export const useAllUsers = (): [
    * @returns {ProfileProps[]} profiles The list of profiles loaded from the database.
    */
   const refresh = async (): Promise<ProfileProps[]> => {
-    setIsRefreshing(true);
+    const userId = session?.user?.id;
 
-    const { data: profiles, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .neq('id', session?.user?.id as string);
+    if (userId !== undefined) {
+      setIsRefreshing(true);
+      const { data: profiles, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .neq('id', userId);
 
-    setUsers(profiles);
+      setUsers(profiles as ProfileProps[]);
 
-    if (error) {
-      throw new Error();
+      if (error) {
+        throw new Error();
+      }
+      setIsRefreshing(false);
+      return profiles;
     }
-    setIsRefreshing(false);
-    return profiles;
+
+    return [];
   };
 
   return [users, isRefreshing, refresh];

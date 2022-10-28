@@ -29,7 +29,7 @@ const EditProfileScreen = () => {
         <Header.Description>Help others get to know you</Header.Description>
       </Header>
       <View style={{ height: 32 }} />
-      <EditProfile />
+      {/* <EditProfile /> */}
       {/* </KeyboardAvoidingView> */}
       {/* </ScrollView> */}
     </SafeAreaView>

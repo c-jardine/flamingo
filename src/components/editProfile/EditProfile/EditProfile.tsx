@@ -14,18 +14,7 @@ import EditProfileSectionsProps from './EditProfile.types';
 
 const EditProfile = () => {
   const { theme } = React.useContext(ThemeContext);
-  const [loading, profile] = useProfile();
   const [activeSections, setActiveSections] = React.useState<number[]>([]);
-
-  React.useEffect(() => {
-    (async () => {
-      const { data, error } = await supabase.from('profiles').select(`
-        
-      `);
-
-      console.log(data);
-    })();
-  }, []);
 
   const sections = [
     {

@@ -11,12 +11,16 @@ import { useDisclosure } from '../../../shared/hooks';
 import { ProfileProps } from '../../../shared/types';
 import { supabase } from '../../../supabase';
 import { ProfileScreenRouteProp } from './ProfileScreen.types';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../../../redux/slices/appSlice';
 
 const ProfileScreen = ({ route }: { route: ProfileScreenRouteProp }) => {
   const { theme } = React.useContext(ThemeContext);
 
   const [isOpen, setIsOpen] = useDisclosure();
   const [profile, setProfile] = React.useState<ProfileProps>();
+
+  const dispatch = useDispatch();
 
   const getProfile = async () => {
     const { data, error } = await supabase
@@ -30,7 +34,11 @@ const ProfileScreen = ({ route }: { route: ProfileScreenRouteProp }) => {
 
   React.useEffect(() => {
     (async () => {
-      await getProfile();
+      if (route.params.id !== undefined) {
+        dispatch(setLoading(true));
+        await getProfile();
+        dispatch(setLoading(false));
+      }
     })();
   }, []);
 

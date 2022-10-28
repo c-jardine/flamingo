@@ -4,45 +4,47 @@ import { ProfileProps } from '../../shared/types';
 import { supabase } from '../../supabase';
 import AuthContext from './AuthContext';
 import AuthProviderProps from './AuthProvider.types';
+import camelcaseKeys from 'camelcase-keys';
 
 const AuthProvider = (props: AuthProviderProps) => {
-  // user null = loading
-  const [user, setUser] = React.useState<null | boolean>(null);
   const [session, setSession] = React.useState<Session | null>(null);
-  const [profile, setProfile] = React.useState<ProfileProps | null>(
-    {} as ProfileProps
-  );
+  const [profile, setProfile] = React.useState<ProfileProps | null>(null);
+
+  const _getProfile = async (id: string) => {
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (!error) {
+      setProfile(camelcaseKeys(data));
+    }
+  };
 
   React.useEffect(() => {
-    (async () => {
-      const { data, error } = await supabase.auth.getSession();
-      setSession(data.session);
-      setUser(data.session ? true : false);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
 
-      const { data: authListener } = supabase.auth.onAuthStateChange(
-        async (event, session) => {
-          console.log(`Supabase auth event: ${event}`);
-          setSession(session);
-          setUser(session ? true : false);
-          if (event === 'SIGNED_OUT') {
-            setProfile(null);
-          } else if (event === 'SIGNED_IN') {
-          }
-        }
-      );
-      return () => {
-        authListener.subscription!.unsubscribe();
-      };
-    })();
-  }, [user]);
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    if (session) {
+      (async () => {
+        _getProfile(session?.user.id);
+      })();
+    }
+  }, [session]);
 
   return (
     <AuthContext.Provider
       value={{
-        user,
         session,
         profile,
-        setProfile,
       }}
     >
       {props.children}

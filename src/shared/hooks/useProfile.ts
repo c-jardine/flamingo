@@ -3,31 +3,33 @@ import React from 'react';
 import { supabase } from '../../supabase';
 import { ProfileProps } from '../types';
 
-const useProfile = (): [loading: boolean, profile: ProfileProps] => {
+const useProfile = (id: string): [loading: boolean, profile: ProfileProps] => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [profile, setProfile] = React.useState<ProfileProps>(
     {} as ProfileProps
   );
 
   React.useEffect(() => {
-    setLoading(true);
-    (async () => {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
-      const userId = user?.id;
+    const ac = new AbortController();
+    if (id !== undefined) {
+      setLoading(true);
+      (async () => {
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', id)
+          .abortSignal(ac.signal)
+          .single();
 
-      const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
+        setProfile(camelcaseKeys(profileData));
+      })();
+      setLoading(false);
+    }
 
-      setProfile(camelcaseKeys(profileData));
-    })();
-    setLoading(false);
-  }, [profile]);
+    return () => {
+      ac.abort();
+    };
+  }, []);
 
   return [loading, profile];
 };

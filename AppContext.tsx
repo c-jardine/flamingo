@@ -8,7 +8,6 @@ import 'react-native-url-polyfill/auto';
 import { Provider } from 'react-redux';
 import { AuthContext, AuthProvider, ThemeProvider } from './src/providers';
 import { store } from './src/redux/store';
-import { ProfileProps } from './src/shared/types';
 import { color } from './src/styles/color/color';
 import { supabase } from './src/supabase';
 
@@ -27,37 +26,27 @@ setGlobalStyles.customLabelStyles = {
 };
 
 const AppContext = (props: { children: React.ReactNode }) => {
-  const { session, setProfile } = React.useContext(AuthContext);
+  const { session } = React.useContext(AuthContext);
   const appState = React.useRef(AppState.currentState);
 
   React.useEffect(() => {
-    (async () => {
-      const { data: userData, error: userError } =
-        await supabase.auth.getUser();
-      const userId = userData.user?.id;
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
-      setProfile && setProfile(data as ProfileProps);
-    })();
     const subscription = AppState.addEventListener(
       'change',
       _handleAppStateChange
     );
     return () => {
-      // TODO: fix typing to remove this error
       subscription.remove();
     };
-  }, []);
+  }, [appState]);
 
   /**
    * Uses AppState to manage a user's online status.
    * @param {AppStateStatus} nextAppState The state of the app being triggered.
    */
   const _handleAppStateChange = async (nextAppState: AppStateStatus) => {
+    const userId = session?.user.id;
     if (
+      userId !== undefined &&
       appState.current.match(/inactive|background/) &&
       nextAppState === 'active'
     ) {
@@ -65,13 +54,13 @@ const AppContext = (props: { children: React.ReactNode }) => {
       await supabase
         .from('profiles')
         .update({ is_online: true, last_online: new Date().toISOString() })
-        .eq('id', session?.user?.id);
+        .eq('id', userId);
     } else {
       // User is offline (app is closed)
       await supabase
         .from('profiles')
         .update({ is_online: false, last_online: new Date().toISOString() })
-        .eq('id', session?.user?.id);
+        .eq('id', userId);
     }
 
     appState.current = nextAppState;

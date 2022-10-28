@@ -17,6 +17,7 @@ import { PhotoUploadScreenProps } from './PhotoUploadScreen.types';
 const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
   const { theme } = React.useContext(ThemeContext);
   const [images, setImages] = React.useState<string[]>([]);
+  const [avatarSrc, setAvatarSrc] = React.useState<string>('');
 
   const { values, errors, setFieldValue } = useFormikContext<ProfileProps>();
 
@@ -63,6 +64,7 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
         pronouns: values.pronouns,
         sexualOrientation: values.sexualOrientation,
         personalityType: [values.personalityType],
+        avatarSrc: values.photos && values.photos[2],
       };
 
       const { data, error } = await supabase.rpc('create_new_profile', {
@@ -89,14 +91,10 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
         };
         formData.append('files', blob as any);
 
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('albums')
-          .upload(supabaseUrl, formData, {
-            cacheControl: '3600',
-            upsert: false,
-          });
-
-        console.log('PHOTO', { uploadData, uploadError });
+        await supabase.storage.from('albums').upload(supabaseUrl, formData, {
+          cacheControl: '3600',
+          upsert: false,
+        });
       });
     } catch (error) {
       console.log('CATCH', error);
@@ -109,7 +107,7 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
       <FormPageLayout>
         <FormPageLayout.PageHeader
           title='Upload some selfies'
-          description='At least one photo is required, but you can add up to three now or more later.'
+          description='At least one photo is required, but you can add up to three now or more later. The first upload will be your profile photo.'
         />
         <FormPageLayout.PageContent>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>

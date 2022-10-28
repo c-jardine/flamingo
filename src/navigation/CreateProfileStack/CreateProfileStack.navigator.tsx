@@ -1,6 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { AuthContext } from '../../providers';
+import { setIsVerified } from '../../redux/slices/verificationSlice';
+import { RootState } from '../../redux/store';
 import {
   BirthdateScreen,
   GenderScreen,
@@ -15,10 +18,6 @@ import {
 } from '../../screens/createProfile';
 import { supabase } from '../../supabase/supabase';
 import { CreateProfileStackParams } from './CreateProfileStack.type';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
-import { useDispatch } from 'react-redux';
-import { setIsVerified } from '../../redux/slices/verificationSlice';
 
 const Stack = createNativeStackNavigator<CreateProfileStackParams>();
 
@@ -32,14 +31,15 @@ const CreateProfileNavigator = () => {
 
   React.useEffect(() => {
     const userId = session?.user.id;
-    (async () => {
-      const { data, error } = await supabase
-        .from('verified_users')
-        .select('*')
-        .eq('id', userId)
-        .single();
-      dispatch(setIsVerified(!!data));
-    })();
+    userId !== undefined &&
+      (async () => {
+        const { data, error } = await supabase
+          .from('verified_users')
+          .select('*')
+          .eq('id', userId)
+          .single();
+        dispatch(setIsVerified(!!data));
+      })();
   }, []);
 
   return (
