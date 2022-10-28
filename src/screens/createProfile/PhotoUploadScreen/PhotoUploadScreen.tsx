@@ -3,10 +3,13 @@ import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 import { useFormikContext } from 'formik';
 import React from 'react';
-import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { ArrowNavigator, Thumbnail } from '../../../components/common';
 import { FormPageLayout } from '../../../components/layouts';
-import { ThemeContext } from '../../../providers';
+import { AuthContext, ThemeContext } from '../../../providers';
+import { setLoading } from '../../../redux/slices/appSlice';
+import { RootState } from '../../../redux/store';
 import { ProfileProps } from '../../../shared/types';
 import { supabase } from '../../../supabase';
 import { PhotoUploadScreenProps } from './PhotoUploadScreen.types';
@@ -14,9 +17,12 @@ import { PhotoUploadScreenProps } from './PhotoUploadScreen.types';
 const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
   const { theme } = React.useContext(ThemeContext);
   const [images, setImages] = React.useState<string[]>([]);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const { values, errors, setFieldValue } = useFormikContext<ProfileProps>();
+
+  const dispatch = useDispatch();
+
+  const { setProfile } = React.useContext(AuthContext);
 
   // Load initial values from context.
   React.useEffect(() => {
@@ -41,7 +47,7 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
   };
 
   const _handleCreate = async () => {
-    setIsLoading(true);
+    dispatch(setLoading(true));
     try {
       const { data: userData, error: userError } =
         await supabase.auth.getUser();
@@ -95,79 +101,78 @@ const PhotoUploadScreen = (props: PhotoUploadScreenProps) => {
     } catch (error) {
       console.log('CATCH', error);
     }
-    setIsLoading(false);
+    dispatch(setLoading(false));
   };
 
-  return isLoading ? (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ActivityIndicator size='large' color={theme.colors.primary} />
-    </View>
-  ) : (
-    <FormPageLayout>
-      <FormPageLayout.PageHeader
-        title='Upload some selfies'
-        description='At least one photo is required, but you can add up to three now or more later.'
-      />
-      <FormPageLayout.PageContent>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-          {images.length < 3 && (
-            <View
-              style={{
-                width: `${100 / 3}%`,
-                aspectRatio: 1,
-                padding: 4,
-              }}
-            >
-              <TouchableOpacity
-                onPress={_takePhoto}
+  return (
+    <>
+      <FormPageLayout>
+        <FormPageLayout.PageHeader
+          title='Upload some selfies'
+          description='At least one photo is required, but you can add up to three now or more later.'
+        />
+        <FormPageLayout.PageContent>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            {images.length < 3 && (
+              <View
                 style={{
-                  borderRadius: 16,
-                  width: '100%',
-                  height: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: theme.colors.text[50],
+                  width: `${100 / 3}%`,
+                  aspectRatio: 1,
+                  padding: 4,
                 }}
               >
-                <MaterialCommunityIcons
-                  name='plus'
-                  size={32}
-                  color={theme.colors.primary}
-                />
-              </TouchableOpacity>
-            </View>
-          )}
+                <TouchableOpacity
+                  onPress={_takePhoto}
+                  style={{
+                    borderRadius: 16,
+                    width: '100%',
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: theme.colors.text[50],
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name='plus'
+                    size={32}
+                    color={theme.colors.primary}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
 
-          {images.map((image) => (
-            <Thumbnail
-              uri={image}
-              onDelete={
-                () => {
-                  const arr = images.filter((img) => img !== image);
-                  setImages(arr);
-                  setFieldValue('photos', arr);
+            {images.map((image) => (
+              <Thumbnail
+                key={image}
+                uri={image}
+                onDelete={
+                  () => {
+                    const arr = images.filter((img) => img !== image);
+                    setImages(arr);
+                    setFieldValue('photos', arr);
+                  }
+                  //
                 }
-                //
-              }
-            />
-          ))}
-        </View>
-      </FormPageLayout.PageContent>
+              />
+            ))}
+          </View>
+        </FormPageLayout.PageContent>
 
-      {/* Footer */}
-      <FormPageLayout.PageFooter>
-        <ArrowNavigator
-          backComponent={{
-            disabled: false,
-            onPress: () => props.navigation.goBack(),
-          }}
-          nextComponent={{
-            disabled: !!errors.photos || false,
-            onPress: _handleCreate,
-          }}
-        />
-      </FormPageLayout.PageFooter>
-    </FormPageLayout>
+        {/* Footer */}
+        <FormPageLayout.PageFooter>
+          <ArrowNavigator
+            backComponent={{
+              disabled: false,
+              onPress: () => props.navigation.goBack(),
+            }}
+            nextComponent={{
+              disabled: !!errors.photos || false,
+              onPress: _handleCreate,
+            }}
+          />
+        </FormPageLayout.PageFooter>
+      </FormPageLayout>
+    </>
   );
 };
 export default PhotoUploadScreen;

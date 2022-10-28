@@ -62,11 +62,15 @@ const GenderScreen = (props: { navigation: GenderScreenNavigationProp }) => {
             horizontal
           />
         </View>
-        {values.gender.gender && (
+        {!!values.gender.gender.length && (
           <Animated.View
             entering={FadeIn.duration(200)}
             exiting={FadeOut.duration(200)}
-            style={{ flex: 1, paddingHorizontal: theme.spacing.md }}
+            style={{
+              flex: 1,
+              paddingHorizontal: theme.spacing.md,
+              marginTop: theme.spacing.md,
+            }}
           >
             <Header>
               <Header.Title>Want to be more specific?</Header.Title>

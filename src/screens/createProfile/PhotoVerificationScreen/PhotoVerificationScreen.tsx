@@ -9,7 +9,7 @@ import { Buffer } from 'buffer';
 import { CameraCapturedPicture, CameraType } from 'expo-camera';
 import Constants from 'expo-constants';
 import React from 'react';
-import { ActivityIndicator, Image, View } from 'react-native';
+import { Image } from 'react-native';
 import Animated, { ZoomIn, ZoomOut } from 'react-native-reanimated';
 import { useDispatch, useSelector } from 'react-redux';
 import { Camera, SettingsMenuEnum } from '../../../components/camera';
@@ -17,6 +17,7 @@ import { ArrowNavigator, Toast } from '../../../components/common';
 import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../providers';
 import AuthContext from '../../../providers/AuthProvider/AuthContext';
+import { setLoading } from '../../../redux/slices/appSlice';
 import { setIsVerified } from '../../../redux/slices/verificationSlice';
 import { RootState } from '../../../redux/store';
 import { supabase } from '../../../supabase/supabase';
@@ -28,7 +29,6 @@ const secretKey = Constants?.manifest?.extra?.awsSecretAccessKey as string;
 const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
   const { theme } = React.useContext(ThemeContext);
   const [image, setImage] = React.useState<CameraCapturedPicture | null>(null);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const { session } = React.useContext(AuthContext);
 
@@ -36,6 +36,7 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
     (state: RootState) => state.verificationReducer.isVerified
   );
   const dispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.appReducer.loading);
 
   const idImage = useSelector(
     (state: RootState) => state.verificationReducer.idImage
@@ -43,7 +44,7 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
 
   const handleSubmit = async (): Promise<void> => {
     try {
-      setIsLoading(true);
+      dispatch(setLoading(true));
       const idData = Buffer.from(idImage, 'base64');
       const selfie = image?.base64 as string;
       const selfieData = Buffer.from(selfie, 'base64');
@@ -75,7 +76,7 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
         if (confidence >= 90) {
           const { data: verifiedData, error: verifiedError } =
             await supabase.rpc('user_verify_identity', {
-              user_id: '39e71041-d0af-4e73-bdf9-e89b8f396e5e',
+              user_id: userId,
               verification_state: true,
             });
           !verifiedError && dispatch(setIsVerified(true));
@@ -83,7 +84,7 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
         } else {
           const { data: verifiedData, error: verifiedError } =
             await supabase.rpc('user_verify_identity', {
-              user_id: '39e71041-d0af-4e73-bdf9-e89b8f396e5e',
+              user_id: userId,
               verification_state: false,
             });
           !verifiedError && dispatch(setIsVerified(false));
@@ -93,9 +94,10 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
         Toast.error('Unable to verify');
       }
 
-      setIsLoading(false);
+      dispatch(setLoading(false));
     } catch (error) {
-      setIsLoading(false);
+      dispatch(setLoading(false));
+
       console.log(error);
     }
   };
@@ -108,41 +110,33 @@ const PhotoVerificationScreen = (props: PhotoVerificationScreenProps) => {
           appearance.'
       />
       <FormPageLayout.PageContent>
-        {!isLoading ? (
-          <Animated.View
-            entering={ZoomIn.duration(200)}
-            exiting={ZoomOut.duration(200)}
-          >
-            {!isVerified ? (
-              <Camera
-                image={image}
-                setImage={setImage}
-                settings={[
-                  SettingsMenuEnum.FrontCameraToggle,
-                  SettingsMenuEnum.FlashToggle,
-                  SettingsMenuEnum.AutoFocusToggle,
-                ]}
-                onSubmit={handleSubmit}
-                defaultCamera={CameraType.front}
-              />
-            ) : (
-              <Image
-                source={{ uri: image?.uri }}
-                style={{
-                  width: '100%',
-                  aspectRatio: 1,
-                  marginTop: theme.spacing.xxl,
-                }}
-              />
-            )}
-          </Animated.View>
-        ) : (
-          <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-          >
-            <ActivityIndicator size='large' color={theme.colors.primary} />
-          </View>
-        )}
+        <Animated.View
+          entering={ZoomIn.duration(200)}
+          exiting={ZoomOut.duration(200)}
+        >
+          {!isVerified ? (
+            <Camera
+              image={image}
+              setImage={setImage}
+              settings={[
+                SettingsMenuEnum.FrontCameraToggle,
+                SettingsMenuEnum.FlashToggle,
+                SettingsMenuEnum.AutoFocusToggle,
+              ]}
+              onSubmit={handleSubmit}
+              defaultCamera={CameraType.front}
+            />
+          ) : (
+            <Image
+              source={{ uri: image?.uri }}
+              style={{
+                width: '100%',
+                aspectRatio: 1,
+                marginTop: theme.spacing.xxl,
+              }}
+            />
+          )}
+        </Animated.View>
       </FormPageLayout.PageContent>
 
       {/* Footer */}

@@ -2,10 +2,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { ArrowNavigator } from '../../../components/common';
 import { TextInput, TextInputError } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../providers';
+import { setLoading } from '../../../redux/slices/appSlice';
 import { SignUpSchema } from './SignUpScreen.schema';
 import { sendVerificationEmail } from './SignUpScreen.service';
 import { SignUpScreenNavigationProp } from './SignUpScreen.type';
@@ -13,10 +15,14 @@ import { SignUpScreenNavigationProp } from './SignUpScreen.type';
 const SignUpScreen = (props: { navigation: SignUpScreenNavigationProp }) => {
   const { theme } = React.useContext(ThemeContext);
 
+  const dispatch = useDispatch();
+
   const _handleNext = async (values: FormikValues) => {
+    dispatch(setLoading(true));
     await sendVerificationEmail(values, () =>
       props.navigation.navigate('ConfirmEmail')
     );
+    dispatch(setLoading(false));
   };
 
   return (

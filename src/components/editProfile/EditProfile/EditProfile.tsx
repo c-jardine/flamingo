@@ -6,13 +6,11 @@ import { ThemeContext } from '../../../providers';
 import useProfile from '../../../shared/hooks/useProfile';
 import { ProfileSchema } from '../../../shared/schemas';
 import { save } from '../../../shared/services';
+import { supabase } from '../../../supabase/supabase';
 import { Button, MenuContainer, Text } from '../../common';
 import { Birthday } from '../Birthday';
-import { Gender } from '../Gender';
-import { Location } from '../Location';
 import { Name } from '../Name';
 import EditProfileSectionsProps from './EditProfile.types';
-import { supabase } from '../../../supabase/supabase';
 
 const EditProfile = () => {
   const { theme } = React.useContext(ThemeContext);

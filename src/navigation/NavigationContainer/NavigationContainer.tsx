@@ -4,6 +4,7 @@ import {
 } from '@react-navigation/native';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { LoadingOverlay } from '../../components/common';
 import { AuthContext, ThemeContext } from '../../providers';
 import { RootState } from '../../redux/store';
 import useProfile from '../../shared/hooks/useProfile';
@@ -28,6 +29,7 @@ const NavigationContainer = () => {
         },
       }}
     >
+      {isLoading && <LoadingOverlay />}
       {/* Not signed in forces authentication stack. */}
       {user == false && <AuthStack />}
 

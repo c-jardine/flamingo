@@ -21,7 +21,7 @@ const LoadingOverlay = () => {
         zIndex: 100,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: theme.colors.baseSecondary['400'],
+        backgroundColor: theme.colors.baseSecondary['600'],
       }}
     >
       <Animated.View

@@ -27,7 +27,7 @@ const useProfile = (): [loading: boolean, profile: ProfileProps] => {
       setProfile(camelcaseKeys(profileData));
     })();
     setLoading(false);
-  }, []);
+  }, [profile]);
 
   return [loading, profile];
 };

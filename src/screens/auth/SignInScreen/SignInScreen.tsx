@@ -1,21 +1,14 @@
 import { Formik, FormikValues } from 'formik';
 import React from 'react';
-import {
-  ActivityIndicator,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Button } from '../../../components/common';
 import { TextInput, TextInputError } from '../../../components/form';
 import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../providers';
 import { setLoading } from '../../../redux/slices/appSlice';
-import { RootState } from '../../../redux/store';
 import { signIn } from '../../../shared/services';
 import { SignInSchema } from './SignInScreen.schema';
 import { SignInScreenNavigationProp } from './SignInScreen.type';
@@ -24,7 +17,6 @@ const SignInScreen = (props: { navigation: SignInScreenNavigationProp }) => {
   const { theme } = React.useContext(ThemeContext);
 
   const dispatch = useDispatch();
-  const loading = useSelector((state: RootState) => state.appReducer.loading);
 
   const _handleSignIn = async (values: FormikValues) => {
     dispatch(setLoading(true));

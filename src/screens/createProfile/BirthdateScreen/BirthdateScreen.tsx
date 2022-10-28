@@ -20,23 +20,28 @@ const BirthdateScreen = (props: {
   const [dob, setDob] = React.useState<string>('');
 
   const _handleSetDate = () => {
-    if (dob.length === 10) {
-      const birthDate = parse(dob, 'MM/dd/yyyy', new Date());
-      const { years } = intervalToDuration({
-        start: birthDate,
-        end: new Date(),
-      });
+    try {
+      if (dob.length === 10) {
+        const birthDate = parse(dob, 'MM/dd/yyyy', new Date());
+        const { years } = intervalToDuration({
+          start: birthDate,
+          end: new Date(),
+        });
 
-      const isValid = years && years >= 18 && years <= 100;
-      if (isValid) {
-        const date = parse(dob, 'MM/dd/yyyy', new Date());
-        setFieldValue('dob', date);
+        const isValid = years && years >= 18 && years <= 100;
+        if (isValid) {
+          const date = parse(dob, 'MM/dd/yyyy', new Date());
+          setFieldValue('dob', date);
+        } else {
+          // Reset to null when invalid
+          setFieldValue('dob', null);
+        }
       } else {
         // Reset to null when invalid
         setFieldValue('dob', null);
       }
-    } else {
-      // Reset to null when invalid
+    } catch (error) {
+      console.log(error);
       setFieldValue('dob', null);
     }
   };

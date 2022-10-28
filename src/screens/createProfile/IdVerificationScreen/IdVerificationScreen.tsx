@@ -7,15 +7,17 @@ import { Buffer } from 'buffer';
 import { CameraCapturedPicture } from 'expo-camera';
 import Constants from 'expo-constants';
 import React from 'react';
-import { ActivityIndicator, Image, View } from 'react-native';
+import { Image } from 'react-native';
 import Animated, { ZoomIn, ZoomOut } from 'react-native-reanimated';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Camera, SettingsMenuEnum } from '../../../components/camera';
 import { IdBoundingBox } from '../../../components/camera/BoundingBox';
 import { ArrowNavigator, Toast } from '../../../components/common';
 import { FormPageLayout } from '../../../components/layouts';
 import { ThemeContext } from '../../../providers';
+import { setLoading } from '../../../redux/slices/appSlice';
 import { setIdImage } from '../../../redux/slices/verificationSlice';
+import { RootState } from '../../../redux/store';
 import { IdRequiredFields, IdType } from '../../../shared/constants/IdScanner';
 import { IdVerificationScreenNavigationProp } from './IdVerificationScreen.types';
 
@@ -27,15 +29,15 @@ const IdVerificationScreen = (props: {
 }) => {
   const { theme } = React.useContext(ThemeContext);
   const [image, setImage] = React.useState<CameraCapturedPicture | null>(null);
-  const [isScanning, setIsScanning] = React.useState<boolean>(false);
 
   const [isValid, setIsValid] = React.useState<boolean>(false);
 
   const dispatch = useDispatch();
+  const loading = useSelector((state: RootState) => state.appReducer.loading);
 
   const _scan = async (): Promise<void> => {
     try {
-      setIsScanning(true);
+      dispatch(setLoading(true));
 
       const textractClient = new TextractClient({
         region: 'us-east-2',
@@ -68,7 +70,8 @@ const IdVerificationScreen = (props: {
           if (value !== '' && valueConfidence > 90) {
             setIsValid(true);
             if (fieldType === 'ID_TYPE' && !IdType.includes(value)) {
-              setIsScanning(false);
+              dispatch(setLoading(false));
+
               setIsValid(false);
               setImage(null);
               console.log(
@@ -81,7 +84,8 @@ const IdVerificationScreen = (props: {
             console.log(
               `EMPTY OR LOW CONFIDENCE - FIELD: ${fieldType} | VALUE: ${value}`
             );
-            setIsScanning(false);
+            dispatch(setLoading(false));
+
             setIsValid(false);
             setImage(null);
             Toast.error(`Unable to located field: ${fieldType}`);
@@ -90,10 +94,12 @@ const IdVerificationScreen = (props: {
           dispatch(setIdImage(result));
         }
       }
-      setIsScanning(false);
+      dispatch(setLoading(false));
+
       Toast.success('Success! Continue to the next page.');
     } catch (error) {
-      setIsScanning(false);
+      dispatch(setLoading(false));
+
       setImage(null);
       console.log(error);
     }
@@ -108,41 +114,33 @@ const IdVerificationScreen = (props: {
       />
 
       <FormPageLayout.PageContent>
-        {!isScanning ? (
-          <Animated.View
-            entering={ZoomIn.duration(200)}
-            exiting={ZoomOut.duration(200)}
-          >
-            {!isValid ? (
-              <Camera
-                image={image}
-                setImage={setImage}
-                boundingBox={IdBoundingBox}
-                settings={[
-                  SettingsMenuEnum.FlashToggle,
-                  SettingsMenuEnum.AutoFocusToggle,
-                  SettingsMenuEnum.BoundingBoxToggle,
-                ]}
-                onSubmit={_scan}
-              />
-            ) : (
-              <Image
-                source={{ uri: image?.uri }}
-                style={{
-                  width: '100%',
-                  aspectRatio: 1,
-                  marginTop: theme.spacing.xxl,
-                }}
-              />
-            )}
-          </Animated.View>
-        ) : (
-          <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-          >
-            <ActivityIndicator size='large' color={theme.colors.primary} />
-          </View>
-        )}
+        <Animated.View
+          entering={ZoomIn.duration(200)}
+          exiting={ZoomOut.duration(200)}
+        >
+          {!isValid ? (
+            <Camera
+              image={image}
+              setImage={setImage}
+              boundingBox={IdBoundingBox}
+              settings={[
+                SettingsMenuEnum.FlashToggle,
+                SettingsMenuEnum.AutoFocusToggle,
+                SettingsMenuEnum.BoundingBoxToggle,
+              ]}
+              onSubmit={_scan}
+            />
+          ) : (
+            <Image
+              source={{ uri: image?.uri }}
+              style={{
+                width: '100%',
+                aspectRatio: 1,
+                marginTop: theme.spacing.xxl,
+              }}
+            />
+          )}
+        </Animated.View>
       </FormPageLayout.PageContent>
 
       {/* Footer */}
