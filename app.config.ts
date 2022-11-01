@@ -5,6 +5,7 @@ const supabaseKey = process.env.SUPABASE_KEY;
 const googlePlacesApiKey = process.env.GOOGLE_PLACES_API_KEY;
 const awsAccessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const awsSecretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+const sentryDsn = process.env.SENTRY_DSN;
 
 export default {
   expo: {
@@ -52,6 +53,7 @@ export default {
       googlePlacesApiKey,
       awsAccessKeyId,
       awsSecretAccessKey,
+      sentryDsn,
     },
   },
 };

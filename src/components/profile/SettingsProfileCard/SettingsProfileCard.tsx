@@ -1,20 +1,31 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { AuthContext, ThemeContext } from '../../../providers';
+import { ThemeContext } from '../../../providers';
 import {
   EditProfileScreenNavigationProp,
   PhotoAlbumScreenNavigationProp,
 } from '../../../screens/main';
+import useProfile from '../../../shared/hooks/useProfile';
+import { supabase } from '../../../supabase';
 import { Photo } from '../../common';
 
 const SettingsProfileCard = () => {
   const { theme } = React.useContext(ThemeContext);
-  const { profile } = React.useContext(AuthContext);
+  const [loading, profile] = useProfile();
+  const [avatarSrc, setAvatarSrc] = React.useState<string>('');
 
   const navigation = useNavigation<
     EditProfileScreenNavigationProp | PhotoAlbumScreenNavigationProp
   >();
+
+  React.useEffect(() => {
+    const avatarSrc = supabase.storage
+      .from('albums')
+      .getPublicUrl(profile?.avatarSrc as string).data.publicUrl as string;
+    console.log(avatarSrc);
+    setAvatarSrc(avatarSrc);
+  }, [profile]);
 
   return (
     <View
@@ -30,7 +41,7 @@ const SettingsProfileCard = () => {
         }
       >
         <Photo
-          path={profile?.avatarSrc as string}
+          path={avatarSrc}
           imgStyle={{
             width: 100,
             aspectRatio: 1,

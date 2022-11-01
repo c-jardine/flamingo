@@ -1,3 +1,4 @@
+import React from 'react';
 import { View } from 'react-native';
 import { Selector } from '../../form';
 
@@ -7,10 +8,19 @@ const items = [
   { id: 3, label: 'Nonbinary' },
 ];
 
-const Gender = () => {
+const Gender = (items) => {
+  React.useEffect(() => {
+    console.log(items);
+  });
   return (
     <View>
-      <Selector items={items} field='gender' />
+      <Selector
+        items={items}
+        // selectedValues={items[0]}
+        onSelect={() => {
+          return;
+        }}
+      />
     </View>
   );
 };

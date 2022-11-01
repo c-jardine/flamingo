@@ -40,6 +40,6 @@ export async function signOut() {
       .update({ is_online: false, last_online: new Date().toISOString() })
       .eq('id', userId);
 
-    const { error } = await supabase.auth.signOut();
+    await supabase.auth.signOut();
   }
 }

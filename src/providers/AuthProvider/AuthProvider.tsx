@@ -5,20 +5,47 @@ import { supabase } from '../../supabase';
 import AuthContext from './AuthContext';
 import AuthProviderProps from './AuthProvider.types';
 import camelcaseKeys from 'camelcase-keys';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../../redux/slices/appSlice';
+import { Alert } from 'react-native';
 
 const AuthProvider = (props: AuthProviderProps) => {
   const [session, setSession] = React.useState<Session | null>(null);
   const [profile, setProfile] = React.useState<ProfileProps | null>(null);
 
-  const _getProfile = async (id: string) => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', id)
-      .single();
+  const dispatch = useDispatch();
 
-    if (!error) {
-      setProfile(camelcaseKeys(data));
+  const _getProfile = async (id: string) => {
+    try {
+      dispatch(setLoading(true));
+      if (!session?.user) throw new Error('Invalid session.');
+
+      const { data, error, status } = await supabase
+        .from('profiles')
+        .select(
+          `first_name, last_name, dob, 
+          user_genders (gender),
+          user_gender_identities (identity),
+          user_pronouns (pronoun),
+          user_sexual_orientations (orientation),
+          user_personality_types (personality)`
+        )
+        .eq('id', id)
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        setProfile(camelcaseKeys(data));
+      }
+    } catch (error) {
+      Alert.alert(error?.message);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 
@@ -33,11 +60,7 @@ const AuthProvider = (props: AuthProviderProps) => {
   }, []);
 
   React.useEffect(() => {
-    if (session) {
-      (async () => {
-        _getProfile(session?.user.id);
-      })();
-    }
+    if (session) _getProfile(session?.user.id);
   }, [session]);
 
   return (

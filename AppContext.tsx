@@ -10,6 +10,14 @@ import { AuthContext, AuthProvider, ThemeProvider } from './src/providers';
 import { store } from './src/redux/store';
 import { color } from './src/styles/color/color';
 import { supabase } from './src/supabase';
+import * as Sentry from 'sentry-expo';
+import Constants from 'expo-constants';
+
+Sentry.init({
+  dsn: Constants?.manifest?.extra?.sentryDsn,
+  enableInExpoDevelopment: true,
+  debug: true,
+});
 
 setGlobalStyles.containerStyles = {
   backgroundColor: color.basePrimary['50'],

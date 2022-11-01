@@ -1,20 +1,23 @@
+import camelcaseKeys from 'camelcase-keys';
 import { Formik, FormikValues } from 'formik';
 import React from 'react';
 import { View } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
-import { ThemeContext } from '../../../providers';
+import { AuthContext, ThemeContext } from '../../../providers';
 import useProfile from '../../../shared/hooks/useProfile';
 import { ProfileSchema } from '../../../shared/schemas';
 import { save } from '../../../shared/services';
 import { supabase } from '../../../supabase/supabase';
 import { Button, MenuContainer, Text } from '../../common';
 import { Birthday } from '../Birthday';
+import { Gender } from '../Gender';
 import { Name } from '../Name';
 import EditProfileSectionsProps from './EditProfile.types';
 
 const EditProfile = () => {
   const { theme } = React.useContext(ThemeContext);
   const [activeSections, setActiveSections] = React.useState<number[]>([]);
+  const { profile } = React.useContext(AuthContext);
 
   const sections = [
     {
@@ -27,11 +30,11 @@ const EditProfile = () => {
       content: profile?.dob?.toString(),
       contentComponent: <Birthday />,
     },
-    // {
-    //   title: 'Gender',
-    //   content: profile?.gender.gender,
-    //   contentComponent: <Gender />,
-    // },
+    {
+      title: 'Gender',
+      content: profile?.userGenders && profile.userGenders[0]?.gender,
+      contentComponent: <Gender items={profile.userGenders[0]?.gender} />,
+    },
     // {
     //   title: 'Location',
     //   content: profile?.location,

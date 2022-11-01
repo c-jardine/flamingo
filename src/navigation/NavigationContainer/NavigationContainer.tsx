@@ -8,16 +8,21 @@ import { LoadingOverlay } from '../../components/common';
 import { AuthContext, ThemeContext } from '../../providers';
 import { RootState } from '../../redux/store';
 import useProfile from '../../shared/hooks/useProfile';
+import { signOut } from '../../shared/services';
 import { AuthStack } from '../AuthStack';
 import { CreateProfileStack } from '../CreateProfileStack';
 import { MainStack } from '../MainStack';
 
 const NavigationContainer = () => {
   const { theme } = React.useContext(ThemeContext);
-  const { session } = React.useContext(AuthContext);
-  const [loading, profile] = useProfile();
+  const { session, profile } = React.useContext(AuthContext);
+  // const [loading, profile] = useProfile();
 
   const isLoading = useSelector((state: RootState) => state.appReducer.loading);
+
+  React.useEffect(() => {
+    console.log(profile);
+  }, []);
 
   return (
     <RNNavigationContainer
@@ -32,13 +37,13 @@ const NavigationContainer = () => {
       {isLoading && <LoadingOverlay />}
 
       {/* Not signed in forces authentication stack. */}
-      {!session?.user && <AuthStack />}
+      {!session && <AuthStack />}
 
       {/* Signed in without profile forces profile creation stack. */}
-      {session?.user && profile === null && <CreateProfileStack />}
+      {session?.user && !profile && <CreateProfileStack />}
 
       {/* Signed in with profile forces main app stack. */}
-      {session?.user && profile !== null && <MainStack />}
+      {session?.user && profile && <MainStack />}
     </RNNavigationContainer>
   );
 };
